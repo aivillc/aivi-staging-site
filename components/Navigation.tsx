@@ -63,7 +63,7 @@ export default function Navigation() {
               href="#contact"
               className="relative px-6 py-3 text-white text-sm font-bold rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-purple-500/50 uppercase tracking-wider overflow-hidden group"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-600 to-purple-700 bg-[length:200%_100%] group-hover:animate-gradient-move" />
+              <span className="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-600 to-orange-500 group-hover:bg-[length:200%_100%] group-hover:animate-gradient-move bg-[length:100%_100%]" />
               <span className="relative z-10">Get Started</span>
             </a>
           </div>

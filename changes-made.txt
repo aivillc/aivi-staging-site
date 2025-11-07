@@ -1,0 +1,303 @@
+AIVI STAGING - CHANGELOG
+========================
+
+Date: November 6, 2025
+
+================================================================================
+SESSION 1 - Project Setup and Configuration
+================================================================================
+
+PROMPT 1: "Summarize this site"
+---------------------------------
+ACTION: Analyzed the AIVI website structure and provided comprehensive summary
+CHANGES: None (informational only)
+
+PROMPT 2: "This JSX tag requires the module path 'react/jsx-runtime' to exist, but none could be found"
+---------------------------------------------------------------------------------------------------------
+ACTION: Fixed TypeScript configuration for Next.js compatibility
+CHANGES:
+  - Modified: tsconfig.json
+    * Changed "jsx": "react-jsx" to "jsx": "preserve"
+    * Reason: Next.js uses its own JSX transform and requires "preserve" mode
+
+PROMPT 3: "fix all of the issues of the code"
+----------------------------------------------
+ACTION: Removed unnecessary React import from Dashboard.tsx
+CHANGES:
+  - Modified: components/Dashboard.tsx
+    * Removed: import React from 'react';
+    * Reason: Not needed in Next.js 13+ with App Router
+
+PROMPT 4: "can you install npm/node_modules"
+---------------------------------------------
+ACTION: Attempted to install dependencies but npm was not accessible
+CHANGES: None
+NOTES: Discovered Node.js was not installed on the system
+
+PROMPT 5: "node --version"
+--------------------------
+ACTION: Verified Node.js installation
+CHANGES: None
+RESULT: Node.js v24.11.0 confirmed installed
+
+PROMPT 6: "yes" (to run npm install)
+------------------------------------
+ACTION: Fixed PowerShell execution policy and installed all dependencies
+CHANGES:
+  - System: Set PowerShell execution policy to RemoteSigned
+  - Installed: 426 npm packages including React, Next.js, TypeScript types
+  - Created: node_modules directory with all dependencies
+RESULT: All TypeScript errors resolved
+
+PROMPT 7: "I installed the live server but its just showing a listing directory instead of the preview of the site"
+--------------------------------------------------------------------------------------------------------------------
+ACTION: Started Next.js development server
+CHANGES:
+  - Started: npm run dev (Next.js development server)
+  - Opened: http://localhost:3000 in Simple Browser
+NOTES: 
+  - Explained that Live Server is for static HTML, not Next.js applications
+  - Next.js auto-updated tsconfig.json to set jsx back to "react-jsx"
+
+PROMPT 8: "How do i save the changes made to the live server preview"
+----------------------------------------------------------------------
+ACTION: Explained how Next.js hot reload works
+CHANGES: None (informational only)
+NOTES: Clarified that file edits are automatically reflected in preview
+
+PROMPT 9: "There's a horizontal scroll bar that keeps appearing and disappearing, can you fix that?"
+----------------------------------------------------------------------------------------------------
+ACTION: Fixed horizontal scrollbar issue
+CHANGES:
+  - Modified: app/globals.css
+    * Added: html { overflow-x: hidden; }
+    * Modified body: Added overflow-x: hidden;
+    * Reason: Prevents horizontal scrolling from viewport-overflowing elements
+
+PROMPT 10: "Can you create a file named 'changes-made.txt'..."
+---------------------------------------------------------------
+ACTION: Created this changelog file
+CHANGES:
+  - Created: changes-made.txt
+    * Documents all prompts and changes made to the project
+    * Will be updated automatically for all future changes
+
+PROMPT 11: "If we make any changes, are you able to revert them back to the last version?"
+-------------------------------------------------------------------------------------------
+ACTION: Explained revert capabilities and recommended Git setup
+CHANGES: None (informational only)
+NOTES: Discovered Git was not initialized in the project
+
+PROMPT 12: "Yes" (to set up Git)
+---------------------------------
+ACTION: Initialized Git repository and created initial commit
+CHANGES:
+  - Initialized: Git repository (.git directory)
+  - Created: Initial commit (14f7b00)
+    * Committed all 33 files with current state
+    * Commit message: "Initial commit: AIVI staging site with all components and configuration"
+RESULT: Version control now active - all future changes can be easily reverted
+
+PROMPT 13: "Can we rename this stable version to Version 1.0?"
+---------------------------------------------------------------
+ACTION: Tagged current state as Version 1.0 and updated package version
+CHANGES:
+  - Created: Git tag v1.0
+    * Tag message: "Version 1.0 - Stable release with all core features"
+  - Modified: package.json
+    * Changed version from "0.1.0" to "1.0.0"
+RESULT: Current state now marked as stable Version 1.0
+
+PROMPT 14: "Replace form with interactive bot experience"
+----------------------------------------------------------
+ACTION: Created conversational bot to replace static form (backup preserved)
+CHANGES:
+  - Created: components/DemoForm.backup.tsx
+    * Full backup of original form for easy restoration
+  - Completely rewrote: components/DemoForm.tsx
+    * Interactive conversational bot with 6 questions
+    * Progress bar showing completion percentage
+    * Bot avatar with AIVI branding
+    * Question types: select, multiselect
+    * Dynamic result page with personalized recommendations
+    * Maintains TRON aesthetic (purple/orange gradients, glassmorphism)
+    * Smooth animations and transitions
+  - Committed: Git commit 7ff3fb3
+FEATURES ADDED:
+  - Question 1: Industry selection
+  - Question 2: Customer engagement challenges
+  - Question 3: Current communication channels (multiselect)
+  - Question 4: Monthly interaction volume
+  - Question 5: Primary automation goals
+  - Question 6: CRM status
+  - Custom solution preview based on answers
+  - "Get Started" and "Start Over" actions
+NOTES: Original form safely backed up in DemoForm.backup.tsx
+
+PROMPT 15: "Add contact information page before results"
+----------------------------------------------------------
+ACTION: Added contact information form between questions and final results
+CHANGES:
+  - Modified: components/DemoForm.tsx
+    * Added new contact form state (showContactForm)
+    * Added contact data fields: fullName, companyName, email, phone, additionalNotes
+    * Created new contact form UI page with TRON styling
+    * Form appears after all 6 questions are answered
+    * Includes validation (required fields)
+    * "Back to Questions" button to return if needed
+    * Contact data merged with responses before showing results
+  - Committed: Git commit c2d5111
+FIELDS ADDED:
+  - Full Name (required)
+  - Company Name (required)
+  - Email Address (required)
+  - Phone Number (required)
+  - Additional Notes (optional textarea)
+FLOW: Questions → Contact Form → Custom Solution Results
+
+PROMPT 16: "Add webhook integration to prospects endpoint"
+------------------------------------------------------------
+ACTION: Integrated webhook to send all form data to custom endpoint
+CHANGES:
+  - Modified: components/DemoForm.tsx
+    * Changed handleContactSubmit to async function
+    * Added fetch call to https://stage.aivi.io/webhook/prospects
+    * Sends complete data payload including:
+      - All 6 question responses
+      - All contact information fields
+      - Timestamp
+      - Source identifier
+    * Maintains user experience (shows results regardless of webhook status)
+    * Error handling and logging included
+  - Committed: Git commit (auto-committed with previous changes)
+DATA SENT TO WEBHOOK:
+  - industry, challenge, channels, volume, goal, crm
+  - fullName, companyName, email, phone, additionalNotes
+  - timestamp, source
+
+PROMPT 17: "Replace buttons with thank you popup"
+--------------------------------------------------
+ACTION: Removed action buttons and added styled popup notification
+CHANGES:
+  - Modified: components/DemoForm.tsx
+    * Removed "Start Over" and "Get Started" buttons from results page
+    * Added showThankYouPopup state
+    * Created popup modal with TRON styling
+    * Popup appears 500ms after form submission
+    * Features:
+      - Animated entrance (fade + scale effects)
+      - Success checkmark icon with gradient background
+      - Thank you message
+      - "AIVI will reach out shortly" notification
+      - Easy close options (X button + Close button)
+      - Click outside to close (backdrop)
+  - Modified: app/globals.css
+    * Added fadeIn keyframe animation
+    * Added scaleIn keyframe animation
+    * Added animation utility classes
+  - Committed: Git commit e709c9e
+POPUP DESIGN:
+  - Purple/black gradient background with glassmorphism
+  - Purple border with glow effect
+  - Animated success icon
+  - Clean, professional messaging
+  - Multiple close options for UX
+
+PROMPT 18: "Fix gap at top of page"
+------------------------------------
+ACTION: Fixed visual gap between header and top of page
+CHANGES:
+  - Modified: components/Navigation.tsx
+    * Changed top-2 to top-0 (removed 8px gap)
+    * Changed bg-transparent to bg-black/80 backdrop-blur-md for default state
+    * Increased bg opacity when scrolled for better coverage
+  - Modified: components/TronHeader.tsx
+    * Added bg-black to both gradient line containers
+    * Ensures no white/page background shows through
+  - Auto-committed with previous changes
+RESULT: Header now flush with top, no gap when scrolling
+
+PROMPT 19: "Deploy to GitHub repository"
+-----------------------------------------
+ACTION: Connected local repository to GitHub and pushed all code
+CHANGES:
+  - Added remote: https://github.com/aivillc/aivistaging.git
+  - Renamed branch: master → main (GitHub standard)
+  - Pushed all commits: 79 objects, 226.50 KiB
+  - Pushed tag: v1.0
+  - Total commits deployed: 13+
+DEPLOYMENT INFO:
+  - Repository: https://github.com/aivillc/aivistaging
+  - Branch: main
+  - All history preserved
+  - Version 1.0 tag available
+
+================================================================================
+SUMMARY OF ALL FILES MODIFIED
+================================================================================
+
+1. tsconfig.json
+   - Changed jsx setting from "react-jsx" to "preserve" (later auto-reverted by Next.js)
+
+2. components/Dashboard.tsx
+   - Removed unnecessary React import
+
+3. app/globals.css
+   - Added overflow-x: hidden to html and body elements
+
+4. System Configuration
+   - PowerShell execution policy set to RemoteSigned
+   - Installed 426 npm packages
+
+5. changes-made.txt (this file)
+   - Created to track all project changes
+
+6. Git Repository
+   - Initialized Git version control
+   - Created initial commit (14f7b00) with all project files
+   - Tagged as v1.0
+
+7. package.json
+   - Updated version from "0.1.0" to "1.0.0"
+
+8. components/DemoForm.tsx
+   - Completely replaced with interactive bot experience
+   - Added conversational question flow with 6 questions
+   - Dynamic result page with personalized recommendations
+   - Progress tracking and smooth animations
+
+9. components/DemoForm.backup.tsx (NEW)
+   - Complete backup of original form component
+   - Use this to restore if needed
+
+10. app/globals.css
+    - Added overflow-x: hidden to prevent horizontal scroll
+    - Added popup animation keyframes (fadeIn, scaleIn)
+    - Added carousel scroll animation for CRM platforms
+
+11. components/Navigation.tsx
+    - Fixed top positioning (removed gap)
+    - Improved background opacity for better coverage
+
+12. components/TronHeader.tsx
+    - Added black background to gradient lines
+
+13. components/Integrations.tsx
+    - Transformed CRM section from static grid to animated carousel
+    - Added 12 major CRM platforms: Salesforce, HubSpot, Microsoft Dynamics, 
+      Zoho CRM, Pipedrive, Monday.com, Freshsales, Copper, ActiveCampaign, 
+      SugarCRM, Insightly, Nutshell
+    - Implemented infinite scroll animation with hover-to-pause
+    - Added gradient overlays for professional edge fade effect
+    - Added custom CRM integration CTA button
+    - Removed entire "Automation & Workflows" section per user request
+    - Created new CRMCarouselCard component with TRON styling
+    - Cards feature circular gradient badges with first letter
+    - Hover effects with scale and border color transitions
+    - Consistent purple/orange theme throughout
+
+================================================================================
+END OF CHANGELOG
+================================================================================
+Last updated: November 6, 2025
+Version: 1.0.0

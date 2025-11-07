@@ -1,0 +1,251 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary Colors */
+  --navy-950: #0a0e1a;
+  --navy-900: #0f172a;
+  --navy-800: #1e293b;
+  --navy-700: #334155;
+  --navy-600: #475569;
+
+  /* Dynamic Theme Colors (can be overridden by ColorSchemeSelector) */
+  --color-primary: #8b5cf6;      /* purple-500 default */
+  --color-secondary: #ff6b35;     /* orange-500 default */
+  --color-primary-dark: #7c3aed;  /* purple-600 default */
+  --color-secondary-dark: #f55a2c; /* orange-600 default */
+
+  /* Accent Colors */
+  --orange-500: #ff6b35;
+  --orange-600: #f55a2c;
+  --orange-700: #e04d23;
+
+  /* Secondary Colors */
+  --purple-500: #8b5cf6;
+  --purple-600: #7c3aed;
+  --purple-700: #6d28d9;
+
+  /* Micro-Accent Colors */
+  --cyan-400: #22d3ee;
+  --cyan-500: #06b6d4;
+  --cyan-600: #0891b2;
+
+  /* Neutrals */
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+
+  /* Theme Variables */
+  --background: var(--navy-950);
+  --foreground: var(--gray-50);
+}
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--navy-900);
+  --color-accent: var(--orange-500);
+  --color-secondary: var(--purple-500);
+  --color-highlight: var(--cyan-400);
+
+  /* Custom Color Scale */
+  --color-navy-950: var(--navy-950);
+  --color-navy-900: var(--navy-900);
+  --color-navy-800: var(--navy-800);
+  --color-navy-700: var(--navy-700);
+  --color-navy-600: var(--navy-600);
+
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: var(--orange-700);
+
+  --color-purple-500: var(--purple-500);
+  --color-purple-600: var(--purple-600);
+  --color-purple-700: var(--purple-700);
+
+  --color-cyan-400: var(--cyan-400);
+  --color-cyan-500: var(--cyan-500);
+  --color-cyan-600: var(--cyan-600);
+
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Popup Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Carousel Scroll Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Dynamic Color Scheme Utilities */
+/* Override Tailwind's purple colors with dynamic CSS variables */
+.text-purple-500,
+.text-purple-400,
+.text-purple-300 {
+  color: var(--color-primary) !important;
+}
+
+.bg-purple-500,
+.from-purple-500,
+.to-purple-500,
+.via-purple-500 {
+  background-color: var(--color-primary) !important;
+}
+
+.border-purple-500,
+.border-purple-500\/50,
+.border-purple-500\/30,
+.border-purple-500\/20 {
+  border-color: var(--color-primary) !important;
+}
+
+.hover\:border-purple-500:hover,
+.hover\:border-purple-500\/50:hover,
+.hover\:border-purple-500\/60:hover {
+  border-color: var(--color-primary) !important;
+}
+
+.hover\:text-purple-400:hover {
+  color: var(--color-primary) !important;
+}
+
+.text-purple-600,
+.from-purple-600,
+.to-purple-600 {
+  color: var(--color-primary-dark) !important;
+}
+
+.bg-purple-600 {
+  background-color: var(--color-primary-dark) !important;
+}
+
+/* Override orange colors with dynamic CSS variables */
+.text-orange-500,
+.text-orange-400 {
+  color: var(--color-secondary) !important;
+}
+
+.bg-orange-500,
+.from-orange-500,
+.to-orange-500 {
+  background-color: var(--color-secondary) !important;
+}
+
+.bg-orange-600,
+.from-orange-600,
+.to-orange-600 {
+  background-color: var(--color-secondary-dark) !important;
+}
+
+.hover\:from-orange-600:hover {
+  background-color: var(--color-secondary-dark) !important;
+}
+
+.border-orange-500,
+.border-orange-500\/50 {
+  border-color: var(--color-secondary) !important;
+}
+
+.hover\:border-orange-400:hover {
+  border-color: var(--color-secondary) !important;
+}
+
+/* Gradient backgrounds with dynamic colors */
+.bg-gradient-to-r.from-purple-500.to-orange-500,
+.bg-gradient-to-r.from-orange-500.to-purple-600 {
+  background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary)) !important;
+}
+
+.bg-gradient-to-br.from-purple-500.to-orange-500 {
+  background-image: linear-gradient(to bottom right, var(--color-primary), var(--color-secondary)) !important;
+}
+
+.bg-gradient-to-br.from-purple-500\/20.to-orange-500\/20 {
+  background-image: linear-gradient(to bottom right, color-mix(in srgb, var(--color-primary) 20%, transparent), color-mix(in srgb, var(--color-secondary) 20%, transparent)) !important;
+}
+
+.bg-gradient-to-b.from-purple-500.to-purple-700,
+.bg-gradient-to-b.from-purple-500.to-purple-600 {
+  background-image: linear-gradient(to bottom, var(--color-primary), var(--color-primary-dark)) !important;
+}
+
+.bg-gradient-to-b.from-orange-500.to-orange-700,
+.bg-gradient-to-b.from-orange-500.to-orange-600 {
+  background-image: linear-gradient(to bottom, var(--color-secondary), var(--color-secondary-dark)) !important;
+}
+
+.hover\:from-orange-700:hover,
+.to-orange-700 {
+  background-color: var(--color-secondary-dark) !important;
+}

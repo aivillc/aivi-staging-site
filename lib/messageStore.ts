@@ -1,7 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-
-const STORAGE_DIR = path.join('/tmp', 'chat-messages');
+// Simple in-memory message store
+// Note: This will reset on serverless function cold starts
+// For production, use Redis, Vercel KV, or a database
 
 interface Message {
   id: number;
@@ -10,52 +9,22 @@ interface Message {
   timestamp: string;
 }
 
-// Ensure storage directory exists
-function ensureStorageDir() {
-  if (!fs.existsSync(STORAGE_DIR)) {
-    fs.mkdirSync(STORAGE_DIR, { recursive: true });
-  }
-}
-
-function getSessionFile(sessionId: string): string {
-  return path.join(STORAGE_DIR, `${sessionId}.json`);
-}
+const messageStore = new Map<string, Message[]>();
 
 export function getMessages(sessionId: string): Message[] {
-  try {
-    ensureStorageDir();
-    const filePath = getSessionFile(sessionId);
-    
-    if (fs.existsSync(filePath)) {
-      const data = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(data);
-    }
-    return [];
-  } catch (error) {
-    console.error('[MessageStore] Error reading messages:', error);
-    return [];
-  }
+  return messageStore.get(sessionId) || [];
 }
 
 export function addMessage(sessionId: string, message: Message): void {
-  try {
-    ensureStorageDir();
-    const filePath = getSessionFile(sessionId);
-    const messages = getMessages(sessionId);
-    messages.push(message);
-    fs.writeFileSync(filePath, JSON.stringify(messages, null, 2));
-  } catch (error) {
-    console.error('[MessageStore] Error adding message:', error);
+  if (!messageStore.has(sessionId)) {
+    messageStore.set(sessionId, []);
   }
+  const messages = messageStore.get(sessionId)!;
+  messages.push(message);
+  console.log('[MessageStore] Added message. Total for session:', messages.length);
 }
 
 export function clearMessages(sessionId: string): void {
-  try {
-    const filePath = getSessionFile(sessionId);
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
-  } catch (error) {
-    console.error('[MessageStore] Error clearing messages:', error);
-  }
+  messageStore.delete(sessionId);
+  console.log('[MessageStore] Cleared messages for session:', sessionId);
 }

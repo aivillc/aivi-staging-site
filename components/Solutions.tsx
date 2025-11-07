@@ -115,7 +115,7 @@ export default function Solutions() {
 
               <h3 className="text-3xl font-black text-black mb-3">Managed Service</h3>
               <p className="text-gray-600 mb-8 text-lg">
-                Turnkey solution with white-glove implementation and ongoing optimization
+                Turnkey solution with white-glove implementation and optimization
               </p>
 
               <div className="space-y-3 mb-8">

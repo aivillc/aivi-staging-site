@@ -23,27 +23,27 @@ export default function Solutions() {
 
         {/* Comparison Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-          {/* SaaS Platform - Orange to Purple */}
+          {/* SaaS Platform - Green to Blue */}
           <div 
             className="relative group"
             onMouseEnter={() => setHoveredCard('saas')}
             onMouseLeave={() => setHoveredCard(null)}
           >
             {/* Glow Effect */}
-            <div className={`absolute -inset-1 bg-gradient-to-br from-orange-500 to-purple-500 rounded-3xl blur-xl transition-all duration-500 ${
+            <div className={`absolute -inset-1 bg-gradient-to-br from-green-500 to-blue-500 rounded-3xl blur-xl transition-all duration-500 ${
               hoveredCard === 'saas' ? 'opacity-30' : 'opacity-0'
             }`} />
             
-            <div className="relative h-full p-8 bg-white border-2 border-gray-200 hover:border-orange-500/50 rounded-3xl transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden">
+            <div className="relative h-full p-8 bg-white border-2 border-gray-200 hover:border-green-500/50 rounded-3xl transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden">
               {/* Animated Border Gradient */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-purple-500" />
-              <div className={`absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-orange-500 to-purple-500 transition-all duration-500 ${
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-blue-500" />
+              <div className={`absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-green-500 to-blue-500 transition-all duration-500 ${
                 hoveredCard === 'saas' ? 'h-full' : 'h-0'
               }`} />
 
               {/* Floating Icon */}
               <div className={`mb-6 transition-all duration-300 ${hoveredCard === 'saas' ? '-translate-y-2' : 'translate-y-0'}`}>
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center shadow-lg">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-blue-500 flex items-center justify-center shadow-lg">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                   </svg>
@@ -67,13 +67,13 @@ export default function Solutions() {
               <div className="mb-6">
                 <div className="text-sm text-gray-500 mb-3 font-bold uppercase tracking-wider">Best for:</div>
                 <div className="flex flex-wrap gap-2">
-                  <Tag text="Technical teams" gradient="from-orange-500 to-purple-500" />
-                  <Tag text="Iterative testing" gradient="from-orange-500 to-purple-500" />
-                  <Tag text="Custom workflows" gradient="from-orange-500 to-purple-500" />
+                  <Tag text="Technical teams" gradient="from-green-500 to-blue-500" />
+                  <Tag text="Iterative testing" gradient="from-green-500 to-blue-500" />
+                  <Tag text="Custom workflows" gradient="from-green-500 to-blue-500" />
                 </div>
               </div>
 
-              <button className="w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-purple-500 hover:from-orange-600 hover:to-purple-600 text-white font-black rounded-xl transition-all transform hover:scale-[1.02] shadow-lg uppercase tracking-wider text-sm">
+              <button className="w-full py-4 px-6 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-black rounded-xl transition-all transform hover:scale-[1.02] shadow-lg uppercase tracking-wider text-sm">
                 Explore Platform
               </button>
             </div>

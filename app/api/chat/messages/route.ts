@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { messageQueues } from '../messageQueue';
 
-// In-memory message queue (in production, use Redis or a database)
-// This is shared across the application via module singleton
-const messageQueues: Map<string, Array<{ id: number; text: string; sender: string; timestamp: string }>> = new Map();
-
-// Export the queue so it can be imported by other routes
-export { messageQueues };
+console.log('[Messages API] Route loaded');
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;

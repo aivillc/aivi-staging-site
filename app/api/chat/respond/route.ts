@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { messageQueues } from '../messages/route';
+import { messageQueues } from '../messageQueue';
+
+console.log('[Respond API] Route loaded');
 
 /**
  * POST endpoint for AI agent to send responses to the chatbot
@@ -48,19 +50,22 @@ export async function POST(request: NextRequest) {
     const queue = messageQueues.get(sessionId)!;
     const messageId = Date.now() + Math.random();
     
-    queue.push({
+    const messageData = {
       id: messageId,
       text: message,
       sender: sender || 'bot',
       timestamp: new Date().toISOString(),
-    });
+    };
+    
+    queue.push(messageData);
 
-    console.log(`[ChatBot Response API] Queued message for session ${sessionId}:`, {
-      messageId,
-      messageLength: message.length,
-      queueSize: queue.length,
-      sender: sender || 'bot'
-    });
+    console.log(`✅ [Respond API] Message queued successfully!`);
+    console.log(`   SessionId: ${sessionId}`);
+    console.log(`   Message: "${message}"`);
+    console.log(`   MessageId: ${messageId}`);
+    console.log(`   Queue size: ${queue.length}`);
+    console.log(`   Message data:`, messageData);
+    console.log(`   All sessions in queue:`, Array.from(messageQueues.keys()));
 
     return NextResponse.json({ 
       success: true,

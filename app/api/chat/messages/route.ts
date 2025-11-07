@@ -35,26 +35,44 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { sessionId, message, sender } = body;
 
+    console.log('[Messages API POST] ====== NEW MESSAGE ======');
+    console.log('[Messages API POST] SessionId:', sessionId);
+    console.log('[Messages API POST] Message:', message);
+    console.log('[Messages API POST] Sender:', sender);
+
     if (!sessionId || !message) {
+      console.error('[Messages API POST] Missing required fields');
       return NextResponse.json({ error: 'Session ID and message required' }, { status: 400 });
     }
 
     // Add message to queue
     if (!messageQueues.has(sessionId)) {
       messageQueues.set(sessionId, []);
+      console.log('[Messages API POST] Created new queue for session:', sessionId);
     }
 
     const queue = messageQueues.get(sessionId)!;
-    queue.push({
+    const messageData = {
       id: Date.now(),
       text: message,
       sender: sender || 'bot',
       timestamp: new Date().toISOString(),
-    });
+    };
+    
+    queue.push(messageData);
 
-    return NextResponse.json({ success: true });
+    console.log('[Messages API POST] ✅ Message queued successfully!');
+    console.log('[Messages API POST] Queue size:', queue.length);
+    console.log('[Messages API POST] Message data:', messageData);
+    console.log('[Messages API POST] All active sessions:', Array.from(messageQueues.keys()));
+
+    return NextResponse.json({ 
+      success: true,
+      queueSize: queue.length,
+      messageId: messageData.id
+    });
   } catch (error) {
-    console.error('Error processing message:', error);
+    console.error('[Messages API POST] Error processing message:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

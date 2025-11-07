@@ -42,35 +42,37 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    console.log(`✅ [Respond API] Forwarding to messages API`);
+    console.log(`✅ [Respond API] Received message`);
     console.log(`   SessionId: ${sessionId}`);
     console.log(`   Message: "${message}"`);
 
-    // Forward to the messages POST endpoint (same runtime instance)
-    const messagesUrl = new URL('/api/chat/messages', request.url);
-    const messagesResponse = await fetch(messagesUrl.toString(), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sessionId,
-        message,
-        sender: sender || 'bot',
-      }),
-    });
-
-    if (!messagesResponse.ok) {
-      throw new Error('Failed to queue message');
+    // Add message directly to queue
+    if (!messageQueues.has(sessionId)) {
+      messageQueues.set(sessionId, []);
+      console.log(`[Respond API] Created new queue for session`);
     }
 
-    console.log(`✅ [Respond API] Message queued successfully via messages API`);
+    const queue = messageQueues.get(sessionId)!;
+    const messageData = {
+      id: Date.now() + Math.random(),
+      text: message,
+      sender: sender || 'bot',
+      timestamp: new Date().toISOString(),
+    };
+    
+    queue.push(messageData);
+
+    console.log(`✅ [Respond API] Message queued!`);
+    console.log(`   Queue size: ${queue.length}`);
+    console.log(`   Message ID: ${messageData.id}`);
+    console.log(`   All sessions:`, Array.from(messageQueues.keys()));
 
     return NextResponse.json({ 
       success: true,
       queued: true,
       sessionId,
-      message: 'Response queued successfully'
+      queueSize: queue.length,
+      note: 'Due to Vercel serverless architecture, responses may not persist. Use /api/chat/messages POST directly for better reliability.'
     });
   } catch (error) {
     console.error('[ChatBot Response API] Error processing response:', error);

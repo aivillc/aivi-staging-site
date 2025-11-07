@@ -528,10 +528,6 @@ export default function DemoForm() {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="flex justify-between mt-2 text-sm text-white/40">
-          <span>Question {currentQuestion + 1} of {questions.length}</span>
-          <span>{Math.round(progress)}% Complete</span>
-        </div>
       </div>
 
       <div className={`bg-white/5 backdrop-blur-sm border-2 border-white/10 rounded-2xl p-8 shadow-2xl hover:border-purple-500/30 transition-all ${

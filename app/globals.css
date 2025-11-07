@@ -132,6 +132,16 @@ body {
   }
 }
 
+/* Carousel Reverse Scroll Animation (Left to Right) */
+@keyframes scrollReverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-out;
 }
@@ -148,104 +158,10 @@ body {
   animation-play-state: paused;
 }
 
-/* Dynamic Color Scheme Utilities */
-/* Override Tailwind's purple colors with dynamic CSS variables */
-.text-purple-500,
-.text-purple-400,
-.text-purple-300 {
-  color: var(--color-primary) !important;
+.animate-scroll-reverse {
+  animation: scrollReverse 40s linear infinite;
 }
 
-.bg-purple-500,
-.from-purple-500,
-.to-purple-500,
-.via-purple-500 {
-  background-color: var(--color-primary) !important;
-}
-
-.border-purple-500,
-.border-purple-500\/50,
-.border-purple-500\/30,
-.border-purple-500\/20 {
-  border-color: var(--color-primary) !important;
-}
-
-.hover\:border-purple-500:hover,
-.hover\:border-purple-500\/50:hover,
-.hover\:border-purple-500\/60:hover {
-  border-color: var(--color-primary) !important;
-}
-
-.hover\:text-purple-400:hover {
-  color: var(--color-primary) !important;
-}
-
-.text-purple-600,
-.from-purple-600,
-.to-purple-600 {
-  color: var(--color-primary-dark) !important;
-}
-
-.bg-purple-600 {
-  background-color: var(--color-primary-dark) !important;
-}
-
-/* Override orange colors with dynamic CSS variables */
-.text-orange-500,
-.text-orange-400 {
-  color: var(--color-secondary) !important;
-}
-
-.bg-orange-500,
-.from-orange-500,
-.to-orange-500 {
-  background-color: var(--color-secondary) !important;
-}
-
-.bg-orange-600,
-.from-orange-600,
-.to-orange-600 {
-  background-color: var(--color-secondary-dark) !important;
-}
-
-.hover\:from-orange-600:hover {
-  background-color: var(--color-secondary-dark) !important;
-}
-
-.border-orange-500,
-.border-orange-500\/50 {
-  border-color: var(--color-secondary) !important;
-}
-
-.hover\:border-orange-400:hover {
-  border-color: var(--color-secondary) !important;
-}
-
-/* Gradient backgrounds with dynamic colors */
-.bg-gradient-to-r.from-purple-500.to-orange-500,
-.bg-gradient-to-r.from-orange-500.to-purple-600 {
-  background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary)) !important;
-}
-
-.bg-gradient-to-br.from-purple-500.to-orange-500 {
-  background-image: linear-gradient(to bottom right, var(--color-primary), var(--color-secondary)) !important;
-}
-
-.bg-gradient-to-br.from-purple-500\/20.to-orange-500\/20 {
-  background-image: linear-gradient(to bottom right, color-mix(in srgb, var(--color-primary) 20%, transparent), color-mix(in srgb, var(--color-secondary) 20%, transparent)) !important;
-}
-
-.bg-gradient-to-b.from-purple-500.to-purple-700,
-.bg-gradient-to-b.from-purple-500.to-purple-600 {
-  background-image: linear-gradient(to bottom, var(--color-primary), var(--color-primary-dark)) !important;
-}
-
-.bg-gradient-to-b.from-orange-500.to-orange-700,
-.bg-gradient-to-b.from-orange-500.to-orange-600 {
-  background-image: linear-gradient(to bottom, var(--color-secondary), var(--color-secondary-dark)) !important;
-}
-
-.hover\:from-orange-700:hover,
-.to-orange-700 {
-  background-color: var(--color-secondary-dark) !important;
+.animate-scroll-reverse:hover {
+  animation-play-state: paused;
 }

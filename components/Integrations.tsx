@@ -108,24 +108,76 @@ export default function Integrations() {
           <h3 className="text-2xl font-bold text-white mb-8 text-center">
             Communication Channels
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <IntegrationCard name="Twilio" category="Voice & SMS" />
-            <IntegrationCard name="SendGrid" category="Email" />
-            <IntegrationCard name="AWS SES" category="Email" />
-            <IntegrationCard name="Mailgun" category="Email" />
+          <p className="text-white/60 text-center mb-8 max-w-2xl mx-auto">
+            Connect through multiple channels for comprehensive customer engagement
+          </p>
+          
+          {/* Carousel Container */}
+          <div className="relative overflow-hidden py-8">
+            {/* Gradient Overlays */}
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
+            
+            {/* Scrolling Track - Left to Right (reverse) */}
+            <div className="flex animate-scroll-reverse">
+              <CRMCarouselCard name="Twilio" category="Voice & SMS" />
+              <CRMCarouselCard name="SendGrid" category="Email" />
+              <CRMCarouselCard name="AWS SES" category="Cloud Email" />
+              <CRMCarouselCard name="Mailgun" category="Email API" />
+              <CRMCarouselCard name="Vonage" category="Communications" />
+              <CRMCarouselCard name="Postmark" category="Transactional Email" />
+              <CRMCarouselCard name="MessageBird" category="Omnichannel" />
+              <CRMCarouselCard name="RingCentral" category="Business Phone" />
+              
+              {/* Duplicate set for seamless loop */}
+              <CRMCarouselCard name="Twilio" category="Voice & SMS" />
+              <CRMCarouselCard name="SendGrid" category="Email" />
+              <CRMCarouselCard name="AWS SES" category="Cloud Email" />
+              <CRMCarouselCard name="Mailgun" category="Email API" />
+              <CRMCarouselCard name="Vonage" category="Communications" />
+              <CRMCarouselCard name="Postmark" category="Transactional Email" />
+              <CRMCarouselCard name="MessageBird" category="Omnichannel" />
+              <CRMCarouselCard name="RingCentral" category="Business Phone" />
+            </div>
           </div>
         </div>
 
-        {/* Financial & Data */}
+        {/* Financial & Data Services */}
         <div className="mb-16">
           <h3 className="text-2xl font-bold text-white mb-8 text-center">
             Financial & Data Services
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <IntegrationCard name="Credit Bureaus" category="Credit Pulls" />
-            <IntegrationCard name="Plaid" category="Banking" />
-            <IntegrationCard name="Stripe" category="Payments" />
-            <IntegrationCard name="DocuSign" category="Documents" />
+          <p className="text-white/60 text-center mb-8 max-w-2xl mx-auto">
+            Secure integrations with financial and data verification services
+          </p>
+          
+          {/* Carousel Container */}
+          <div className="relative overflow-hidden py-8">
+            {/* Gradient Overlays */}
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
+            
+            {/* Scrolling Track - Right to Left */}
+            <div className="flex animate-scroll">
+              <CRMCarouselCard name="Plaid" category="Banking Data" />
+              <CRMCarouselCard name="Stripe" category="Payments" />
+              <CRMCarouselCard name="DocuSign" category="E-Signatures" />
+              <CRMCarouselCard name="Equifax" category="Credit Bureau" />
+              <CRMCarouselCard name="Experian" category="Credit Data" />
+              <CRMCarouselCard name="TransUnion" category="Credit Reports" />
+              <CRMCarouselCard name="HelloSign" category="Documents" />
+              <CRMCarouselCard name="Yodlee" category="Financial Data" />
+              
+              {/* Duplicate set for seamless loop */}
+              <CRMCarouselCard name="Plaid" category="Banking Data" />
+              <CRMCarouselCard name="Stripe" category="Payments" />
+              <CRMCarouselCard name="DocuSign" category="E-Signatures" />
+              <CRMCarouselCard name="Equifax" category="Credit Bureau" />
+              <CRMCarouselCard name="Experian" category="Credit Data" />
+              <CRMCarouselCard name="TransUnion" category="Credit Reports" />
+              <CRMCarouselCard name="HelloSign" category="Documents" />
+              <CRMCarouselCard name="Yodlee" category="Financial Data" />
+            </div>
           </div>
         </div>
 

@@ -11,6 +11,7 @@ interface Message {
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -21,6 +22,7 @@ export default function ChatBot() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -30,12 +32,75 @@ export default function ChatBot() {
     scrollToBottom();
   }, [messages]);
 
+  // Poll for backend AI messages
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const pollMessages = async () => {
+      try {
+        const response = await fetch(`/api/chat?sessionId=${sessionId}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.messages && data.messages.length > 0) {
+            const newMessages = data.messages.map((msg: any) => ({
+              id: msg.id,
+              text: msg.text,
+              sender: msg.sender,
+              timestamp: new Date(msg.timestamp),
+            }));
+            setMessages((prev) => [...prev, ...newMessages]);
+          }
+        }
+      } catch (error) {
+        console.error('Error polling messages:', error);
+      }
+    };
+
+    // Poll every 2 seconds
+    pollingIntervalRef.current = setInterval(pollMessages, 2000);
+
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+      }
+    };
+  }, [isOpen, sessionId]);
+
+  // Submit conversation when chat is closed
+  const handleCloseChat = async () => {
+    setIsOpen(false);
+    
+    // Only submit if there are user messages
+    const hasUserMessages = messages.some(msg => msg.sender === 'user');
+    if (hasUserMessages && messages.length > 1) {
+      try {
+        await fetch('/api/chat/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            sessionId,
+            messages: messages.map(msg => ({
+              text: msg.text,
+              sender: msg.sender,
+              timestamp: msg.timestamp.toISOString(),
+            })),
+          }),
+        });
+        console.log('Chat conversation submitted to prospects endpoint');
+      } catch (error) {
+        console.error('Error submitting chat:', error);
+      }
+    }
+  };
+
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
     const userMessage: Message = {
-      id: messages.length + 1,
+      id: Date.now(),
       text: inputValue,
       sender: 'user',
       timestamp: new Date(),
@@ -44,11 +109,11 @@ export default function ChatBot() {
     setMessages([...messages, userMessage]);
     setInputValue('');
 
-    // Simulate bot response
+    // Simulate bot response (in production, backend will push real responses)
     setTimeout(() => {
       const botMessage: Message = {
-        id: messages.length + 2,
-        text: "Thanks for your message! I'm a demo chatbot. In production, I would connect to AIVI's AI system to provide intelligent responses about our services, integrations, and how we can help transform your customer engagement.",
+        id: Date.now() + 1,
+        text: "Thanks for your message! I'm connected to AIVI's backend. Your backend AI can now respond to this conversation via the API endpoint.",
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -107,10 +172,29 @@ export default function ChatBot() {
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center">
                 <span className="text-white font-black text-lg">AI</span>
               </div>
-              <div>
+              <div className="flex-1">
                 <h3 className="text-white font-bold text-lg">AIVI</h3>
                 <p className="text-white/50 text-xs">AI Assistant • Online</p>
               </div>
+              <button
+                onClick={handleCloseChat}
+                className="hover:bg-white/10 p-2 rounded-lg transition-colors"
+                aria-label="Close chat"
+              >
+                <svg
+                  className="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
 

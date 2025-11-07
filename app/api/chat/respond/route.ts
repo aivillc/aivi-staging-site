@@ -42,37 +42,35 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    // Add message to queue
-    if (!messageQueues.has(sessionId)) {
-      messageQueues.set(sessionId, []);
-    }
-
-    const queue = messageQueues.get(sessionId)!;
-    const messageId = Date.now() + Math.random();
-    
-    const messageData = {
-      id: messageId,
-      text: message,
-      sender: sender || 'bot',
-      timestamp: new Date().toISOString(),
-    };
-    
-    queue.push(messageData);
-
-    console.log(`✅ [Respond API] Message queued successfully!`);
+    console.log(`✅ [Respond API] Forwarding to messages API`);
     console.log(`   SessionId: ${sessionId}`);
     console.log(`   Message: "${message}"`);
-    console.log(`   MessageId: ${messageId}`);
-    console.log(`   Queue size: ${queue.length}`);
-    console.log(`   Message data:`, messageData);
-    console.log(`   All sessions in queue:`, Array.from(messageQueues.keys()));
+
+    // Forward to the messages POST endpoint (same runtime instance)
+    const messagesUrl = new URL('/api/chat/messages', request.url);
+    const messagesResponse = await fetch(messagesUrl.toString(), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        sessionId,
+        message,
+        sender: sender || 'bot',
+      }),
+    });
+
+    if (!messagesResponse.ok) {
+      throw new Error('Failed to queue message');
+    }
+
+    console.log(`✅ [Respond API] Message queued successfully via messages API`);
 
     return NextResponse.json({ 
       success: true,
       queued: true,
       sessionId,
-      messageId,
-      queueSize: queue.length
+      message: 'Response queued successfully'
     });
   } catch (error) {
     console.error('[ChatBot Response API] Error processing response:', error);

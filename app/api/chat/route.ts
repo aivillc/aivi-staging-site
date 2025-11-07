@@ -1,98 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Store active chat sessions in memory (in production, use Redis or database)
-const activeSessions = new Map<string, any>();
-
-/**
- * POST /api/chat
- * Receive messages from backend AI to send to frontend chatbot
- * 
- * Body:
- * {
- *   sessionId: string,
- *   message: string,
- *   sender: 'bot' | 'system'
- * }
- */
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { sessionId, message, sender = 'bot' } = body;
-
-    console.log('POST /api/chat received:', { sessionId, message, sender });
-
-    if (!sessionId || !message) {
-      return NextResponse.json(
-        { error: 'sessionId and message are required' },
-        { status: 400 }
-      );
-    }
-
-    // Store message for this session
-    if (!activeSessions.has(sessionId)) {
-      activeSessions.set(sessionId, []);
-    }
-
-    const sessionMessages = activeSessions.get(sessionId);
-    sessionMessages.push({
-      id: Date.now(),
-      text: message,
-      sender,
-      timestamp: new Date().toISOString(),
-    });
-
-    console.log('Message stored. Total messages for session:', sessionMessages.length);
-    console.log('Active sessions:', Array.from(activeSessions.keys()));
-
-    return NextResponse.json({
-      success: true,
-      sessionId,
-      message: 'Message queued for delivery',
-    });
-  } catch (error) {
-    console.error('Error in chat API:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
+// Chat API has been disabled per request. Return 404 for all methods.
+export async function POST(_request: NextRequest) {
+  return NextResponse.json({ error: 'Chat API disabled' }, { status: 404 });
 }
 
-/**
- * GET /api/chat?sessionId=xxx
- * Poll for new messages from backend (called by frontend)
- */
-export async function GET(request: NextRequest) {
-  try {
-    const searchParams = request.nextUrl.searchParams;
-    const sessionId = searchParams.get('sessionId');
-
-    console.log('GET /api/chat polling for sessionId:', sessionId);
-    console.log('Active sessions:', Array.from(activeSessions.keys()));
-
-    if (!sessionId) {
-      return NextResponse.json(
-        { error: 'sessionId is required' },
-        { status: 400 }
-      );
-    }
-
-    const messages = activeSessions.get(sessionId) || [];
-    
-    console.log('Found messages for session:', messages.length);
-    
-    // Clear messages after retrieval (or implement read tracking)
-    activeSessions.set(sessionId, []);
-
-    return NextResponse.json({
-      success: true,
-      messages,
-    });
-  } catch (error) {
-    console.error('Error fetching messages:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
+export async function GET(_request: NextRequest) {
+  return NextResponse.json({ error: 'Chat API disabled' }, { status: 404 });
 }

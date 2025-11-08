@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { updateSessionData } from '@/lib/sessionData';
-import { generateSessionId } from '@/lib/chatConfig';
+import { getGlobalSessionId } from '@/lib/globalSession';
 
 type QuestionType = 'select' | 'multiselect' | 'text';
 
@@ -201,12 +201,8 @@ export default function DemoForm() {
     
     // Save to session data for use in chat
     try {
-      // Get or create session ID for this user
-      let sessionId = localStorage.getItem('aivi_form_session_id');
-      if (!sessionId) {
-        sessionId = generateSessionId();
-        localStorage.setItem('aivi_form_session_id', sessionId);
-      }
+      // Use global session ID (shared with ChatBot)
+      const sessionId = getGlobalSessionId();
       
       // Update session data with form responses
       updateSessionData(sessionId, {
@@ -223,7 +219,7 @@ export default function DemoForm() {
         additionalNotes: contactData.additionalNotes,
       });
       
-      console.log('✅ Form data saved to session:', sessionId);
+      console.log('✅ Form data saved to global session:', sessionId);
     } catch (error) {
       console.error('Error saving form data to session:', error);
     }

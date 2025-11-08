@@ -1,8 +1,9 @@
 ﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { CHAT_CONFIG, generateMessageId, generateSessionId } from '@/lib/chatConfig';
+import { CHAT_CONFIG, generateMessageId } from '@/lib/chatConfig';
 import { getSessionData, updateSessionData, clearSessionData, extractInfoFromMessage, type SessionData } from '@/lib/sessionData';
+import { getGlobalSessionId, clearGlobalSession } from '@/lib/globalSession';
 
 if (process.env.NODE_ENV === 'development') {
   console.log('🤖 [ChatBot] Module loaded');
@@ -68,15 +69,12 @@ export default function ChatBot() {
   // Initialize state - will be hydrated from localStorage after mount
   const [isOpen, setIsOpen] = useState(false);
   const [sessionId, setSessionId] = useState(() => {
-    // Check if form was filled first (client-side only)
+    // Use global session ID (shared with form)
     if (typeof window !== 'undefined') {
-      const formSessionId = localStorage.getItem('aivi_form_session_id');
-      if (formSessionId) {
-        console.log('🤖 [ChatBot] Found form session, using it:', formSessionId);
-        return formSessionId;
-      }
+      return getGlobalSessionId();
     }
-    return generateSessionId();
+    // Server-side fallback (will be replaced on hydration)
+    return 'ssr-placeholder';
   });
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -207,8 +205,9 @@ export default function ChatBot() {
   useEffect(() => {
     const checkInterval = setInterval(() => {
       if (checkAndClearExpiredCache()) {
-        // Cache expired, reset everything
-        const newSessionId = generateSessionId();
+        // Cache expired, clear global session and create new one
+        clearGlobalSession();
+        const newSessionId = getGlobalSessionId();
         setSessionId(newSessionId);
         setMessages([
           {
@@ -554,11 +553,12 @@ export default function ChatBot() {
       // Clear session data
       clearSessionData(sessionId);
       
-      // Clear localStorage and generate new session ID
+      // Clear localStorage and global session
       localStorage.removeItem('aivi_chat_state');
+      clearGlobalSession();
       
-      // Generate new session ID for fresh start
-      const newSessionId = generateSessionId();
+      // Generate new global session ID for fresh start
+      const newSessionId = getGlobalSessionId();
       setSessionId(newSessionId);
       
       // Initialize new session data

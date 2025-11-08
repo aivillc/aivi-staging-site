@@ -221,6 +221,18 @@ export default function ChatBot() {
                 sender: msg.sender,
                 timestamp: new Date(msg.timestamp),
               }));
+              
+              // Check if any message is the AI assistant restoration message
+              const hasAssistantRestoration = newMessages.some((m: Message) => 
+                m.text.includes('AI Assistant has been restored')
+              );
+              
+              if (hasAssistantRestoration) {
+                console.log('🤖 [ChatBot] AI Assistant restored, disconnecting from Slack');
+                setSlackChannelId(null);
+                setAgentConnected(false);
+              }
+              
               setMessages((prev: Message[]) => {
                 // Avoid duplicates by checking message IDs
                 const existingIds = new Set(prev.map(m => m.id));
@@ -351,6 +363,9 @@ export default function ChatBot() {
             timestamp: new Date(),
           };
           setMessages(prev => [...prev, systemMessage]);
+          
+          // Stop AI assistant - don't send to prospects webhook when agent connected
+          return;
         } else {
           const errorText = await response.text();
           console.error('❌ [ChatBot] Failed to create Slack channel. Status:', response.status, 'Error:', errorText);
@@ -378,7 +393,7 @@ export default function ChatBot() {
       }
     }
     
-    // If Slack channel exists, send message to Slack
+    // If Slack channel exists, send message to Slack (don't send to AI webhook)
     if (slackChannelId) {
       try {
         await fetch('/api/slack/post-message', {
@@ -393,17 +408,16 @@ export default function ChatBot() {
           }),
         });
         
-        if (process.env.NODE_ENV === 'development') {
-          console.log('📤 [ChatBot] Message sent to Slack channel');
-        }
+        console.log('📤 [ChatBot] Message sent to Slack channel (skipping AI webhook)');
       } catch (error) {
-        if (process.env.NODE_ENV === 'development') {
-          console.error('❌ [ChatBot] Error sending to Slack:', error);
-        }
+        console.error('❌ [ChatBot] Error sending to Slack:', error);
       }
+      
+      // Don't send to prospects webhook when agent is connected
+      return;
     }
     
-    // Send to prospects webhook
+    // Send to prospects webhook only if no agent is connected
     try {
       const webhookPayload = {
         source: 'Website Chat',
@@ -411,7 +425,7 @@ export default function ChatBot() {
         message: userMessage.text,
         sender: 'user',
         timestamp: userMessage.timestamp.toISOString(),
-        agentConnected,
+        agentConnected: false,
       };
       console.log('[ChatBot] Webhook payload:', webhookPayload);
       

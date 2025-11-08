@@ -114,6 +114,48 @@ export async function POST(request: NextRequest) {
             const sessionId = sessionIdMatch[1];
             console.log('🔑 Extracted sessionId:', sessionId);
             
+            // Check if agent is requesting to restore AI assistant
+            const messageText = event.text.toLowerCase();
+            if (messageText.includes('assistant')) {
+              console.log('🤖 Agent requested AI assistant restoration');
+              
+              // Send system message to chatbot
+              const systemMessagePayload = {
+                sessionId,
+                message: '🤖 AI Assistant has been restored. The live agent has disconnected.',
+                sender: 'bot',
+                timestamp: Date.now(),
+              };
+              
+              // Send disconnect signal
+              const disconnectPayload = {
+                sessionId,
+                action: 'disconnect_agent',
+                channelId: event.channel,
+              };
+
+              const baseUrl = process.env.VERCEL_URL 
+                ? `https://${process.env.VERCEL_URL}`
+                : 'http://localhost:3000';
+
+              // Send system message
+              await fetch(`${baseUrl}/api/chat/messages`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(systemMessagePayload),
+              });
+
+              // Send disconnect signal to a new endpoint we'll create
+              await fetch(`${baseUrl}/api/slack/disconnect-agent`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(disconnectPayload),
+              });
+
+              console.log('✅ Agent disconnected, AI assistant restored');
+              return NextResponse.json({ ok: true });
+            }
+            
             // Post message to chatbot via messages API
             const messagePayload = {
               sessionId,

@@ -4,6 +4,11 @@ export async function POST(request: NextRequest) {
   try {
     const { sessionId, initialMessage, conversationHistory, sessionData } = await request.json();
 
+    console.log('🔨 [Create Channel] Request received');
+    console.log('   SessionId:', sessionId);
+    console.log('   Session Data received:', JSON.stringify(sessionData, null, 2));
+    console.log('   Session Data keys:', Object.keys(sessionData || {}));
+
     if (!sessionId) {
       return NextResponse.json({ error: 'sessionId is required' }, { status: 400 });
     }

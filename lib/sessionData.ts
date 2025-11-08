@@ -33,10 +33,21 @@ export function getSessionData(sessionId: string): SessionData | null {
   
   try {
     const stored = localStorage.getItem(SESSION_DATA_KEY);
-    if (!stored) return null;
+    console.log('📖 [getSessionData] Reading for sessionId:', sessionId);
+    console.log('📖 [getSessionData] Raw localStorage:', stored);
+    
+    if (!stored) {
+      console.log('📖 [getSessionData] No data in localStorage');
+      return null;
+    }
     
     const allData = JSON.parse(stored);
-    return allData[sessionId] || null;
+    console.log('📖 [getSessionData] All sessions:', Object.keys(allData));
+    
+    const data = allData[sessionId] || null;
+    console.log('📖 [getSessionData] Data for this session:', data);
+    
+    return data;
   } catch (error) {
     console.error('Error reading session data:', error);
     return null;

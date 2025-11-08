@@ -395,18 +395,23 @@ export default function ChatBot() {
         
         // Get session data to send with channel creation
         const sessionData = getSessionData(sessionId);
+        console.log('📊 [ChatBot] Session data retrieved for Slack:', sessionData);
+        console.log('📊 [ChatBot] Session ID:', sessionId);
+        
+        const payload = {
+          sessionId,
+          initialMessage: userMessage.text,
+          conversationHistory: messages,
+          sessionData: sessionData || {},
+        };
+        console.log('📤 [ChatBot] Sending payload to Slack:', JSON.stringify(payload, null, 2));
         
         const response = await fetch('/api/slack/create-channel', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            sessionId,
-            initialMessage: userMessage.text,
-            conversationHistory: messages,
-            sessionData: sessionData || {},
-          }),
+          body: JSON.stringify(payload),
         });
         
         console.log('📡 [ChatBot] Create channel response status:', response.status);

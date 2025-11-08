@@ -14,6 +14,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Slack not configured' }, { status: 500 });
     }
 
+    // Team members to invite (comma-separated User IDs in environment variable)
+    const teamMemberIds = process.env.SLACK_TEAM_MEMBER_IDS?.split(',').map(id => id.trim()) || [];
+
     // Create channel name (Slack channels must be lowercase, no spaces)
     const channelName = `aivi-session-${sessionId.toLowerCase().replace(/[^a-z0-9-_]/g, '')}`;
 
@@ -68,6 +71,38 @@ export async function POST(request: NextRequest) {
 
     const channelId = createChannelData.channel.id;
     console.log('✅ Slack channel created:', channelName, channelId);
+
+    // Invite team members to the channel
+    if (teamMemberIds.length > 0) {
+      try {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('👥 Inviting team members:', teamMemberIds);
+        }
+
+        const inviteResponse = await fetch('https://slack.com/api/conversations.invite', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${slackBotToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            channel: channelId,
+            users: teamMemberIds.join(','),
+          }),
+        });
+
+        const inviteData = await inviteResponse.json();
+        
+        if (inviteData.ok) {
+          console.log('✅ Team members invited to channel');
+        } else {
+          console.error('⚠️ Failed to invite some team members:', inviteData.error);
+        }
+      } catch (error) {
+        console.error('⚠️ Error inviting team members:', error);
+        // Continue even if invitation fails
+      }
+    }
 
     // Post initial context to the channel
     let contextMessage = `🤖 *New Agent Request*\n\n`;

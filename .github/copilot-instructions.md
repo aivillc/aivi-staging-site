@@ -39,7 +39,7 @@ This file contains instructions that GitHub Copilot will follow when working in 
 ## Custom Instructions Examples
 
 Everytime you make some code changes, you need to update the changes-made.txt file to log what has been changed including the prompt i inputted. 
-Every 2 hours you are going to ask me whether i want this current version created as a new version. Going up by 0.0.1 for minor changes, 0.1.0 for moderate changes, and 1.0.0 for major changes. We are currently on "1.0.7" (update this when new versions are created).
+Every 2 hours you are going to ask me whether i want this current version created as a new version. Going up by 0.0.1 for minor changes, 0.1.0 for moderate changes, and 1.0.0 for major changes. We are currently on "1.0.8" (update this when new versions are created).
 
 ### Example: Always run tests before deployment
 <!-- When deploying, always run: npm test -->

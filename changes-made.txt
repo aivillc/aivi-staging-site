@@ -1,8 +1,63 @@
 AIVI STAGING - CHANGELOG
 ========================
 
-Current Version: v1.0.7
+Current Version: v1.0.8
 Date: November 8, 2025
+
+================================================================================
+VERSION 1.0.8 - Auto-Invite Team Members to Slack Channels (November 8, 2025)
+================================================================================
+
+PROMPT: "Can we make it so each channel invites some members? Do you need their slack name or email or what"
+
+CHANGES MADE:
+1. Updated Slack Channel Creation to Auto-Invite Team Members
+   - Modified: app/api/slack/create-channel/route.ts
+   - Reads team member User IDs from SLACK_TEAM_MEMBER_IDS environment variable
+   - Automatically invites team members when channel is created
+   - Uses conversations.invite Slack API
+   - Continues even if invitation fails (non-blocking)
+   
+2. Created Member List Helper Endpoint
+   - Created: app/api/slack/list-members/route.ts
+   - Lists all non-bot, active workspace members
+   - Shows User ID, name, real name, email, title
+   - Helps admins identify which User IDs to add
+
+FEATURES IMPLEMENTED:
+✅ Auto-invite team members to new support channels
+✅ Configurable via environment variable
+✅ Support for multiple team members (comma-separated)
+✅ Helper endpoint to discover User IDs
+✅ Graceful failure handling (won't break if invite fails)
+
+ENVIRONMENT VARIABLES REQUIRED:
+- SLACK_BOT_TOKEN: Bot token (existing)
+- SLACK_SIGNING_SECRET: Signing secret (existing)
+- SLACK_TEAM_MEMBER_IDS: Comma-separated User IDs to invite (NEW)
+  Example: "U01ABC123XY,U02DEF456ZW,U03GHI789AB"
+
+SLACK APP SCOPES NEEDED (ADD THIS):
+- channels:manage (existing)
+- channels:read (existing)
+- channels:history (existing)
+- chat:write (existing)
+- users:read (NEW - for listing members)
+
+SETUP INSTRUCTIONS:
+1. Get User IDs by visiting: https://aivistagingsite.vercel.app/api/slack/list-members
+2. Copy the User IDs of team members you want to auto-invite
+3. Add to Vercel environment variable:
+   Name: SLACK_TEAM_MEMBER_IDS
+   Value: U01ABC123,U02DEF456,U03GHI789
+4. Add users:read scope to Slack App OAuth permissions
+5. Reinstall app to workspace for new scope
+
+FILES CREATED:
+- app/api/slack/list-members/route.ts
+
+FILES MODIFIED:
+- app/api/slack/create-channel/route.ts
 
 ================================================================================
 VERSION 1.0.7 - Complete Slack Integration (November 8, 2025)

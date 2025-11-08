@@ -88,19 +88,6 @@ export default function Integrations() {
               <CRMCarouselCard name="Nutshell" category="Growth CRM" />
             </div>
           </div>
-          
-          {/* Custom API Integration CTA */}
-          <div className="mt-8 text-center">
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-purple-500/30 rounded-full hover:border-purple-500/60 transition-all group cursor-pointer">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center text-white font-black text-lg">
-                +
-              </div>
-              <div className="text-left">
-                <div className="text-white font-bold text-sm">Custom CRM Integration</div>
-                <div className="text-white/50 text-xs">Connect any system via API</div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Communication Channels */}

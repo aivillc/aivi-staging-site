@@ -15,11 +15,11 @@ export default function Home() {
       <TronHeader />
       <Navigation />
       <Hero />
+      <Dashboard />
       <PainPoints />
       <Features />
       <Solutions />
       <Integrations />
-      <Dashboard />
       <Testimonials />
       <Footer />
     </main>

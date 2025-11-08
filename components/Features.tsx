@@ -127,64 +127,7 @@ export default function Features() {
           />
         </div>
 
-        {/* Additional Capabilities */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="group relative p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-purple-500/50 transition-all">
-            <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-500 to-purple-700 rounded-l-2xl" />
-            <h3 className="text-2xl font-black text-white mb-3 pl-4">
-              Enterprise-Grade Security
-            </h3>
-            <p className="text-white/70 mb-6 pl-4">
-              PII data in transit only. SOC 2 compliant infrastructure with end-to-end encryption.
-            </p>
-            <ul className="space-y-3 pl-4">
-              <li className="flex items-center gap-2">
-                <span className="text-purple-500 font-black text-xl">✓</span>
-                <span className="text-white/80">HIPAA & SOC 2 compliant</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-purple-500 font-black text-xl">✓</span>
-                <span className="text-white/80">End-to-end encryption</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-purple-500 font-black text-xl">✓</span>
-                <span className="text-white/80">PII data in transit only</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-purple-500 font-black text-xl">✓</span>
-                <span className="text-white/80">Regular security audits</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="group relative p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-orange-500/50 transition-all">
-            <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-orange-500 to-orange-700 rounded-l-2xl" />
-            <h3 className="text-2xl font-black text-white mb-3 pl-4">
-              Powered by xPulse Technology
-            </h3>
-            <p className="text-white/70 mb-6 pl-4">
-              Proprietary AI decision engine built by experts from Amazon, Five9, and Cisco with 23+ years of experience.
-            </p>
-            <ul className="space-y-3 pl-4">
-              <li className="flex items-center gap-2">
-                <span className="text-orange-500 font-black text-xl">✓</span>
-                <span className="text-white/80">Real-time decision making</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-orange-500 font-black text-xl">✓</span>
-                <span className="text-white/80">Continuous learning</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-orange-500 font-black text-xl">✓</span>
-                <span className="text-white/80">Optimized for conversions</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-orange-500 font-black text-xl">✓</span>
-                <span className="text-white/80">Battle-tested at scale</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        {/* Additional Capabilities - Removed Enterprise-Grade Security & Powered by xPulse Technology */}
       </div>
     </section>
   );

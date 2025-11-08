@@ -142,45 +142,6 @@ export default function Solutions() {
             </div>
           </div>
         </div>
-
-        {/* Industry Solutions */}
-        <div className="mt-20">
-          <h3 className="text-3xl md:text-4xl font-black text-black mb-12 text-center">
-            Industry Solutions
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <UseCaseCard
-              industry="Trucking & Logistics"
-              useCases={[
-                'Invoice factoring automation',
-                'Insurance renewal reminders',
-                'Broker-to-driver communication',
-                'Load confirmation & updates',
-              ]}
-              gradient="from-purple-500 to-purple-700"
-            />
-            <UseCaseCard
-              industry="Financial Services"
-              useCases={[
-                'Debt consolidation outreach',
-                'Credit application processing',
-                'Payment reminders',
-                'Document verification',
-              ]}
-              gradient="from-orange-500 to-orange-700"
-            />
-            <UseCaseCard
-              industry="Insurance"
-              useCases={[
-                'Policy renewal campaigns',
-                'Claims processing automation',
-                'Lead qualification',
-                'Customer onboarding',
-              ]}
-              gradient="from-purple-500 to-purple-700"
-            />
-          </div>
-        </div>
       </div>
     </section>
   );

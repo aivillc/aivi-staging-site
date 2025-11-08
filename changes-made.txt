@@ -5,7 +5,48 @@ Current Version: v1.0.9
 Date: November 8, 2025
 
 ================================================================================
-VERSION 1.0.9 - Global Session ID System (November 8, 2025)
+VERSION 1.0.9 (LATEST) - ChatBot Scrollbar Enhancement (November 8, 2025)
+================================================================================
+
+PROMPT: "For the chatbot, can we improve the look of the scrollbar inside the chat?"
+
+CHANGES MADE:
+1. Enhanced ChatBot Scrollbar Styling
+   - Modified: components/ChatBot.tsx
+   - Replaced basic Tailwind scrollbar classes with custom styling
+   - Changed className from "scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-transparent" to "custom-scrollbar"
+
+2. Added Custom CSS Styles
+   - Added <style jsx global> block with custom scrollbar styling
+   - Scrollbar width: 8px (slim design)
+   - Track background: Purple-to-orange gradient with 10% opacity
+   - Thumb background: Full gradient from #8b5cf6 (purple) to #ff6b35 (orange)
+   - Border radius: 10px for smooth rounded appearance
+   - Border: 2px solid rgba(0, 0, 0, 0.8) for definition
+   - Hover effects: Darker gradient (#7c3aed to #ff5722)
+   - Hover glow: Dual box-shadow with purple and orange glow
+   - Firefox support: scrollbar-width: thin and scrollbar-color
+
+FEATURES IMPLEMENTED:
+✅ TRON-themed gradient scrollbar (purple-to-orange)
+✅ Smooth rounded edges (10px border-radius)
+✅ Enhanced hover effects with dual-color glow
+✅ Cross-browser support (Webkit + Firefox)
+✅ Consistent with overall TRON aesthetic
+✅ Subtle track background gradient
+✅ Professional visual depth with border
+
+VISUAL IMPROVEMENTS:
+- Scrollbar matches the TRON theme purple (#8b5cf6) to orange (#ff6b35) gradient
+- Hover state creates a glowing effect that pulses with theme colors
+- Slim 8px width doesn't intrude on chat space
+- Gradient track provides subtle visual guide
+
+FILES MODIFIED:
+- components/ChatBot.tsx
+
+================================================================================
+PREVIOUS: Global Session ID System (November 8, 2025)
 ================================================================================
 
 PROMPT: "Always use a single global sessionID until its cleared, so form session ID and chat sessionID should always be the same"

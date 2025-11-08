@@ -8,11 +8,16 @@
   --navy-700: #334155;
   --navy-600: #475569;
 
-  /* Dynamic Theme Colors (can be overridden by ColorSchemeSelector) */
-  --color-primary: #8b5cf6;      /* purple-500 default */
-  --color-secondary: #ff6b35;     /* orange-500 default */
-  --color-primary-dark: #7c3aed;  /* purple-600 default */
-  --color-secondary-dark: #f55a2c; /* orange-600 default */
+  /* Dynamic Theme Colors (can be overridden by ThemeSelector) */
+  --color-primary: #8b5cf6;         /* purple-500 default */
+  --color-primary-dark: #7c3aed;    /* purple-600 default */
+  --color-primary-darker: #6d28d9;  /* purple-700 default */
+  --color-primary-light: #a78bfa;   /* purple-400 default */
+  
+  --color-secondary: #ff6b35;        /* orange-500 default */
+  --color-secondary-dark: #f55a2c;   /* orange-600 default */
+  --color-secondary-darker: #e04d23; /* orange-700 default */
+  --color-secondary-light: #ff8c5a;  /* orange-400 default */
 
   /* Accent Colors */
   --orange-500: #ff6b35;
@@ -173,6 +178,46 @@ body {
 
 .animate-scroll-reverse:hover {
   animation-play-state: paused;
+}
+
+/* Dynamic Theme Utility Classes */
+.theme-gradient-primary-secondary {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+.theme-gradient-secondary-primary {
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+}
+
+.theme-gradient-text {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.theme-bg-primary {
+  background-color: var(--color-primary);
+}
+
+.theme-bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.theme-text-primary {
+  color: var(--color-primary);
+}
+
+.theme-text-secondary {
+  color: var(--color-secondary);
+}
+
+.theme-border-primary {
+  border-color: var(--color-primary);
+}
+
+.theme-border-secondary {
+  border-color: var(--color-secondary);
 }
 
 .animate-gradient-move {

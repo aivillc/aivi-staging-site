@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import { CHAT_CONFIG, generateMessageId } from '@/lib/chatConfig';
 import { getSessionData, updateSessionData, clearSessionData, extractInfoFromMessage, type SessionData } from '@/lib/sessionData';
 import { getGlobalSessionId, clearGlobalSession } from '@/lib/globalSession';
+import { useTheme } from '@/lib/ThemeContext';
+import { DynamicGradient } from './DynamicTheme';
 
 if (process.env.NODE_ENV === 'development') {
   console.log('🤖 [ChatBot] Module loaded');
@@ -29,6 +31,8 @@ interface ChatState {
 }
 
 export default function ChatBot() {
+  const { theme } = useTheme();
+  
   // Helper to get cached state (parse once, reuse)
   const getCachedState = (): ChatState | null => {
     if (typeof window !== 'undefined') {
@@ -592,14 +596,16 @@ export default function ChatBot() {
   return (
     <>
       {/* Floating Chat Button */}
-      <button
+      <DynamicGradient
+        as="button"
         onClick={() => {
           if (process.env.NODE_ENV === 'development') {
             console.log('🤖 [ChatBot] Button clicked. Current isOpen:', isOpen, '→ New isOpen:', !isOpen);
           }
           setIsOpen(!isOpen);
         }}
-        className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-orange-500 hover:from-purple-600 hover:to-orange-600 shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 z-50 group"
+        direction="to-br"
+        className="fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 z-50 group"
         aria-label="Open chat"
       >
         {isOpen ? (
@@ -632,20 +638,34 @@ export default function ChatBot() {
               />
             </svg>
             {/* Pulse animation ring */}
-            <div className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping" />
+            <div 
+              className="absolute inset-0 rounded-full animate-ping opacity-30"
+              style={{ backgroundColor: theme.primary.main }}
+            />
           </>
         )}
-      </button>
+      </DynamicGradient>
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-28 right-6 w-[360px] h-[600px] bg-black/95 border-2 border-purple-500/50 rounded-2xl shadow-2xl z-50 flex flex-col backdrop-blur-xl animate-scaleIn">
+        <div 
+          className="fixed bottom-28 right-6 w-[360px] h-[600px] bg-black/95 border-2 rounded-2xl shadow-2xl z-50 flex flex-col backdrop-blur-xl animate-scaleIn"
+          style={{ borderColor: `${theme.primary.main}80` }}
+        >
           {/* Header */}
-          <div className="p-4 border-b border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-orange-500/10 rounded-t-2xl">
+          <DynamicGradient
+            direction="to-r"
+            opacity={0.1}
+            className="p-4 border-b rounded-t-2xl"
+            style={{ borderColor: `${theme.primary.main}50` }}
+          >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center">
+              <DynamicGradient
+                direction="to-br"
+                className="w-10 h-10 rounded-full flex items-center justify-center"
+              >
                 <span className="text-white font-black text-lg">AI</span>
-              </div>
+              </DynamicGradient>
               <div className="flex-1">
                 <h3 className="text-white font-bold text-lg">AIVI</h3>
                 <div className="flex items-center gap-1">
@@ -684,10 +704,10 @@ export default function ChatBot() {
                 </svg>
               </button>
             </div>
-          </div>
+          </DynamicGradient>
 
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-transparent">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
             {messages.map((message: Message) => (
               <div
                 key={message.id}
@@ -764,6 +784,38 @@ export default function ChatBot() {
           </form>
         </div>
       )}
+
+      {/* Custom Scrollbar Styles */}
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: linear-gradient(180deg, rgba(139, 92, 246, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
+          border-radius: 10px;
+          margin: 8px 0;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, #8b5cf6 0%, #ff6b35 100%);
+          border-radius: 10px;
+          border: 2px solid rgba(0, 0, 0, 0.8);
+          transition: all 0.3s ease;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(180deg, #7c3aed 0%, #ff5722 100%);
+          box-shadow: 0 0 12px rgba(139, 92, 246, 0.6), 0 0 20px rgba(255, 107, 53, 0.4);
+          border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        /* Firefox scrollbar */
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: #8b5cf6 rgba(139, 92, 246, 0.1);
+        }
+      `}</style>
     </>
   );
 }

@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import DemoForm from './DemoForm';
 import Image from 'next/image';
+import { useTheme } from '@/lib/ThemeContext';
+import { DynamicGradient, DynamicTextGradient } from './DynamicTheme';
 
 const industryHeadlines = [
   {
@@ -38,6 +40,7 @@ const industryHeadlines = [
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,18 +62,49 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black" />
 
       {/* Moving gradient orbs */}
-      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-3xl animate-pulse-slower" />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-to-r from-purple-600/10 via-transparent to-orange-500/10 rounded-full blur-3xl animate-spin-slow" />
+      <div 
+        className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-3xl animate-pulse-slow opacity-20"
+        style={{ backgroundColor: theme.primary.main }}
+      />
+      <div 
+        className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse-slower opacity-20"
+        style={{ backgroundColor: theme.secondary.main }}
+      />
+      <DynamicGradient
+        direction="to-r"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-3xl animate-spin-slow opacity-10"
+      >
+        <div className="w-full h-full" />
+      </DynamicGradient>
 
       {/* Grid overlay - cyberpunk style */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      <div 
+        className="absolute inset-0 bg-[size:50px_50px]"
+        style={{
+          backgroundImage: `linear-gradient(${theme.primary.main}08 1px, transparent 1px), linear-gradient(90deg, ${theme.primary.main}08 1px, transparent 1px)`
+        }}
+      />
 
       {/* Diagonal moving gradient lines */}
       <div className="absolute inset-0 overflow-hidden opacity-30">
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent top-1/4 animate-scan-horizontal" />
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent top-1/2 animate-scan-horizontal-reverse" />
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent top-3/4 animate-scan-horizontal-slow" />
+        <div 
+          className="absolute w-full h-px top-1/4 animate-scan-horizontal"
+          style={{
+            backgroundImage: `linear-gradient(90deg, transparent, ${theme.primary.main}, transparent)`
+          }}
+        />
+        <div 
+          className="absolute w-full h-px top-1/2 animate-scan-horizontal-reverse"
+          style={{
+            backgroundImage: `linear-gradient(90deg, transparent, ${theme.secondary.main}, transparent)`
+          }}
+        />
+        <div 
+          className="absolute w-full h-px top-3/4 animate-scan-horizontal-slow"
+          style={{
+            backgroundImage: `linear-gradient(90deg, transparent, ${theme.primary.main}, transparent)`
+          }}
+        />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
@@ -85,16 +119,18 @@ export default function Hero() {
               priority
               className="h-24 md:h-32 w-auto mb-6 drop-shadow-2xl"
             />
-            <div className="h-px w-48 bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
+            <div className="h-px w-48" style={{
+              backgroundImage: `linear-gradient(90deg, transparent, ${theme.primary.main}, transparent)`
+            }} />
           </div>
 
           {/* Main Headline - ROTATING with smooth transition */}
           <div className={`transition-all duration-500 ${isTransitioning ? 'opacity-0 transform translate-y-2' : 'opacity-100 transform translate-y-0'}`}>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight mb-8 tracking-tight">
               {current.title}{' '}
-              <span className="inline-block bg-gradient-to-r from-orange-500 via-purple-500 to-orange-500 text-transparent bg-clip-text animate-gradient-x">
+              <DynamicTextGradient className="inline-block animate-gradient-x" variant="secondary-primary">
                 Revenue
-              </span>
+              </DynamicTextGradient>
               <br />
               <span className="text-4xl md:text-6xl lg:text-7xl text-white/60">
                 {current.subtitle}
@@ -105,32 +141,41 @@ export default function Hero() {
             <p className="text-xl md:text-2xl text-white/70 max-w-4xl mx-auto mb-10 leading-relaxed font-light">
               {current.description}
               <br className="hidden md:block" />
-              <span className="text-orange-500 font-bold">{current.stat}</span>
+              <span className="font-bold" style={{ color: theme.secondary.main }}>{current.stat}</span>
             </p>
           </div>
 
           {/* Industry Indicator Pills */}
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {industryHeadlines.map((item, index) => (
-              <button
-                key={item.industry}
-                onClick={() => setCurrentIndex(index)}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-gradient-to-r from-orange-500 to-purple-500 text-white scale-110'
-                    : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/80'
-                }`}
-              >
-                {item.industry}
-              </button>
+              index === currentIndex ? (
+                <DynamicGradient
+                  key={item.industry}
+                  as="button"
+                  onClick={() => setCurrentIndex(index)}
+                  direction="to-r"
+                  variant="secondary-primary"
+                  className="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 text-white scale-110"
+                >
+                  {item.industry}
+                </DynamicGradient>
+              ) : (
+                <button
+                  key={item.industry}
+                  onClick={() => setCurrentIndex(index)}
+                  className="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/80"
+                >
+                  {item.industry}
+                </button>
+              )
             ))}
           </div>
 
           {/* ROI Stats - Sleek cards */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
-            <StatCard number="391%" label="Conversion Increase" color="purple" />
-            <StatCard number="50%" label="Dead Leads Revived" color="orange" />
-            <StatCard number="13s" label="Response Time" color="purple" />
+            <StatCard number="391%" label="Conversion Increase" color="primary" />
+            <StatCard number="50%" label="Dead Leads Revived" color="secondary" />
+            <StatCard number="13s" label="Response Time" color="primary" />
           </div>
 
           {/* Key Features - NO EMOJIS, sleek icons */}
@@ -264,36 +309,52 @@ export default function Hero() {
 interface StatCardProps {
   number: string;
   label: string;
-  color: 'purple' | 'orange';
+  color: 'primary' | 'secondary';
 }
 
 function StatCard({ number, label, color }: StatCardProps) {
-  const gradient = color === 'purple'
-    ? 'from-purple-600 to-purple-800'
-    : 'from-orange-500 to-orange-700';
-
   return (
-    <div className={`relative p-6 bg-gradient-to-br ${gradient} rounded-xl border border-white/10 backdrop-blur-sm min-w-[140px] group hover:scale-105 transition-transform`}>
+    <DynamicGradient
+      direction="to-br"
+      variant={color === 'primary' ? 'primary-only' : 'secondary-only'}
+      className="relative p-6 rounded-xl border border-white/10 backdrop-blur-sm min-w-[140px] group hover:scale-105 transition-transform"
+    >
       <div className="absolute inset-0 bg-white/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
       <div className="relative">
         <div className="text-4xl md:text-5xl font-black text-white mb-1">{number}</div>
         <div className="text-xs text-white/80 uppercase tracking-wider">{label}</div>
       </div>
-    </div>
+    </DynamicGradient>
   );
 }
 
 function FeaturePill({ text }: { text: string }) {
+  const { theme } = useTheme();
+  
   return (
-    <span className="px-5 py-2.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-sm font-medium text-white/90 hover:bg-white/10 hover:border-purple-500/50 transition-all cursor-default">
+    <span 
+      className="px-5 py-2.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-sm font-medium text-white/90 hover:bg-white/10 transition-all cursor-default"
+      style={{
+        borderColor: `${theme.primary.main}00`,
+        '--hover-border': `${theme.primary.main}80`
+      } as React.CSSProperties}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = `${theme.primary.main}80`}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+    >
       {text}
     </span>
   );
 }
 
 function TrustBadge({ text }: { text: string }) {
+  const { theme } = useTheme();
+  
   return (
-    <span className="px-4 py-2 bg-white/5 rounded-lg border border-white/10 hover:border-purple-500/30 transition-colors">
+    <span 
+      className="px-4 py-2 bg-white/5 rounded-lg border border-white/10 transition-colors"
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = `${theme.primary.main}50`}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+    >
       {text}
     </span>
   );

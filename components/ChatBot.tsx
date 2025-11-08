@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { CHAT_CONFIG, generateMessageId, generateSessionId } from '@/lib/chatConfig';
+import { getSessionData, updateSessionData, clearSessionData, extractInfoFromMessage } from '@/lib/sessionData';
 
 if (process.env.NODE_ENV === 'development') {
   console.log('🤖 [ChatBot] Module loaded');
@@ -97,6 +98,38 @@ export default function ChatBot() {
       if (state.sessionId) {
         setSessionId(state.sessionId);
         console.log('🤖 [ChatBot] Restored sessionId from cache:', state.sessionId);
+        
+        // Initialize session data if it doesn't exist
+        const existingSessionData = getSessionData(state.sessionId);
+        if (!existingSessionData) {
+          updateSessionData(state.sessionId, {});
+          console.log('🤖 [ChatBot] Initialized session data for:', state.sessionId);
+        }
+        
+        // Check if user filled out form first
+        const formSessionId = localStorage.getItem('aivi_form_session_id');
+        if (formSessionId) {
+          const formData = getSessionData(formSessionId);
+          if (formData) {
+            // Merge form data into chat session
+            updateSessionData(state.sessionId, {
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              businessName: formData.businessName,
+              industry: formData.industry,
+              challenge: formData.challenge,
+              channels: formData.channels,
+              volume: formData.volume,
+              goal: formData.goal,
+              crm: formData.crm,
+              additionalNotes: formData.additionalNotes,
+            });
+            console.log('🤖 [ChatBot] Merged form data into chat session');
+            // Clear the form session reference
+            localStorage.removeItem('aivi_form_session_id');
+          }
+        }
       }
       if (state.messages && state.messages.length > 0) {
         setMessages(state.messages.map(msg => ({
@@ -106,6 +139,18 @@ export default function ChatBot() {
         console.log('🤖 [ChatBot] Restored', state.messages.length, 'messages from cache');
       }
       setIsOpen(state.isOpen || false);
+    } else {
+      // New session - check if form was filled
+      const formSessionId = localStorage.getItem('aivi_form_session_id');
+      if (formSessionId) {
+        const formData = getSessionData(formSessionId);
+        if (formData) {
+          // Use form session as chat session
+          setSessionId(formSessionId);
+          console.log('🤖 [ChatBot] Using form session as chat session:', formSessionId);
+          localStorage.removeItem('aivi_form_session_id');
+        }
+      }
     }
     setIsHydrated(true);
   }, []);
@@ -294,6 +339,20 @@ export default function ChatBot() {
     setMessages([...messages, userMessage]);
     setInputValue('');
 
+    // Extract and update session data from user message
+    try {
+      const currentData = getSessionData(sessionId);
+      if (currentData) {
+        const extractedInfo = extractInfoFromMessage(userMessage.text, currentData);
+        if (Object.keys(extractedInfo).length > 0) {
+          updateSessionData(sessionId, extractedInfo);
+          console.log('📊 [ChatBot] Extracted info from message:', extractedInfo);
+        }
+      }
+    } catch (error) {
+      console.error('Error extracting session data:', error);
+    }
+
     // Show typing indicator immediately after user sends message
     setIsTyping(true);
     
@@ -334,6 +393,9 @@ export default function ChatBot() {
       try {
         console.log('🔔 [ChatBot] Agent keyword detected, creating Slack channel...');
         
+        // Get session data to send with channel creation
+        const sessionData = getSessionData(sessionId);
+        
         const response = await fetch('/api/slack/create-channel', {
           method: 'POST',
           headers: {
@@ -343,6 +405,7 @@ export default function ChatBot() {
             sessionId,
             initialMessage: userMessage.text,
             conversationHistory: messages,
+            sessionData: sessionData || {},
           }),
         });
         
@@ -455,12 +518,18 @@ export default function ChatBot() {
 
   const handleCloseChat = () => {
     if (confirm('Are you sure you want to close the chat? This will clear your conversation history.')) {
+      // Clear session data
+      clearSessionData(sessionId);
+      
       // Clear localStorage and generate new session ID
       localStorage.removeItem('aivi_chat_state');
       
       // Generate new session ID for fresh start
       const newSessionId = generateSessionId();
       setSessionId(newSessionId);
+      
+      // Initialize new session data
+      updateSessionData(newSessionId, {});
       
       // Reset to initial state
       setMessages([
@@ -476,9 +545,7 @@ export default function ChatBot() {
       setSlackChannelId(null);
       setAgentConnected(false);
       
-      if (process.env.NODE_ENV === 'development') {
-        console.log('🤖 [ChatBot] Chat cleared and closed. New sessionId:', newSessionId);
-      }
+      console.log('🤖 [ChatBot] Chat cleared and closed. New sessionId:', newSessionId);
     }
   };
 

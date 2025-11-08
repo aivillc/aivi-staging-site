@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { sessionId, initialMessage, conversationHistory } = await request.json();
+    const { sessionId, initialMessage, conversationHistory, sessionData } = await request.json();
 
     if (!sessionId) {
       return NextResponse.json({ error: 'sessionId is required' }, { status: 400 });
@@ -127,6 +127,32 @@ export async function POST(request: NextRequest) {
     let contextMessage = `🤖 *New Agent Request*\n\n`;
     contextMessage += `*Session ID:* ${sessionId}\n`;
     contextMessage += `*Time:* ${new Date().toLocaleString()}\n\n`;
+    
+    // Add session data (user information)
+    if (sessionData && Object.keys(sessionData).length > 0) {
+      contextMessage += `*User Information:*\n`;
+      if (sessionData.name) contextMessage += `*Name:* ${sessionData.name}\n`;
+      if (sessionData.email) contextMessage += `*Email:* ${sessionData.email}\n`;
+      if (sessionData.phone) contextMessage += `*Phone:* ${sessionData.phone}\n`;
+      if (sessionData.businessName) contextMessage += `*Business:* ${sessionData.businessName}\n`;
+      if (sessionData.industry) contextMessage += `*Industry:* ${sessionData.industry}\n`;
+      if (sessionData.country) contextMessage += `*Country:* ${sessionData.country}\n`;
+      
+      // Form data
+      if (sessionData.challenge) contextMessage += `*Challenge:* ${sessionData.challenge}\n`;
+      if (sessionData.channels) {
+        const channelsStr = Array.isArray(sessionData.channels) 
+          ? sessionData.channels.join(', ') 
+          : sessionData.channels;
+        contextMessage += `*Channels:* ${channelsStr}\n`;
+      }
+      if (sessionData.volume) contextMessage += `*Monthly Volume:* ${sessionData.volume}\n`;
+      if (sessionData.goal) contextMessage += `*Goal:* ${sessionData.goal}\n`;
+      if (sessionData.crm) contextMessage += `*CRM:* ${sessionData.crm}\n`;
+      if (sessionData.additionalNotes) contextMessage += `*Notes:* ${sessionData.additionalNotes}\n`;
+      
+      contextMessage += `\n`;
+    }
     
     if (initialMessage) {
       contextMessage += `*User's Request:*\n> ${initialMessage}\n\n`;

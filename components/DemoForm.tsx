@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { updateSessionData } from '@/lib/sessionData';
+import { generateSessionId } from '@/lib/chatConfig';
 
 type QuestionType = 'select' | 'multiselect' | 'text';
 
@@ -196,6 +198,35 @@ export default function DemoForm() {
       timestamp: new Date().toISOString(),
       source: 'AIVI Staging - Interactive Bot'
     };
+    
+    // Save to session data for use in chat
+    try {
+      // Get or create session ID for this user
+      let sessionId = localStorage.getItem('aivi_form_session_id');
+      if (!sessionId) {
+        sessionId = generateSessionId();
+        localStorage.setItem('aivi_form_session_id', sessionId);
+      }
+      
+      // Update session data with form responses
+      updateSessionData(sessionId, {
+        name: contactData.fullName,
+        email: contactData.email,
+        phone: contactData.phone,
+        businessName: contactData.companyName,
+        industry: responses.industry as string,
+        challenge: responses.challenge as string,
+        channels: responses.channels as string[],
+        volume: responses.volume as string,
+        goal: responses.goal as string,
+        crm: responses.crm as string,
+        additionalNotes: contactData.additionalNotes,
+      });
+      
+      console.log('✅ Form data saved to session:', sessionId);
+    } catch (error) {
+      console.error('Error saving form data to session:', error);
+    }
     
     // Send to webhook
     try {

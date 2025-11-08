@@ -64,50 +64,18 @@ export default function ChatBot() {
     return false;
   };
 
-  // Initialize state from localStorage or create new
-  const [isOpen, setIsOpen] = useState(() => {
-    if (checkAndClearExpiredCache()) {
-      return false;
-    }
-    const state = getCachedState();
-    return state?.isOpen || false;
-  });
-
-  const [sessionId, setSessionId] = useState(() => {
-    const state = getCachedState();
-    if (state?.sessionId) {
-      if (process.env.NODE_ENV === 'development') {
-        console.log('🤖 [ChatBot] Restored sessionId from cache:', state.sessionId);
-      }
-      return state.sessionId;
-    }
-    const id = generateSessionId();
-    if (process.env.NODE_ENV === 'development') {
-      console.log('🤖 [ChatBot] Created new sessionId:', id);
-    }
-    return id;
-  });
-
-  const [messages, setMessages] = useState<Message[]>(() => {
-    const state = getCachedState();
-    if (state?.messages) {
-      if (process.env.NODE_ENV === 'development') {
-        console.log('🤖 [ChatBot] Restored', state.messages.length, 'messages from cache');
-      }
-      return state.messages.map(msg => ({
-        ...msg,
-        timestamp: new Date(msg.timestamp),
-      }));
-    }
-    return [
-      {
-        id: 1,
-        text: "Hi! I'm AIVI, your AI assistant. How can I help you today?",
-        sender: 'bot',
-        timestamp: new Date(),
-      },
-    ];
-  });
+  // Initialize state - will be hydrated from localStorage after mount
+  const [isOpen, setIsOpen] = useState(false);
+  const [sessionId, setSessionId] = useState(() => generateSessionId());
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      text: "Hi! I'm AIVI, your AI assistant. How can I help you today?",
+      sender: 'bot',
+      timestamp: new Date(),
+    },
+  ]);
+  const [isHydrated, setIsHydrated] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -117,8 +85,35 @@ export default function ChatBot() {
   const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Save state to localStorage whenever it changes
+  // Hydrate from localStorage on mount (client-side only)
   useEffect(() => {
+    if (checkAndClearExpiredCache()) {
+      setIsHydrated(true);
+      return;
+    }
+
+    const state = getCachedState();
+    if (state) {
+      if (state.sessionId) {
+        setSessionId(state.sessionId);
+        console.log('🤖 [ChatBot] Restored sessionId from cache:', state.sessionId);
+      }
+      if (state.messages && state.messages.length > 0) {
+        setMessages(state.messages.map(msg => ({
+          ...msg,
+          timestamp: new Date(msg.timestamp),
+        })));
+        console.log('🤖 [ChatBot] Restored', state.messages.length, 'messages from cache');
+      }
+      setIsOpen(state.isOpen || false);
+    }
+    setIsHydrated(true);
+  }, []);
+
+  // Save state to localStorage whenever it changes (only after hydration)
+  useEffect(() => {
+    if (!isHydrated) return;
+    
     if (typeof window !== 'undefined') {
       const state: ChatState = {
         sessionId,
@@ -136,7 +131,7 @@ export default function ChatBot() {
         console.log('🤖 [ChatBot] State saved to cache with timestamp');
       }
     }
-  }, [sessionId, messages, isOpen]);
+  }, [sessionId, messages, isOpen, isHydrated]);
 
   // Log on mount
   useEffect(() => {

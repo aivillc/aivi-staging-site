@@ -5,7 +5,80 @@ Current Version: v1.0.9
 Date: November 8, 2025
 
 ================================================================================
-VERSION 1.0.9 (LATEST) - ChatBot Scrollbar Enhancement (November 8, 2025)
+VERSION 1.0.9 (LATEST) - Reverted Theme System (November 8, 2025)
+================================================================================
+
+PROMPT: "can you revert the changes of the theme color selector and tailwind css?"
+
+CHANGES MADE:
+1. Removed Dynamic Theme System Files
+   - Deleted: lib/ThemeContext.tsx
+   - Deleted: lib/themeConfig.ts  
+   - Deleted: lib/useThemeClasses.tsx
+   - Deleted: components/ThemeSelector.tsx
+   - Deleted: components/DynamicTheme.tsx
+
+2. Reverted app/layout.tsx
+   - Removed ThemeProvider import
+   - Removed ThemeProvider wrapper around children
+   - Back to simple layout without theme context
+
+3. Reverted components/ChatBot.tsx
+   - Removed useTheme and DynamicGradient imports
+   - Replaced DynamicGradient with regular button element
+   - Changed dynamic theme.primary.main to hardcoded purple (#8b5cf6)
+   - Changed dynamic theme.secondary.main to hardcoded orange (#ff6b35)
+   - Reverted chat button gradient to: bg-gradient-to-br from-purple-600 to-orange-500
+   - Reverted header gradient to: bg-gradient-to-r from-purple-600/10 to-orange-500/10
+   - Reverted avatar gradient to: bg-gradient-to-br from-purple-600 to-orange-500
+   - Kept custom scrollbar styling (purple-orange gradient)
+
+4. Reverted components/Navigation.tsx
+   - Removed ThemeSelector, DynamicGradient, and useTheme imports
+   - Changed border color from dynamic to: border-purple-600/20
+   - Reverted link hover colors to: hover:text-purple-400
+   - Reverted underline gradients to: bg-gradient-to-r from-purple-600 to-orange-500
+   - Changed "Get Started" button from DynamicGradient to regular button
+   - Button gradient: bg-gradient-to-r from-orange-500 to-purple-600
+   - Removed ThemeSelector component from navigation
+
+5. Reverted components/Hero.tsx
+   - Restored entire file from commit 4278fe0 (before theme system)
+   - Removed useTheme and Dynamic component imports
+   - Reverted all dynamic theme references to hardcoded values:
+     * bg-purple-600/20 for gradient orbs
+     * bg-orange-500/20 for secondary orbs
+     * from-purple-600/10 to-orange-500/10 for main gradient
+     * rgba(139,92,246,0.03) for grid overlay
+     * from-purple-500 to-orange-500 for scan lines
+     * All text gradients back to hardcoded purple/orange
+
+REASON FOR REVERSION:
+User requested to remove the dynamic theme color selector system and return to the original hardcoded purple-orange TRON theme. The dynamic theme system added complexity that wasn't needed for the current requirements.
+
+RESULT:
+✅ All theme system files removed
+✅ Site reverted to original purple (#8b5cf6) to orange (#ff6b35) color scheme
+✅ Theme selector dropdown removed from navigation
+✅ All components use hardcoded Tailwind classes instead of dynamic theme values
+✅ Custom scrollbar styling preserved with purple-orange gradient
+✅ No build errors - all dependencies resolved
+
+FILES MODIFIED:
+- app/layout.tsx (removed ThemeProvider)
+- components/ChatBot.tsx (reverted to hardcoded colors)
+- components/Navigation.tsx (reverted to hardcoded colors, removed ThemeSelector)
+- components/Hero.tsx (restored from git history)
+
+FILES DELETED:
+- lib/ThemeContext.tsx
+- lib/themeConfig.ts
+- lib/useThemeClasses.tsx
+- components/ThemeSelector.tsx
+- components/DynamicTheme.tsx
+
+================================================================================
+PREVIOUS: ChatBot Scrollbar Enhancement (November 8, 2025)
 ================================================================================
 
 PROMPT: "For the chatbot, can we improve the look of the scrollbar inside the chat?"

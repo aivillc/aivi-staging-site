@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import DemoForm from './DemoForm';
 import Image from 'next/image';
 
@@ -11,6 +12,13 @@ const industryHeadlines = [
     subtitle: 'In 13 Seconds',
     description: 'AI-powered omnichannel automation that reactivates 50% of dead leads and increases conversions by',
     stat: '391%'
+  },
+  {
+    industry: 'Financial',
+    title: 'Turn Prospects Into',
+    subtitle: 'In 13 Seconds',
+    description: 'AI-powered client onboarding and financial advisory that increases client retention by',
+    stat: '78%'
   },
   {
     industry: 'Healthcare',
@@ -43,16 +51,34 @@ const industryHeadlines = [
 ];
 
 interface HeroProps {
-  industry?: 'Healthcare' | 'Logistics' | 'Real Estate';
+  industry?: 'Financial' | 'Healthcare' | 'Law Firms' | 'Real Estate' | 'Logistics';
 }
 
 export default function Hero({ industry }: HeroProps = {}) {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   // If industry prop is provided, find that specific industry, otherwise use rotation
   const fixedIndustry = industry ? industryHeadlines.find(h => h.industry === industry) : null;
   const shouldRotate = !industry;
+
+  // Map industry names to page routes
+  const industryRoutes: Record<string, string> = {
+    'General': '/',
+    'Financial': '/financial',
+    'Healthcare': '/healthcare',
+    'Law Firms': '/law-firms',
+    'Real Estate': '/real-estate',
+    'Logistics': '/logistics'
+  };
+
+  const handleIndustryClick = (industryName: string) => {
+    const route = industryRoutes[industryName];
+    if (route) {
+      router.push(route);
+    }
+  };
 
   useEffect(() => {
     if (!shouldRotate) return;
@@ -132,8 +158,8 @@ export default function Hero({ industry }: HeroProps = {}) {
               {industryHeadlines.map((item, index) => (
                 <button
                   key={item.industry}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-400 ${
+                  onClick={() => handleIndustryClick(item.industry)}
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-400 cursor-pointer ${
                     index === currentIndex
                       ? 'bg-gradient-to-r from-purple-600 to-orange-500 text-white scale-105 shadow-[0_4px_20px_rgba(139,92,246,0.4)]'
                       : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70 hover:scale-105 border border-white/10'

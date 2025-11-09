@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHospital, faTruck, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHospital, faTruck, faHouse, faGavel } from '@fortawesome/free-solid-svg-icons';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -65,7 +65,7 @@ export default function Navigation() {
               {/* Dropdown Menu */}
               <div className={`absolute top-full left-0 mt-3 w-52 bg-black/98 backdrop-blur-2xl border border-purple-600/30 rounded-xl shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-400 ease-out ${useCasesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-3 pointer-events-none'}`}>
                 <Link
-                  href="/"
+                  href="/financial"
                   className="block px-5 py-3.5 text-white/75 hover:text-white hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-transparent transition-all duration-300 text-sm font-medium border-b border-purple-600/10 group"
                 >
                   <span className="flex items-center gap-3">
@@ -83,11 +83,20 @@ export default function Navigation() {
                   </span>
                 </Link>
                 <Link
+                  href="/law-firms"
+                  className="block px-5 py-3.5 text-white/75 hover:text-white hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-transparent transition-all duration-300 text-sm font-medium border-b border-purple-600/10 group"
+                >
+                  <span className="flex items-center gap-3">
+                    <FontAwesomeIcon icon={faGavel} className="text-orange-400 w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">Law Firms</span>
+                  </span>
+                </Link>
+                <Link
                   href="/logistics"
                   className="block px-5 py-3.5 text-white/75 hover:text-white hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-transparent transition-all duration-300 text-sm font-medium border-b border-purple-600/10 group"
                 >
                   <span className="flex items-center gap-3">
-                    <FontAwesomeIcon icon={faTruck} className="text-orange-400 w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                    <FontAwesomeIcon icon={faTruck} className="text-purple-500 w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
                     <span className="group-hover:translate-x-1 transition-transform duration-300">Logistics</span>
                   </span>
                 </Link>
@@ -96,7 +105,7 @@ export default function Navigation() {
                   className="block px-5 py-3.5 text-white/75 hover:text-white hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-transparent transition-all duration-300 text-sm font-medium group"
                 >
                   <span className="flex items-center gap-3">
-                    <FontAwesomeIcon icon={faHouse} className="text-purple-500 w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                    <FontAwesomeIcon icon={faHouse} className="text-orange-500 w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
                     <span className="group-hover:translate-x-1 transition-transform duration-300">Real Estate</span>
                   </span>
                 </Link>

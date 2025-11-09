@@ -3,14 +3,24 @@
 import { useState } from 'react';
 
 interface FeaturesProps {
-  industry?: 'Healthcare' | 'Logistics' | 'Real Estate';
+  industry?: 'Financial' | 'Healthcare' | 'Law Firms' | 'Real Estate' | 'Logistics';
 }
 
 const featuresContent = {
+  Financial: {
+    title: 'Financial Services AI',
+    subtitle: 'Capabilities',
+    description: 'Secure client communication, automated reporting, and compliance-ready financial advisory automation'
+  },
   Healthcare: {
     title: 'Healthcare-Specific AI',
     subtitle: 'Capabilities',
     description: 'HIPAA-compliant automation for patient engagement, appointment management, and healthcare communication'
+  },
+  'Law Firms': {
+    title: 'Legal Practice AI',
+    subtitle: 'Capabilities',
+    description: 'Confidential client communication, case management automation, and consultation scheduling'
   },
   Logistics: {
     title: 'Logistics-Optimized AI',

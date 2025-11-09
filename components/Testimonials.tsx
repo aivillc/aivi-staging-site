@@ -2,10 +2,47 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 interface TestimonialsProps {
-  industry?: 'Healthcare' | 'Logistics' | 'Real Estate';
+  industry?: 'Financial' | 'Healthcare' | 'Law Firms' | 'Real Estate' | 'Logistics';
 }
 
 const testimonialsContent = {
+  Financial: {
+    title: 'Trusted by Financial Leaders',
+    subtitle: 'Financial Leaders',
+    description: 'See how AIVI transforms client engagement and advisory services',
+    testimonials: [
+      {
+        quote: "Client onboarding time dropped from 3 days to 12 seconds. AIVI's automated document processing and verification saved us countless hours.",
+        author: "Robert Chen",
+        role: "Managing Partner",
+        company: "Summit Wealth Advisors",
+        industry: "Financial",
+        color: 'purple' as const
+      },
+      {
+        quote: "Client retention increased by 78%. Automated portfolio updates and investment alerts keep our clients engaged and informed.",
+        author: "Sarah Martinez",
+        role: "Director of Client Services",
+        company: "Capital Growth Partners",
+        industry: "Financial",
+        color: 'orange' as const
+      },
+      {
+        quote: "Response time to client inquiries went from hours to seconds. The AI handles routine questions while escalating complex issues seamlessly.",
+        author: "David Williams",
+        role: "Chief Technology Officer",
+        company: "Premier Financial Group",
+        industry: "Financial",
+        color: 'purple' as const
+      }
+    ],
+    stats: [
+      { number: '78%', label: 'Client Retention', color: 'purple' as const },
+      { number: '89%', label: 'Onboarding Rate', color: 'orange' as const },
+      { number: '3x', label: 'Faster Processing', color: 'purple' as const },
+      { number: '12s', label: 'Response Time', color: 'orange' as const }
+    ]
+  },
   Healthcare: {
     title: 'Trusted by Healthcare Providers',
     subtitle: 'Healthcare Providers',
@@ -41,6 +78,43 @@ const testimonialsContent = {
       { number: '94%', label: 'Appointment Confirmations', color: 'orange' as const },
       { number: '2x', label: 'Patient Retention', color: 'purple' as const },
       { number: '45s', label: 'Response Time', color: 'orange' as const }
+    ]
+  },
+  'Law Firms': {
+    title: 'Trusted by Top Law Firms',
+    subtitle: 'Top Law Firms',
+    description: 'See how AIVI transforms client intake and case management',
+    testimonials: [
+      {
+        quote: "Consultation conversion rate jumped to 85%. AIVI's 15-second response time means we never lose a potential client to slow follow-up.",
+        author: "Patricia Anderson",
+        role: "Managing Partner",
+        company: "Anderson & Associates Law",
+        industry: "Law Firms",
+        color: 'purple' as const
+      },
+      {
+        quote: "Automated case updates freed up 18 hours weekly. Our clients stay informed without constant manual updates from our paralegals.",
+        author: "Michael Thompson",
+        role: "Senior Partner",
+        company: "Thompson Legal Group",
+        industry: "Law Firms",
+        color: 'orange' as const
+      },
+      {
+        quote: "Client retention increased by 91%. The AI handles appointment reminders, document requests, and court date notifications flawlessly.",
+        author: "Elizabeth Chen",
+        role: "Client Relations Director",
+        company: "Metropolitan Law Partners",
+        industry: "Law Firms",
+        color: 'purple' as const
+      }
+    ],
+    stats: [
+      { number: '85%', label: 'Consultation Conversion', color: 'purple' as const },
+      { number: '91%', label: 'Client Retention', color: 'orange' as const },
+      { number: '18hrs', label: 'Time Saved Weekly', color: 'purple' as const },
+      { number: '15s', label: 'Response Time', color: 'orange' as const }
     ]
   },
   Logistics: {

@@ -2,10 +2,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBullseye, faCheck, faExclamationTriangle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface DashboardProps {
-  industry?: 'Healthcare' | 'Logistics' | 'Real Estate';
+  industry?: 'Financial' | 'Healthcare' | 'Law Firms' | 'Real Estate' | 'Logistics';
 }
 
 const dashboardContent = {
+  Financial: {
+    badge: 'Client Analytics',
+    title: 'Real-Time Client Engagement',
+    subtitle: 'Dashboard',
+    description: 'Track client onboarding, retention rates, and advisory session engagement with comprehensive financial analytics',
+    metrics: [
+      { label: 'Client Onboarding Rate', value: '89%', change: '+22%', positive: true },
+      { label: 'Client Retention', value: '78%', change: '+28%', positive: true },
+      { label: 'Response Time', value: '12s', change: '-35%', positive: true },
+    ],
+    channels: [
+      { channel: 'Account Updates', percentage: 93 },
+      { channel: 'Investment Alerts', percentage: 90 },
+      { channel: 'Document Requests', percentage: 87 },
+      { channel: 'Consultation Reminders', percentage: 84 },
+    ],
+    insight: 'Detected client confusion about portfolio allocation. Suggested automated educational content and advisor callback.'
+  },
   Healthcare: {
     badge: 'Patient Analytics',
     title: 'Real-Time Patient Engagement',
@@ -23,6 +41,24 @@ const dashboardContent = {
       { channel: 'Follow-up Calls', percentage: 79 },
     ],
     insight: 'Detected patient confusion about insurance coverage. Suggested automated benefits verification call.'
+  },
+  'Law Firms': {
+    badge: 'Case Analytics',
+    title: 'Real-Time Client Case Management',
+    subtitle: 'Dashboard',
+    description: 'Track consultation conversions, client retention, and case response times with comprehensive legal practice analytics',
+    metrics: [
+      { label: 'Consultation Conversion', value: '85%', change: '+32%', positive: true },
+      { label: 'Client Retention', value: '91%', change: '+24%', positive: true },
+      { label: 'Response Time', value: '15s', change: '-28%', positive: true },
+    ],
+    channels: [
+      { channel: 'Case Updates', percentage: 95 },
+      { channel: 'Document Requests', percentage: 92 },
+      { channel: 'Court Date Reminders', percentage: 89 },
+      { channel: 'Consultation Scheduling', percentage: 87 },
+    ],
+    insight: 'Detected client anxiety about case timeline. Suggested automated status updates and attorney callback scheduling.'
   },
   Logistics: {
     badge: 'Delivery Analytics',

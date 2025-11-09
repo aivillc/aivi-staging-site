@@ -3,10 +3,22 @@
 import { useState } from 'react';
 
 interface PainPointsProps {
-  industry?: 'Healthcare' | 'Logistics' | 'Real Estate';
+  industry?: 'Financial' | 'Healthcare' | 'Law Firms' | 'Real Estate' | 'Logistics';
 }
 
 const painPointsContent = {
+  Financial: {
+    title: 'Stop Losing Clients to',
+    subtitle: 'Slow Onboarding',
+    description: 'Every delayed response costs you a high-value client. Modern investors expect instant communication. Can you deliver?',
+    painPoints: [
+      { title: 'Slow Onboarding', stat: '45% abandon process', solution: '12-second response time', color: 'purple' as const },
+      { title: 'Manual Document Processing', stat: '20+ hours wasted weekly', solution: 'Automated document handling', color: 'orange' as const },
+      { title: 'Low Client Retention', stat: '$500K+ lost annually', solution: '78% retention increase', color: 'purple' as const },
+    ],
+    ctaText: 'Limited: 10 Financial Firms This Month',
+    spotsText: 'Current availability: 6 spots'
+  },
   Healthcare: {
     title: 'Stop Losing Patients to',
     subtitle: 'Slow Follow-Ups',
@@ -17,6 +29,18 @@ const painPointsContent = {
       { title: 'Low Patient Engagement', stat: '$100K+ lost annually', solution: '2x patient retention', color: 'purple' as const },
     ],
     ctaText: 'Limited: 10 Healthcare Practices This Month',
+    spotsText: 'Current availability: 6 spots'
+  },
+  'Law Firms': {
+    title: 'Stop Losing Clients to',
+    subtitle: 'Slow Response Times',
+    description: 'Every hour delay costs you a potential client. Legal clients expect immediate attention. Can you keep up?',
+    painPoints: [
+      { title: 'Missed Consultations', stat: '60% never schedule', solution: '15-second response time', color: 'purple' as const },
+      { title: 'Manual Case Updates', stat: '18+ hours wasted weekly', solution: 'Automated client updates', color: 'orange' as const },
+      { title: 'Low Client Retention', stat: '$300K+ lost annually', solution: '85% retention increase', color: 'purple' as const },
+    ],
+    ctaText: 'Limited: 10 Law Firms This Month',
     spotsText: 'Current availability: 6 spots'
   },
   Logistics: {

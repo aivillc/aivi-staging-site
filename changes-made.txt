@@ -1,11 +1,175 @@
 AIVI STAGING - CHANGELOG
 ========================
 
-Current Version: v1.0.10
-Date: November 8, 2025
+Current Version: v1.0.11
+Date: November 9, 2025
 
 ================================================================================
-VERSION 1.0.10 (LATEST) - Alternating Dark/Light Sections on Industry Pages (November 8, 2025)
+VERSION 1.0.11 (LATEST) - HubSpot CRM Integration (November 9, 2025)
+================================================================================
+
+PROMPT: "Can we append the session data to hubspot contacts with the API?"
+
+CHANGES MADE:
+1. Created HubSpot Service (lib/hubspotService.ts)
+   - createOrUpdateHubSpotContact(): Main sync function
+     * Searches for existing contact by email (avoids duplicates)
+     * Creates new contact if none exists
+     * Updates existing contact with new session data
+     * Maps SessionData fields to HubSpot contact properties
+     * Supports conversation transcript storage
+     * Returns success status and contact ID
+   
+   - testHubSpotConnection(): Connection validation
+     * Tests API key and permissions
+     * Useful for debugging integration
+   
+   - Field Mapping:
+     * Standard fields: email, firstname, lastname, phone, company, industry
+     * Custom AIVI fields (must be created in HubSpot):
+       - aivi_session_id: Unique session identifier
+       - aivi_challenge: Customer's primary challenge
+       - aivi_channels: Preferred communication channels (comma-separated)
+       - aivi_volume: Monthly message volume
+       - aivi_goal: Primary automation goal
+       - aivi_current_crm: Current CRM system
+       - aivi_conversation_transcript: Full chat transcript
+       - aivi_additional_notes: Extra notes from form
+   
+   - Error Handling:
+     * Validates API key configuration
+     * Requires email for contact creation
+     * Logs detailed errors for debugging
+     * Detects missing custom properties
+
+2. Created HubSpot Sync API Endpoint (app/api/hubspot/sync/route.ts)
+   - POST /api/hubspot/sync
+     * Accepts: sessionId, includeConversation, conversationTranscript
+     * Retrieves session data from memory
+     * Calls HubSpot service to create/update contact
+     * Returns: success status, contactId, isNewContact flag
+     * Error handling with detailed status codes
+   
+   - GET /api/hubspot/sync (test endpoint)
+     * Returns API configuration status
+     * Shows if API key is configured
+     * Useful for health checks
+
+3. Updated ChatBot Component (components/ChatBot.tsx)
+   - Added syncToHubSpot() function
+     * Checks if email exists before syncing
+     * Optionally includes conversation transcript
+     * Creates formatted timestamp for each message
+     * Handles errors gracefully (doesn't block chat)
+     * Logs all sync attempts for debugging
+   
+   - SYNC TRIGGER #1: Email Capture
+     * Fires when email is first extracted from chat
+     * Creates initial HubSpot contact
+     * No conversation transcript (just basic info)
+     * Line 393: `if (filteredUpdates.email) { syncToHubSpot(false); }`
+   
+   - SYNC TRIGGER #2: Substantial Data Capture
+     * Fires when we have email + name + one other field
+     * Updates contact with additional details
+     * No conversation yet (progressive update)
+     * Line 398: Checks for email + name + (phone OR businessName OR challenge)
+   
+   - SYNC TRIGGER #3: Agent Request
+     * Fires when user asks for human agent
+     * Includes FULL conversation transcript
+     * Happens before Slack channel creation
+     * Line 443: `await syncToHubSpot(true);` before agent connect
+   
+   - SYNC TRIGGER #4: Chat Close
+     * Fires when user closes chat window
+     * Includes complete conversation history
+     * Final sync before session clears
+     * Line 621: `await syncToHubSpot(true);` in handleCloseChat
+   
+   - Progressive Sync Strategy:
+     * Start: Create contact when email captured
+     * Middle: Update as more info comes in
+     * End: Final update with full transcript
+     * Benefits: Real-time lead capture + complete context
+
+4. Updated DemoForm Component (components/DemoForm.tsx)
+   - Added HubSpot sync after form submission
+     * Fires immediately after session data is saved
+     * Syncs all form fields to HubSpot
+     * No conversation transcript (form submission only)
+     * Line 229: Calls /api/hubspot/sync after updateSessionData
+   
+   - Error handling:
+     * Form submission succeeds even if HubSpot fails
+     * Logs errors to console for debugging
+     * Doesn't block user experience
+
+5. Created Setup Documentation (HUBSPOT_SETUP.md)
+   - Complete guide for creating 8 custom HubSpot properties
+   - Step-by-step property creation instructions
+   - Exact property names and field types
+   - Troubleshooting section
+   - Verification checklist
+   - Alternative: mapping to standard fields
+
+6. Environment Configuration (.env.local)
+   - Added HUBSPOT_API_KEY variable
+   - Configured with Private App access token (pat-na2-...)
+   - Note: Must also be added to Vercel environment variables for production
+
+TECHNICAL IMPLEMENTATION:
+- Authentication: Bearer token (Private App or Legacy API key)
+- API Base URL: https://api.hubapi.com
+- Endpoints Used:
+  * POST /crm/v3/objects/contacts/search (find existing contacts)
+  * POST /crm/v3/objects/contacts (create new contact)
+  * PATCH /crm/v3/objects/contacts/{id} (update existing contact)
+- Search Strategy: Search by email first to avoid duplicates
+- Update Strategy: PATCH preserves existing data, only updates provided fields
+- Error Detection: Parses error messages for missing properties
+
+SYNC TIMING OPTIONS:
+All 4 triggers are currently ENABLED (Option D: Progressive Updates):
+1. Email capture → Creates contact immediately
+2. Substantial data → Updates with more details
+3. Agent request → Adds full conversation
+4. Chat close → Final update with complete transcript
+
+To modify timing, simply comment out any trigger in ChatBot.tsx:
+- // syncToHubSpot(false); to disable
+- syncToHubSpot(false); to enable
+
+BENEFITS:
+- Automatic lead capture in HubSpot CRM
+- No manual data entry required
+- Full conversation context for follow-ups
+- Progressive data enrichment
+- Duplicate prevention (search by email)
+- Works with both chat and form submissions
+- Seamless integration with existing workflow
+
+SETUP REQUIRED:
+1. ✅ Add HUBSPOT_API_KEY to .env.local (DONE)
+2. ⚠️ Create 8 custom properties in HubSpot (see HUBSPOT_SETUP.md)
+3. ⚠️ Add HUBSPOT_API_KEY to Vercel environment variables
+4. ⚠️ Test with dummy submission
+5. ⚠️ Verify contact created in HubSpot with all fields
+
+CUSTOM PROPERTIES TO CREATE:
+- aivi_session_id (Single-line text)
+- aivi_challenge (Single-line text)
+- aivi_channels (Single-line text)
+- aivi_volume (Single-line text)
+- aivi_goal (Single-line text)
+- aivi_current_crm (Single-line text)
+- aivi_conversation_transcript (Multi-line text)
+- aivi_additional_notes (Multi-line text)
+
+See HUBSPOT_SETUP.md for detailed instructions.
+
+================================================================================
+VERSION 1.0.10 - Alternating Dark/Light Sections on Industry Pages (November 8, 2025)
 ================================================================================
 
 PROMPT: "For each one of the pages you created, you need to add some more sections with content with a white background to break the monotony you created. It needs to alternate everytime dark > light > dark > light etc.."

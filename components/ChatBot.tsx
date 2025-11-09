@@ -236,6 +236,55 @@ export default function ChatBot() {
     scrollToBottom();
   }, [messages]);
 
+  // HubSpot sync function
+  const syncToHubSpot = async (includeConversation: boolean = false) => {
+    try {
+      const sessionData = getSessionData(sessionId);
+      
+      // Only sync if we have at least an email
+      if (!sessionData?.email) {
+        console.log('⏭️ [HubSpot] Skipping sync - no email captured yet');
+        return;
+      }
+
+      console.log('🔄 [ChatBot] Syncing to HubSpot...');
+      
+      const payload: any = {
+        sessionId,
+        includeConversation,
+      };
+      
+      if (includeConversation) {
+        // Create conversation transcript
+        const conversationText = messages
+          .map(m => {
+            const timestamp = new Date(m.timestamp).toLocaleString();
+            return `[${timestamp}] ${m.sender.toUpperCase()}: ${m.text}`;
+          })
+          .join('\n\n');
+        payload.conversationTranscript = `AIVI Chat Conversation:\n\n${conversationText}`;
+      }
+      
+      const response = await fetch('/api/hubspot/sync', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ [ChatBot] Synced to HubSpot:', data);
+      } else {
+        const errorText = await response.text();
+        console.error('❌ [ChatBot] HubSpot sync failed:', errorText);
+      }
+    } catch (error) {
+      console.error('❌ [ChatBot] Error syncing to HubSpot:', error);
+    }
+  };
+
   // Poll for backend AI messages when chat is open
   useEffect(() => {
     if (!isOpen) {
@@ -374,6 +423,20 @@ export default function ChatBot() {
         if (Object.keys(filteredUpdates).length > 0) {
           updateSessionData(sessionId, filteredUpdates);
           console.log('📊 [ChatBot] Added new info from message (preserving existing):', filteredUpdates);
+          
+          // HUBSPOT SYNC TRIGGER #1: Sync when we capture email (creates initial contact)
+          if (filteredUpdates.email) {
+            console.log('📧 [HubSpot] Email captured, syncing to create contact...');
+            syncToHubSpot(false); // No conversation yet, just basic info
+          }
+          
+          // HUBSPOT SYNC TRIGGER #2: Sync when we have substantial info (email + name + one more field)
+          const updatedData = getSessionData(sessionId);
+          if (updatedData && updatedData.email && updatedData.name && 
+              (updatedData.phone || updatedData.businessName || updatedData.challenge)) {
+            console.log('📊 [HubSpot] Substantial data captured, updating contact...');
+            syncToHubSpot(false); // Update with new info
+          }
         }
       }
     } catch (error) {
@@ -419,6 +482,10 @@ export default function ChatBot() {
       // Create Slack channel for live agent support
       try {
         console.log('🔔 [ChatBot] Agent keyword detected, creating Slack channel...');
+        
+        // HUBSPOT SYNC TRIGGER #3: Sync with full conversation when agent is requested
+        console.log('💬 [HubSpot] Agent requested, syncing conversation...');
+        await syncToHubSpot(true); // Include full conversation transcript
         
         // Get session data to send with channel creation
         const sessionData = getSessionData(sessionId);
@@ -548,8 +615,12 @@ export default function ChatBot() {
     }
   };
 
-  const handleCloseChat = () => {
+  const handleCloseChat = async () => {
     if (confirm('Are you sure you want to close the chat? This will clear your conversation history.')) {
+      // HUBSPOT SYNC TRIGGER #4: Sync with full conversation before closing
+      console.log('👋 [HubSpot] Chat closing, syncing final conversation...');
+      await syncToHubSpot(true); // Include full conversation transcript
+      
       // Clear session data
       clearSessionData(sessionId);
       

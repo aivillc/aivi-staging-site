@@ -220,6 +220,31 @@ export default function DemoForm() {
       });
       
       console.log('✅ Form data saved to global session:', sessionId);
+      
+      // Sync to HubSpot after form submission
+      try {
+        console.log('📤 [HubSpot] Syncing form submission...');
+        const hubspotResponse = await fetch('/api/hubspot/sync', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            sessionId,
+            includeConversation: false, // No chat conversation from form
+          }),
+        });
+        
+        if (hubspotResponse.ok) {
+          const data = await hubspotResponse.json();
+          console.log('✅ [HubSpot] Form data synced:', data);
+        } else {
+          const errorText = await hubspotResponse.text();
+          console.error('❌ [HubSpot] Sync failed:', errorText);
+        }
+      } catch (hubspotError) {
+        console.error('❌ [HubSpot] Error syncing form:', hubspotError);
+      }
     } catch (error) {
       console.error('Error saving form data to session:', error);
     }

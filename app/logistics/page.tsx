@@ -2,6 +2,19 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import ChatBot from '@/components/ChatBot';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faTruck, 
+  faBox, 
+  faClock, 
+  faExclamationTriangle, 
+  faCheckCircle,
+  faComments,
+  faChartBar,
+  faGlobe,
+  faIndustry,
+  faCheck
+} from '@fortawesome/free-solid-svg-icons';
 
 export const metadata = {
   title: 'Logistics AI Solutions | AIVI',
@@ -28,7 +41,7 @@ export default function LogisticsPage() {
             {/* Icon */}
             <div className="mb-8 flex justify-center">
               <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-purple-600 rounded-full flex items-center justify-center text-5xl shadow-2xl shadow-orange-500/50">
-                🚚
+                <FontAwesomeIcon icon={faTruck} className="text-white" />
               </div>
             </div>
 
@@ -88,7 +101,9 @@ export default function LogisticsPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature 1 */}
             <div className="bg-white/5 border border-orange-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
-              <div className="text-4xl mb-4">📦</div>
+              <div className="text-4xl mb-4">
+                <FontAwesomeIcon icon={faBox} className="text-orange-400" />
+              </div>
               <h3 className="text-2xl font-bold text-white mb-4">Automated Shipment Updates</h3>
               <p className="text-white/70">
                 Real-time tracking notifications via SMS, email, and voice. Keep customers informed at every stage of delivery.
@@ -97,7 +112,9 @@ export default function LogisticsPage() {
 
             {/* Feature 2 */}
             <div className="bg-white/5 border border-purple-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
-              <div className="text-4xl mb-4">🕐</div>
+              <div className="text-4xl mb-4">
+                <FontAwesomeIcon icon={faClock} className="text-purple-400" />
+              </div>
               <h3 className="text-2xl font-bold text-white mb-4">Delivery Time Windows</h3>
               <p className="text-white/70">
                 AI-powered delivery time predictions. Notify customers 30 minutes before arrival and reduce failed deliveries.
@@ -106,7 +123,9 @@ export default function LogisticsPage() {
 
             {/* Feature 3 */}
             <div className="bg-white/5 border border-orange-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
-              <div className="text-4xl mb-4">⚠️</div>
+              <div className="text-4xl mb-4">
+                <FontAwesomeIcon icon={faExclamationTriangle} className="text-orange-400" />
+              </div>
               <h3 className="text-2xl font-bold text-white mb-4">Exception Management</h3>
               <p className="text-white/70">
                 Proactive alerts for delays, route changes, or delivery issues. Automated resolution workflows reduce manual intervention.
@@ -115,7 +134,9 @@ export default function LogisticsPage() {
 
             {/* Feature 4 */}
             <div className="bg-white/5 border border-purple-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
-              <div className="text-4xl mb-4">✅</div>
+              <div className="text-4xl mb-4">
+                <FontAwesomeIcon icon={faCheckCircle} className="text-purple-400" />
+              </div>
               <h3 className="text-2xl font-bold text-white mb-4">Proof of Delivery</h3>
               <p className="text-white/70">
                 Automated POD collection via SMS. Customers receive signature requests and confirmation with photo evidence.
@@ -124,7 +145,9 @@ export default function LogisticsPage() {
 
             {/* Feature 5 */}
             <div className="bg-white/5 border border-orange-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
-              <div className="text-4xl mb-4">💬</div>
+              <div className="text-4xl mb-4">
+                <FontAwesomeIcon icon={faComments} className="text-orange-400" />
+              </div>
               <h3 className="text-2xl font-bold text-white mb-4">Two-Way Communication</h3>
               <p className="text-white/70">
                 Customers can reschedule deliveries, provide special instructions, or ask questions via SMS with instant responses.
@@ -133,7 +156,9 @@ export default function LogisticsPage() {
 
             {/* Feature 6 */}
             <div className="bg-white/5 border border-purple-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
-              <div className="text-4xl mb-4">📊</div>
+              <div className="text-4xl mb-4">
+                <FontAwesomeIcon icon={faChartBar} className="text-purple-400" />
+              </div>
               <h3 className="text-2xl font-bold text-white mb-4">Route Optimization</h3>
               <p className="text-white/70">
                 AI-driven route planning based on traffic, weather, and delivery windows. Reduce fuel costs and improve on-time delivery rates.

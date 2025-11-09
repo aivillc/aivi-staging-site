@@ -31,13 +31,23 @@ export default function HealthcarePage() {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden bg-black">
-        {/* Animated Background */}
+        {/* Animated Background Gradients - TRON Style */}
         <div className="absolute inset-0 bg-black" />
+
+        {/* Moving gradient orbs */}
         <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow" />
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-3xl animate-pulse-slower" />
-        
-        {/* Grid overlay */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-to-r from-purple-600/10 via-transparent to-orange-500/10 rounded-full blur-3xl animate-spin-slow" />
+
+        {/* Grid overlay - cyberpunk style */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+
+        {/* Diagonal moving gradient lines */}
+        <div className="absolute inset-0 overflow-hidden opacity-30">
+          <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent top-1/4 animate-scan-horizontal" />
+          <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent top-1/2 animate-scan-horizontal-reverse" />
+          <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent top-3/4 animate-scan-horizontal-slow" />
+        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
@@ -92,83 +102,88 @@ export default function HealthcarePage() {
       </section>
 
       {/* Healthcare Features */}
-      <section id="features" className="relative py-20 px-6 bg-black">
-        <div className="max-w-7xl mx-auto">
+      <section id="features" className="relative py-24 px-6 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+            <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-6">
               Healthcare-Specific{' '}
-              <span className="bg-gradient-to-r from-purple-500 to-orange-500 text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-purple-600 to-orange-500 text-transparent bg-clip-text">
                 Solutions
               </span>
             </h2>
-            <p className="text-xl text-white/70 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Purpose-built AI automation for healthcare providers, clinics, and medical practices
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="bg-white/5 border border-purple-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
+            <div className="bg-white border border-purple-200 rounded-2xl p-8 hover:border-purple-400 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
               <div className="text-4xl mb-4">
-                <FontAwesomeIcon icon={faCalendarAlt} className="text-purple-400" />
+                <FontAwesomeIcon icon={faCalendarAlt} className="text-purple-600" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Appointment Reminders</h3>
-              <p className="text-white/70">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Appointment Reminders</h3>
+              <p className="text-gray-600">
                 Automated SMS, voice, and email reminders 48 hours, 24 hours, and 2 hours before appointments. Reduce no-shows dramatically.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white/5 border border-orange-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
+            <div className="bg-white border border-orange-200 rounded-2xl p-8 hover:border-orange-400 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
               <div className="text-4xl mb-4">
-                <FontAwesomeIcon icon={faPills} className="text-orange-400" />
+                <FontAwesomeIcon icon={faPills} className="text-orange-500" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Prescription Refill Automation</h3>
-              <p className="text-white/70">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Prescription Refill Automation</h3>
+              <p className="text-gray-600">
                 Proactive outreach when prescriptions are due. Patients can request refills via SMS or voice with instant confirmation.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white/5 border border-purple-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
+            <div className="bg-white border border-purple-200 rounded-2xl p-8 hover:border-purple-400 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
               <div className="text-4xl mb-4">
-                <FontAwesomeIcon icon={faClipboardList} className="text-purple-400" />
+                <FontAwesomeIcon icon={faClipboardList} className="text-purple-600" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Pre-Visit Forms</h3>
-              <p className="text-white/70">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Pre-Visit Forms</h3>
+              <p className="text-gray-600">
                 Send and collect intake forms, insurance information, and medical history before appointments. Save time at check-in.
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="bg-white/5 border border-orange-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
+            <div className="bg-white border border-orange-200 rounded-2xl p-8 hover:border-orange-400 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
               <div className="text-4xl mb-4">
-                <FontAwesomeIcon icon={faBell} className="text-orange-400" />
+                <FontAwesomeIcon icon={faBell} className="text-orange-500" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Lab Results Notification</h3>
-              <p className="text-white/70">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Lab Results Notification</h3>
+              <p className="text-gray-600">
                 Automated notifications when lab results are ready. HIPAA-compliant delivery via secure patient portals.
               </p>
             </div>
 
             {/* Feature 5 */}
-            <div className="bg-white/5 border border-purple-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
+            <div className="bg-white border border-purple-200 rounded-2xl p-8 hover:border-purple-400 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
               <div className="text-4xl mb-4">
-                <FontAwesomeIcon icon={faHospital} className="text-purple-400" />
+                <FontAwesomeIcon icon={faHospital} className="text-purple-600" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Post-Visit Follow-Up</h3>
-              <p className="text-white/70">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Post-Visit Follow-Up</h3>
+              <p className="text-gray-600">
                 Check-in with patients after procedures or visits. Collect feedback, address concerns, and improve care quality.
               </p>
             </div>
 
             {/* Feature 6 */}
-            <div className="bg-white/5 border border-orange-600/30 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
+            <div className="bg-white border border-orange-200 rounded-2xl p-8 hover:border-orange-400 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
               <div className="text-4xl mb-4">
-                <FontAwesomeIcon icon={faLock} className="text-orange-400" />
+                <FontAwesomeIcon icon={faLock} className="text-orange-500" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">HIPAA Compliant</h3>
-              <p className="text-white/70">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">HIPAA Compliant</h3>
+              <p className="text-gray-600">
                 Fully HIPAA-compliant infrastructure with encrypted communications, secure data storage, and audit trails.
               </p>
             </div>

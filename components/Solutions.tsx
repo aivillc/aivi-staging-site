@@ -35,6 +35,16 @@ export default function Solutions() {
             }`} />
             
             <div className="relative h-full p-8 bg-white border-2 border-gray-200 hover:border-green-500/50 rounded-3xl transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden">
+              {/* Coming Soon Badge */}
+              <div className="absolute top-6 right-6 z-10">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-blue-500 rounded-full blur-md opacity-50 animate-pulse" />
+                  <div className="relative px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white text-sm font-bold rounded-full shadow-lg uppercase tracking-wider">
+                    Coming Soon
+                  </div>
+                </div>
+              </div>
+
               {/* Animated Border Gradient */}
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-blue-500" />
               <div className={`absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-green-500 to-blue-500 transition-all duration-500 ${

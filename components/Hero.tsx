@@ -268,16 +268,32 @@ interface StatCardProps {
 }
 
 function StatCard({ number, label, color }: StatCardProps) {
-  const gradient = color === 'purple'
-    ? 'from-purple-600 to-purple-800'
-    : 'from-orange-500 to-orange-700';
+  const gradientBorder = color === 'purple'
+    ? 'from-purple-500 to-purple-600'
+    : 'from-orange-500 to-orange-600';
+  
+  const gradientText = color === 'purple'
+    ? 'from-purple-400 to-purple-600'
+    : 'from-orange-400 to-orange-600';
 
   return (
-    <div className={`relative p-6 bg-gradient-to-br ${gradient} rounded-xl border border-white/10 backdrop-blur-sm min-w-[140px] group hover:scale-105 transition-transform`}>
-      <div className="absolute inset-0 bg-white/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-      <div className="relative">
-        <div className="text-4xl md:text-5xl font-black text-white mb-1">{number}</div>
-        <div className="text-xs text-white/80 uppercase tracking-wider">{label}</div>
+    <div className="relative group">
+      {/* Glow effect on hover */}
+      <div className={`absolute -inset-0.5 bg-gradient-to-r ${gradientBorder} rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500`} />
+      
+      {/* Card */}
+      <div className="relative px-8 py-6 bg-black/80 backdrop-blur-sm border border-white/10 rounded-2xl min-w-[160px] hover:border-white/20 transition-all duration-300">
+        {/* Top gradient line */}
+        <div className={`absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r ${gradientBorder}`} />
+        
+        <div className="text-center">
+          <div className={`text-5xl md:text-6xl font-black bg-gradient-to-br ${gradientText} text-transparent bg-clip-text mb-2`}>
+            {number}
+          </div>
+          <div className="text-sm text-white/70 font-medium uppercase tracking-wider">
+            {label}
+          </div>
+        </div>
       </div>
     </div>
   );

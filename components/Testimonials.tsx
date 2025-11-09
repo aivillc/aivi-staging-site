@@ -65,7 +65,6 @@ export default function Testimonials() {
             <ComplianceBadge text="GDPR Ready" />
             <ComplianceBadge text="PII In-Transit Only" />
             <ComplianceBadge text="End-to-End Encryption" />
-            <ComplianceBadge text="Regular Security Audits" />
           </div>
         </div>
       </div>

@@ -42,26 +42,26 @@ export default function Features({ industry }: FeaturesProps = {}) {
   };
 
   return (
-    <section id="features" className="relative py-24 px-6 bg-black">
+    <section id="features" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-black">
       {/* Subtle grid overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+        <div className="text-center mb-12 sm:mb-14 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
             {content.title}{' '}
             <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
               {content.subtitle}
             </span>
           </h2>
-          <p className="text-xl text-white/60 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
             {content.description}
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           <FeatureCard
             title="AI Voice Calls"
             description="Natural-sounding voice agents that handle calls, qualify leads, answer questions, and transfer to human agents when needed."
@@ -193,7 +193,7 @@ function FeatureCard({ title, description, features, icon, gradient }: FeatureCa
         isHovered ? 'opacity-40' : 'opacity-0'
       }`} />
       
-      <div className="relative h-full p-8 bg-white/5 backdrop-blur-sm border-2 border-white/10 hover:border-white/30 rounded-2xl transition-all duration-500 overflow-hidden">
+      <div className="relative h-full p-6 sm:p-7 md:p-8 bg-white/5 backdrop-blur-sm border-2 border-white/10 hover:border-white/30 rounded-2xl transition-all duration-500 overflow-hidden">
         {/* Animated top border */}
         <div className={`absolute top-0 left-0 h-1 bg-gradient-to-r ${gradient} transition-all duration-500 ${
           isHovered ? 'w-full' : 'w-0'
@@ -213,7 +213,7 @@ function FeatureCard({ title, description, features, icon, gradient }: FeatureCa
           </div>
         </div>
         
-        <h3 className="text-2xl font-black text-white mb-3 transition-colors group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text" style={{
+        <h3 className="text-xl sm:text-2xl font-black text-white mb-3 transition-colors group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text" style={{
           backgroundImage: isHovered ? `linear-gradient(to right, var(--tw-gradient-stops))` : undefined,
           '--tw-gradient-from': isHovered ? (gradient.includes('purple') ? '#a855f7' : '#f97316') : undefined,
           '--tw-gradient-to': isHovered ? (gradient.includes('purple') ? '#7c3aed' : '#ea580c') : undefined,
@@ -222,7 +222,7 @@ function FeatureCard({ title, description, features, icon, gradient }: FeatureCa
           {title}
         </h3>
         
-        <p className="text-white/60 group-hover:text-white/80 mb-6 leading-relaxed transition-colors">{description}</p>
+        <p className="text-sm sm:text-base text-white/60 group-hover:text-white/80 mb-6 leading-relaxed transition-colors">{description}</p>
         
         <ul className="space-y-3">
           {features.map((feature, index) => (

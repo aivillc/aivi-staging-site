@@ -5,7 +5,7 @@ interface CRMCarouselCardProps {
 
 function CRMCarouselCard({ name, category }: CRMCarouselCardProps) {
   return (
-    <div className="flex-shrink-0 w-64 mx-4 group">
+    <div className="flex-shrink-0 w-56 sm:w-64 mx-3 sm:mx-4 group">
       <div className="p-6 rounded-xl border-2 border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 h-full">
         <div className="flex items-center justify-center h-16 mb-4">
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-orange-500/20 border-2 border-purple-500/30 flex items-center justify-center group-hover:border-purple-500 transition-all">
@@ -25,27 +25,27 @@ function CRMCarouselCard({ name, category }: CRMCarouselCardProps) {
 
 export default function Integrations() {
   return (
-    <section id="integrations" className="relative py-24 px-6 bg-black">
+    <section id="integrations" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-black">
       {/* Subtle grid overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+        <div className="text-center mb-12 sm:mb-14 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
             Seamless{' '}
             <span className="bg-gradient-to-r from-purple-500 to-orange-500 text-transparent bg-clip-text">
               Integrations
             </span>
           </h2>
-          <p className="text-xl text-white/60 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
             Connect with your existing tools and workflows. No complex setup required.
           </p>
         </div>
 
         {/* CRM Platforms Carousel */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-8 text-center">
             CRM Platforms
           </h3>
           <p className="text-white/60 text-center mb-8 max-w-2xl mx-auto">
@@ -92,7 +92,7 @@ export default function Integrations() {
 
         {/* Communication Channels */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-8 text-center">
             Communication Channels
           </h3>
           <p className="text-white/60 text-center mb-8 max-w-2xl mx-auto">
@@ -131,7 +131,7 @@ export default function Integrations() {
 
         {/* Financial & Data Services */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-8 text-center">
             Financial & Data Services
           </h3>
           <p className="text-white/60 text-center mb-8 max-w-2xl mx-auto">
@@ -169,26 +169,26 @@ export default function Integrations() {
         </div>
 
         {/* Key Integration Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-          <div className="group relative text-center p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-purple-500/50 transition-all">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12 sm:mt-16 md:mt-20">
+          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-purple-500/50 transition-all">
             <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500 to-purple-700 rounded-l-2xl" />
-            <h4 className="text-xl font-black text-white mb-3">Real-Time Sync</h4>
+            <h4 className="text-lg sm:text-xl font-black text-white mb-3">Real-Time Sync</h4>
             <p className="text-white/60">
               Bi-directional data sync keeps your CRM and AIVI always in sync, triggering actions in real-time.
             </p>
           </div>
 
-          <div className="group relative text-center p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-orange-500/50 transition-all">
+          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-orange-500/50 transition-all">
             <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange-500 to-orange-700 rounded-l-2xl" />
-            <h4 className="text-xl font-black text-white mb-3">Secure PII Handling</h4>
+            <h4 className="text-lg sm:text-xl font-black text-white mb-3">Secure PII Handling</h4>
             <p className="text-white/60">
               All personally identifiable information is encrypted in transit with zero storage, ensuring compliance.
             </p>
           </div>
 
-          <div className="group relative text-center p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-purple-500/50 transition-all">
+          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-purple-500/50 transition-all">
             <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500 to-purple-700 rounded-l-2xl" />
-            <h4 className="text-xl font-black text-white mb-3">Custom Field Mapping</h4>
+            <h4 className="text-lg sm:text-xl font-black text-white mb-3">Custom Field Mapping</h4>
             <p className="text-white/60">
               Map any custom fields from your CRM to AIVI workflows with our flexible field mapping system.
             </p>
@@ -196,14 +196,14 @@ export default function Integrations() {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 text-center p-12 bg-gradient-to-br from-white/5 to-white/10 border-2 border-purple-500/30 rounded-3xl hover:border-purple-500/50 transition-all">
-          <h3 className="text-3xl font-black text-white mb-4">
+        <div className="mt-12 sm:mt-14 md:mt-16 text-center p-6 sm:p-8 md:p-10 lg:p-12 bg-gradient-to-br from-white/5 to-white/10 border-2 border-purple-500/30 rounded-3xl hover:border-purple-500/50 transition-all">
+          <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">
             Don't See Your Integration?
           </h3>
-          <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 max-w-2xl mx-auto">
             We build custom integrations for our managed service clients. Our API-first architecture can connect to virtually any system.
           </p>
-          <button className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black rounded-lg transition-all transform hover:scale-105 shadow-2xl uppercase tracking-wider">
+          <button className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black rounded-lg transition-all transform hover:scale-105 shadow-2xl uppercase tracking-wider text-sm sm:text-base">
             Request Custom Integration
           </button>
         </div>

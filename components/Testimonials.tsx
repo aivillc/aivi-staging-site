@@ -418,20 +418,20 @@ export default function Testimonials({ industry }: TestimonialsProps = {}) {
   };
 
   return (
-    <section className="relative py-24 px-6 bg-black">
+    <section className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-black">
       {/* Subtle grid overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+        <div className="text-center mb-12 sm:mb-14 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
             Trusted by{' '}
             <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
               {content.subtitle}
             </span>
           </h2>
-          <p className="text-xl text-white/60 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
             {content.description}
           </p>
         </div>
@@ -459,7 +459,7 @@ export default function Testimonials({ industry }: TestimonialsProps = {}) {
             >
               {/* Duplicate testimonials for seamless loop (need exactly 2 sets for -50% transform) */}
               {[...content.testimonials, ...content.testimonials].map((testimonial, index) => (
-                <div key={index} className="flex-shrink-0 w-[420px]">
+                <div key={index} className="flex-shrink-0 w-[280px] sm:w-[340px] md:w-[380px] lg:w-[420px]">
                   <TestimonialCard
                     quote={testimonial.quote}
                     author={testimonial.author}
@@ -481,7 +481,7 @@ export default function Testimonials({ industry }: TestimonialsProps = {}) {
         `}</style>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-14 md:mb-16">
           {content.stats.map((stat, index) => (
             <StatCard
               key={index}
@@ -494,10 +494,10 @@ export default function Testimonials({ industry }: TestimonialsProps = {}) {
 
         {/* Security & Compliance */}
         <div>
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-6 sm:mb-8 text-center">
             Security & Compliance
           </h3>
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6">
             <ComplianceBadge text="SOC 2 Certified" />
             <ComplianceBadge text="HIPAA Compliant" />
             <ComplianceBadge text="GDPR Ready" />
@@ -531,7 +531,7 @@ function TestimonialCard({ quote, author, role, company, industry, color }: Test
     : 'from-orange-500/20 to-orange-600/20 border-orange-500/30 group-hover:border-orange-500';
 
   return (
-    <div className={`group relative p-8 bg-white/5 hover:bg-white/10 backdrop-blur-md border-2 ${borderColor} ${hoverBorder} rounded-xl transition-all duration-300 hover:scale-105 overflow-hidden h-full`}>
+    <div className={`group relative p-5 sm:p-6 md:p-7 lg:p-8 bg-white/5 hover:bg-white/10 backdrop-blur-md border-2 ${borderColor} ${hoverBorder} rounded-xl transition-all duration-300 hover:scale-105 overflow-hidden h-full`}>
       {/* Gradient accent bar at top - matching Integrations style */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient}`} />
 
@@ -568,8 +568,8 @@ function StatCard({ number, label, color }: StatCardProps) {
     : 'from-orange-500 to-orange-700';
 
   return (
-    <div className="text-center p-6 bg-white/5 border-2 border-white/10 rounded-xl hover:border-purple-500/50 transition-all">
-      <div className={`text-4xl md:text-5xl font-black bg-gradient-to-r ${gradient} text-transparent bg-clip-text mb-2`}>
+    <div className="text-center p-4 sm:p-5 md:p-6 bg-white/5 border-2 border-white/10 rounded-xl hover:border-purple-500/50 transition-all">
+      <div className={`text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r ${gradient} text-transparent bg-clip-text mb-2`}>
         {number}
       </div>
       <div className="text-sm text-white/60 font-medium">{label}</div>
@@ -579,9 +579,9 @@ function StatCard({ number, label, color }: StatCardProps) {
 
 function ComplianceBadge({ text }: { text: string }) {
   return (
-    <div className="flex items-center gap-2 px-4 py-3 bg-white/5 border-2 border-green-500/30 rounded-lg hover:border-green-500/50 transition-all">
-      <FontAwesomeIcon icon={faCheck} className="text-green-400 text-lg" />
-      <span className="text-white/80 font-medium">{text}</span>
+    <div className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border-2 border-green-500/30 rounded-lg hover:border-green-500/50 transition-all">
+      <FontAwesomeIcon icon={faCheck} className="text-green-400 text-sm sm:text-base md:text-lg" />
+      <span className="text-white/80 font-medium text-sm sm:text-base">{text}</span>
     </div>
   );
 }

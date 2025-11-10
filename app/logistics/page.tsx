@@ -1,3 +1,5 @@
+import TronHeader from '@/components/TronHeader';
+import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import Dashboard from '@/components/Dashboard';
 import Features from '@/components/Features';
@@ -10,6 +12,8 @@ import Footer from '@/components/Footer';
 export default function LogisticsPage() {
   return (
     <main className="min-h-screen bg-white">
+      <TronHeader />
+      <Navigation />
       <Hero industry="Logistics" />
       <Dashboard industry="Logistics" />
       <Features industry="Logistics" />

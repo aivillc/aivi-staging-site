@@ -14,7 +14,9 @@
       "Bash(findstr:*)",
       "Bash(del nul)",
       "Bash(git fetch:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(git tag:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

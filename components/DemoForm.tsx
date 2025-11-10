@@ -642,7 +642,6 @@ export default function DemoForm() {
                 placeholder="Your name"
                 disabled={isAnimating}
                 className="w-full px-0 py-4 bg-transparent border-b border-white/20 text-white text-xl placeholder-white/30 focus:outline-none focus:border-white transition-colors duration-300 disabled:opacity-50"
-                autoFocus
               />
               <button
                 type="submit"

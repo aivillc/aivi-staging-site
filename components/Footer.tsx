@@ -173,7 +173,7 @@ export default function Footer() {
 
           <div className="mt-6 text-center text-sm text-white/40">
             <p>
-              Powered by xPulse Technology • Built by experts from Amazon, Five9 & Cisco
+              Powered by AIVI • Built by experts from Amazon, Five9 & Cisco
             </p>
           </div>
         </div>

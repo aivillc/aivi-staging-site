@@ -71,13 +71,13 @@ const painPointsContent = {
 
 export default function PainPoints({ industry }: PainPointsProps = {}) {
   const content = industry ? painPointsContent[industry] : {
-    title: 'Stop Losing Revenue to',
-    subtitle: 'Slow Follow-Ups',
-    description: 'Every minute you wait, your conversion rate drops 10%. Your competitors respond in seconds. Can you?',
+    title: 'Stop Losing Clients to Outbound That\'s Now',
+    subtitle: 'Outdated',
+    description: 'Traditional outbound calling is failing. Modern customers ignore unknown numbers and sophisticated call screening blocks your reach. Can your business afford to keep losing opportunities?',
     painPoints: [
-      { title: 'Leads Go Cold', stat: '80% never contacted', solution: '13-second response time', color: 'purple' as const },
-      { title: 'Manual Follow-Ups', stat: '20+ hours wasted weekly', solution: '100% automated outreach', color: 'orange' as const },
-      { title: 'Low Conversions', stat: '$50K+ lost monthly', solution: '391% conversion increase', color: 'purple' as const },
+      { title: 'Unknown Numbers', stat: '87% don\'t answer', solution: 'AIVI warms leads through SMS and email before initiating outbound calls, ensuring higher connection rates', color: 'purple' as const },
+      { title: 'Apple & Google Call Screening', stat: 'Blocks 60% of calls', solution: 'AIVI\'s intelligent system detects call screening technology and adapts in real-time to reach customers through alternative channels', color: 'orange' as const },
+      { title: 'Loss of Intent', stat: 'Intent drops 80%/hour', solution: 'AIVI\'s instant multi-channel outreach captures customers at peak interest, maximizing conversion potential', color: 'purple' as const },
     ],
     ctaText: 'Limited: 10 Spots This Month',
     spotsText: 'Current availability: 6 spots'

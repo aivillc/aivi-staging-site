@@ -702,81 +702,87 @@ export default function DemoForm() {
           </div>
         </div>
 
-        {/* Question - Enhanced */}
-        <div className="relative mb-8">
-          <h3 className="text-2xl md:text-3xl font-black text-white leading-tight tracking-tight">
-            {getPersonalizedQuestion(question)}
-          </h3>
+        {/* Horizontal Layout: Question Left, Options Right */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+          {/* Left Side - Question */}
+          <div className="lg:col-span-2">
+            <h3 className="text-2xl md:text-3xl font-black text-white leading-tight tracking-tight sticky top-0">
+              {getPersonalizedQuestion(question)}
+            </h3>
+          </div>
+
+          {/* Right Side - Inputs/Options */}
+          <div className="lg:col-span-3">
+            {/* Text Input (for first question) */}
+            {question.type === 'text' && (
+              <form onSubmit={handleTextSubmit} className="relative space-y-5">
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={textInput}
+                    onChange={(e) => setTextInput(e.target.value)}
+                    placeholder="Enter your name..."
+                    disabled={isAnimating}
+                    className="w-full px-6 py-5 bg-white/5 border-2 border-white/10 rounded-xl text-white text-lg placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500/50 focus:bg-white/10 transition-all duration-300 disabled:opacity-50 font-medium"
+                    autoFocus
+                  />
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-orange-500/0 pointer-events-none opacity-0 transition-opacity duration-300 peer-focus:opacity-100" />
+                </div>
+                <button
+                  type="submit"
+                  disabled={isAnimating || !textInput.trim()}
+                  className="w-full py-5 px-8 bg-gradient-to-r from-purple-500 to-orange-500 hover:from-purple-600 hover:to-orange-600 text-white font-black rounded-xl shadow-xl shadow-purple-500/20 transition-all transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none uppercase tracking-wider text-base"
+                >
+                  Continue →
+                </button>
+              </form>
+            )}
+
+            {/* Options (for select/multiselect questions) */}
+            {question.type !== 'text' && (
+              <div className="relative space-y-3">
+                {question.options?.map((option, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => handleOptionClick(option)}
+                    disabled={isAnimating}
+                    className={`group relative w-full text-left px-6 py-5 rounded-xl border-2 font-semibold text-base transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden ${
+                      selectedOptions.includes(option)
+                        ? 'bg-gradient-to-r from-purple-500/20 to-orange-500/10 border-purple-500 text-white shadow-lg shadow-purple-500/20'
+                        : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-purple-500/50 hover:text-white'
+                    }`}
+                  >
+                    {/* Animated gradient on hover */}
+                    <div className={`absolute inset-0 bg-gradient-to-r from-purple-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${selectedOptions.includes(option) ? 'opacity-100' : ''}`} />
+
+                    <div className="relative flex items-center justify-between">
+                      <span>{option}</span>
+                      {selectedOptions.includes(option) && (
+                        <div className="flex items-center justify-center w-7 h-7 bg-purple-500 rounded-lg shadow-lg">
+                          <FontAwesomeIcon icon={faCheck} className="text-white text-sm" />
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Multi-select confirm button */}
+            {question.type === 'multiselect' && selectedOptions.length > 0 && (
+              <button
+                onClick={handleMultiselectConfirm}
+                disabled={isAnimating}
+                className="w-full mt-6 py-5 px-8 bg-gradient-to-r from-purple-500 to-orange-500 hover:from-purple-600 hover:to-orange-600 text-white font-black rounded-xl shadow-xl shadow-purple-500/20 transition-all transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none uppercase tracking-wider text-base"
+              >
+                Continue ({selectedOptions.length} selected) →
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Text Input (for first question) */}
-        {question.type === 'text' && (
-          <form onSubmit={handleTextSubmit} className="relative space-y-5">
-            <div className="relative">
-              <input
-                type="text"
-                value={textInput}
-                onChange={(e) => setTextInput(e.target.value)}
-                placeholder="Enter your name..."
-                disabled={isAnimating}
-                className="w-full px-6 py-5 bg-white/5 border-2 border-white/10 rounded-xl text-white text-lg placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500/50 focus:bg-white/10 transition-all duration-300 disabled:opacity-50 font-medium"
-                autoFocus
-              />
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-orange-500/0 pointer-events-none opacity-0 transition-opacity duration-300 peer-focus:opacity-100" />
-            </div>
-            <button
-              type="submit"
-              disabled={isAnimating || !textInput.trim()}
-              className="w-full py-5 px-8 bg-gradient-to-r from-purple-500 to-orange-500 hover:from-purple-600 hover:to-orange-600 text-white font-black rounded-xl shadow-xl shadow-purple-500/20 transition-all transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none uppercase tracking-wider text-base"
-            >
-              Continue →
-            </button>
-          </form>
-        )}
-
-        {/* Options (for select/multiselect questions) */}
-        {question.type !== 'text' && (
-          <div className="relative space-y-3">
-            {question.options?.map((option, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => handleOptionClick(option)}
-                disabled={isAnimating}
-                className={`group relative w-full text-left px-6 py-5 rounded-xl border-2 font-semibold text-base transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden ${
-                  selectedOptions.includes(option)
-                    ? 'bg-gradient-to-r from-purple-500/20 to-orange-500/10 border-purple-500 text-white shadow-lg shadow-purple-500/20'
-                    : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-purple-500/50 hover:text-white'
-                }`}
-              >
-                {/* Animated gradient on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-r from-purple-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${selectedOptions.includes(option) ? 'opacity-100' : ''}`} />
-
-                <div className="relative flex items-center justify-between">
-                  <span>{option}</span>
-                  {selectedOptions.includes(option) && (
-                    <div className="flex items-center justify-center w-7 h-7 bg-purple-500 rounded-lg shadow-lg">
-                      <FontAwesomeIcon icon={faCheck} className="text-white text-sm" />
-                    </div>
-                  )}
-                </div>
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Multi-select confirm button */}
-        {question.type === 'multiselect' && selectedOptions.length > 0 && (
-          <button
-            onClick={handleMultiselectConfirm}
-            disabled={isAnimating}
-            className="w-full mt-6 py-5 px-8 bg-gradient-to-r from-purple-500 to-orange-500 hover:from-purple-600 hover:to-orange-600 text-white font-black rounded-xl shadow-xl shadow-purple-500/20 transition-all transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none uppercase tracking-wider text-base"
-          >
-            Continue ({selectedOptions.length} selected) →
-          </button>
-        )}
-
-        {/* Back button */}
+        {/* Back button - Full width at bottom */}
         {currentQuestion > 0 && (
           <button
             onClick={() => {
@@ -784,7 +790,7 @@ export default function DemoForm() {
               setSelectedOptions([]);
             }}
             disabled={isAnimating}
-            className="w-full mt-4 py-4 px-6 bg-white/5 border-2 border-white/10 text-white/70 rounded-xl hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full mt-8 py-4 px-6 bg-white/5 border-2 border-white/10 text-white/70 rounded-xl hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           >
             ← Back
           </button>

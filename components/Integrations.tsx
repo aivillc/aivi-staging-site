@@ -1,3 +1,5 @@
+'use client';
+
 interface CRMCarouselCardProps {
   name: string;
   category: string;
@@ -6,16 +8,21 @@ interface CRMCarouselCardProps {
 function CRMCarouselCard({ name, category }: CRMCarouselCardProps) {
   return (
     <div className="flex-shrink-0 w-56 sm:w-64 mx-3 sm:mx-4 group">
-      <div className="p-6 rounded-xl border-2 border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 h-full">
+      <div className="p-6 rounded-xl border-2 border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-105 h-full" style={{
+        borderColor: undefined
+      }} onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(61, 90, 128, 0.5)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'}>
         <div className="flex items-center justify-center h-16 mb-4">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-orange-500/20 border-2 border-purple-500/30 flex items-center justify-center group-hover:border-purple-500 transition-all">
-            <div className="text-4xl font-black text-purple-400 group-hover:text-purple-300 transition-colors">
+          <div className="w-16 h-16 rounded-full border-2 flex items-center justify-center transition-all" style={{
+            backgroundImage: 'linear-gradient(135deg, rgba(61, 90, 128, 0.2) 0%, rgba(0, 204, 153, 0.2) 100%)',
+            borderColor: 'rgba(61, 90, 128, 0.3)'
+          }} onMouseEnter={(e) => e.currentTarget.style.borderColor = '#3d5a80'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(61, 90, 128, 0.3)'}>
+            <div className="text-4xl font-black transition-colors" style={{ color: '#3d5a80' }} onMouseEnter={(e) => e.currentTarget.style.color = '#00cc99'} onMouseLeave={(e) => e.currentTarget.style.color = '#3d5a80'}>
               {name.charAt(0)}
             </div>
           </div>
         </div>
-        <h4 className="text-white font-bold text-center mb-2 text-lg">{name}</h4>
-        <p className="text-xs text-center text-white/50 uppercase tracking-wider">
+        <h4 className="font-bold text-center mb-2 text-lg" style={{ color: '#e0fbfc' }}>{name}</h4>
+        <p className="text-xs text-center uppercase tracking-wider" style={{ color: 'rgba(224, 251, 252, 0.5)' }}>
           {category}
         </p>
       </div>
@@ -27,18 +34,20 @@ export default function Integrations() {
   return (
     <section id="integrations" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-black">
       {/* Subtle grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(61,90,128,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(61,90,128,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-14 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4" style={{ color: '#e0fbfc' }}>
             Seamless{' '}
-            <span className="bg-gradient-to-r from-purple-500 to-orange-500 text-transparent bg-clip-text">
+            <span className="text-transparent bg-clip-text" style={{
+              backgroundImage: 'linear-gradient(90deg, #3d5a80 0%, #00cc99 100%)'
+            }}>
               Integrations
             </span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto" style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
             Connect with your existing tools and workflows. No complex setup required.
           </p>
         </div>
@@ -170,40 +179,51 @@ export default function Integrations() {
 
         {/* Key Integration Features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12 sm:mt-16 md:mt-20">
-          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-purple-500/50 transition-all">
-            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500 to-purple-700 rounded-l-2xl" />
-            <h4 className="text-lg sm:text-xl font-black text-white mb-3">Real-Time Sync</h4>
-            <p className="text-white/60">
+          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl transition-all" onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(61, 90, 128, 0.5)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'}>
+            <div className="absolute top-0 left-0 w-1 h-full rounded-l-2xl" style={{
+              backgroundImage: 'linear-gradient(180deg, #3d5a80 0%, #2d4560 100%)'
+            }} />
+            <h4 className="text-lg sm:text-xl font-black mb-3" style={{ color: '#e0fbfc' }}>Real-Time Sync</h4>
+            <p style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
               Bi-directional data sync keeps your CRM and AIVI always in sync, triggering actions in real-time.
             </p>
           </div>
 
-          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-orange-500/50 transition-all">
-            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange-500 to-orange-700 rounded-l-2xl" />
-            <h4 className="text-lg sm:text-xl font-black text-white mb-3">Secure PII Handling</h4>
-            <p className="text-white/60">
+          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl transition-all" onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(0, 204, 153, 0.5)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'}>
+            <div className="absolute top-0 left-0 w-1 h-full rounded-l-2xl" style={{
+              backgroundImage: 'linear-gradient(180deg, #00cc99 0%, #00b388 100%)'
+            }} />
+            <h4 className="text-lg sm:text-xl font-black mb-3" style={{ color: '#e0fbfc' }}>Secure PII Handling</h4>
+            <p style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
               All personally identifiable information is encrypted in transit with zero storage, ensuring compliance.
             </p>
           </div>
 
-          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl hover:border-purple-500/50 transition-all">
-            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500 to-purple-700 rounded-l-2xl" />
-            <h4 className="text-lg sm:text-xl font-black text-white mb-3">Custom Field Mapping</h4>
-            <p className="text-white/60">
+          <div className="group relative text-center p-6 sm:p-7 md:p-8 bg-white/5 border-2 border-white/10 rounded-2xl transition-all" onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(61, 90, 128, 0.5)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'}>
+            <div className="absolute top-0 left-0 w-1 h-full rounded-l-2xl" style={{
+              backgroundImage: 'linear-gradient(180deg, #3d5a80 0%, #2d4560 100%)'
+            }} />
+            <h4 className="text-lg sm:text-xl font-black mb-3" style={{ color: '#e0fbfc' }}>Custom Field Mapping</h4>
+            <p style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
               Map any custom fields from your CRM to AIVI workflows with our flexible field mapping system.
             </p>
           </div>
         </div>
 
         {/* CTA */}
-        <div className="mt-12 sm:mt-14 md:mt-16 text-center p-6 sm:p-8 md:p-10 lg:p-12 bg-gradient-to-br from-white/5 to-white/10 border-2 border-purple-500/30 rounded-3xl hover:border-purple-500/50 transition-all">
-          <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">
+        <div className="mt-12 sm:mt-14 md:mt-16 text-center p-6 sm:p-8 md:p-10 lg:p-12 bg-gradient-to-br from-white/5 to-white/10 border-2 rounded-3xl transition-all" style={{
+          borderColor: 'rgba(61, 90, 128, 0.3)'
+        }} onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(61, 90, 128, 0.5)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(61, 90, 128, 0.3)'}>
+          <h3 className="text-2xl sm:text-3xl font-black mb-4" style={{ color: '#e0fbfc' }}>
             Don't See Your Integration?
           </h3>
-          <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: 'rgba(224, 251, 252, 0.7)' }}>
             We build custom integrations for our managed service clients. Our API-first architecture can connect to virtually any system.
           </p>
-          <button className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black rounded-lg transition-all transform hover:scale-105 shadow-2xl uppercase tracking-wider text-sm sm:text-base">
+          <button className="px-6 sm:px-8 py-3 sm:py-4 font-black rounded-lg transition-all transform hover:scale-105 shadow-2xl uppercase tracking-wider text-sm sm:text-base" style={{
+            backgroundImage: 'linear-gradient(90deg, #3d5a80 0%, #00cc99 100%)',
+            color: '#e0fbfc'
+          }}>
             Request Custom Integration
           </button>
         </div>

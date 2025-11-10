@@ -90,7 +90,9 @@ export default function PainPoints({ industry }: PainPointsProps = {}) {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-black mb-4">
             {content.title}{' '}
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
+            <span className="text-transparent bg-clip-text" style={{
+              backgroundImage: 'linear-gradient(90deg, #3d5a80 0%, #00cc99 100%)'
+            }}>
               {content.subtitle}
             </span>
           </h2>
@@ -113,11 +115,13 @@ export default function PainPoints({ industry }: PainPointsProps = {}) {
         </div>
 
         {/* Urgency CTA */}
-        <div className="max-w-3xl mx-auto text-center p-8 bg-gradient-to-r from-purple-600 to-orange-500 rounded-2xl shadow-2xl">
-          <p className="text-white text-2xl font-bold mb-2">
+        <div className="max-w-3xl mx-auto text-center p-8 rounded-2xl shadow-2xl" style={{
+          backgroundImage: 'linear-gradient(90deg, #3d5a80 0%, #00cc99 100%)'
+        }}>
+          <p className="text-2xl font-bold mb-2" style={{ color: '#e0fbfc' }}>
             {content.ctaText}
           </p>
-          <p className="text-white/90 text-lg">
+          <p className="text-lg" style={{ color: 'rgba(224, 251, 252, 0.9)' }}>
             {content.spotsText.split(':')[0]}: <span className="font-black text-3xl">{content.spotsText.split(':')[1]}</span>
           </p>
         </div>
@@ -135,40 +139,58 @@ interface PainPointCardProps {
 
 function PainPointCard({ title, stat, solution, color }: PainPointCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  
-  const gradient = color === 'purple'
-    ? 'from-purple-500 to-purple-700'
-    : 'from-orange-500 to-orange-700';
+
+  const gradientStyle = color === 'purple'
+    ? 'linear-gradient(135deg, #3d5a80 0%, #2d4560 100%)'
+    : 'linear-gradient(135deg, #00cc99 0%, #00b388 100%)';
+
+  const glowColor = color === 'purple' ? 'rgba(61, 90, 128, 0.3)' : 'rgba(0, 204, 153, 0.3)';
+  const overlayColor = color === 'purple' ? 'rgba(61, 90, 128, 0.05)' : 'rgba(0, 204, 153, 0.05)';
 
   return (
-    <div 
+    <div
       className="group relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Glow effect */}
-      <div className={`absolute -inset-1 bg-gradient-to-br ${gradient} rounded-2xl blur-xl transition-all duration-500 ${
-        isHovered ? 'opacity-30' : 'opacity-0'
-      }`} />
+      <div
+        className={`absolute -inset-1 rounded-2xl blur-xl transition-all duration-500 ${
+          isHovered ? 'opacity-30' : 'opacity-0'
+        }`}
+        style={{ background: gradientStyle }}
+      />
       
       <div className="relative h-full p-8 bg-white border-2 border-gray-200 hover:border-gray-300 rounded-2xl transition-all duration-500 overflow-hidden shadow-lg hover:shadow-2xl">
         {/* Animated top border */}
-        <div className={`absolute top-0 left-0 h-1 bg-gradient-to-r ${gradient} transition-all duration-500 ${
-          isHovered ? 'w-full' : 'w-0'
-        }`} />
-        
+        <div
+          className={`absolute top-0 left-0 h-1 transition-all duration-500 ${
+            isHovered ? 'w-full' : 'w-0'
+          }`}
+          style={{ background: gradientStyle }}
+        />
+
         {/* Animated side accent bar */}
-        <div className={`absolute top-0 left-0 w-1 bg-gradient-to-b ${gradient} transition-all duration-500 ${
-          isHovered ? 'h-full' : 'h-16'
-        }`} />
+        <div
+          className={`absolute top-0 left-0 w-1 transition-all duration-500 ${
+            isHovered ? 'h-full' : 'h-16'
+          }`}
+          style={{ background: gradientStyle }}
+        />
         
         {/* Content */}
         <div className={`transition-all duration-300 ${isHovered ? '-translate-y-1' : 'translate-y-0'}`}>
-          <h3 className={`text-2xl font-black mb-3 pl-4 transition-all duration-300 ${
-            isHovered 
-              ? 'text-transparent bg-gradient-to-r bg-clip-text ' + gradient 
-              : 'text-black'
-          }`}>
+          <h3
+            className="text-2xl font-black mb-3 pl-4 transition-all duration-300"
+            style={isHovered ? {
+              color: 'transparent',
+              backgroundImage: gradientStyle,
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text'
+            } : {
+              color: 'black'
+            }}
+          >
             {title}
           </h3>
           
@@ -181,11 +203,19 @@ function PainPointCard({ title, stat, solution, color }: PainPointCardProps) {
           } origin-left`} />
 
           <div className="flex items-start gap-2 pl-4">
-            <span className={`font-black text-xl transition-all duration-300 ${
-              isHovered 
-                ? `text-transparent bg-gradient-to-r bg-clip-text ${gradient} scale-125` 
-                : 'text-green-600 scale-100'
-            }`}>
+            <span
+              className="font-black text-xl transition-all duration-300"
+              style={isHovered ? {
+                color: 'transparent',
+                backgroundImage: gradientStyle,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                transform: 'scale(1.25)'
+              } : {
+                color: '#16a34a',
+                transform: 'scale(1)'
+              }}
+            >
               ✓
             </span>
             <p className={`font-medium transition-colors duration-300 ${
@@ -197,9 +227,12 @@ function PainPointCard({ title, stat, solution, color }: PainPointCardProps) {
         </div>
         
         {/* Background gradient overlay on hover */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${
-          color === 'purple' ? 'from-purple-50 to-transparent' : 'from-orange-50 to-transparent'
-        } opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-2xl pointer-events-none`} />
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-2xl pointer-events-none"
+          style={{
+            background: `linear-gradient(135deg, ${overlayColor} 0%, transparent 100%)`
+          }}
+        />
       </div>
     </div>
   );

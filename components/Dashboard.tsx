@@ -1,3 +1,5 @@
+'use client';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBullseye, faCheck, faExclamationTriangle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -129,15 +131,15 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
         {/* Section Header */}
         <div className="text-center mb-20">
           <div className="inline-block mb-6 animate-fadeInUp">
-            <div className="px-6 py-3 bg-gradient-to-r from-purple-500/10 to-orange-500/10 border-2 border-purple-500/20 rounded-full shadow-[0_4px_20px_rgba(139,92,246,0.1)]">
-              <span className="text-sm font-bold bg-gradient-to-r from-purple-600 to-orange-600 text-transparent bg-clip-text uppercase tracking-widest">
+            <div className="px-6 py-3 bg-gradient-to-r from-[rgba(61,90,128,0.1)] to-[rgba(0,204,153,0.1)] border-2 border-[rgba(61,90,128,0.2)] rounded-full shadow-[0_4px_20px_rgba(139,92,246,0.1)]">
+              <span className="text-sm font-bold bg-gradient-to-r from-[#3d5a80] to-[#00cc99] text-transparent bg-clip-text uppercase tracking-widest">
                 {content.badge}
               </span>
             </div>
           </div>
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight leading-[1.1] animate-fadeInUp">
             {content.title}{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-orange-600 text-transparent bg-clip-text">
+            <span className="bg-gradient-to-r from-[#3d5a80] to-[#00cc99] text-transparent bg-clip-text">
               {content.subtitle}
             </span>
           </h2>
@@ -166,7 +168,7 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
             {/* Channel Performance */}
             <div className="relative">
               <div className="absolute -top-3 left-6">
-                <div className="px-5 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-xs font-bold rounded-full shadow-lg">
+                <div className="px-5 py-2 bg-gradient-to-r from-[#3d5a80] to-[#2d4560] text-white text-xs font-bold rounded-full shadow-lg">
                   Channel Analytics
                 </div>
               </div>
@@ -187,7 +189,7 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
             {/* Agent Performance */}
             <div className="relative">
               <div className="absolute -top-3 left-6">
-                <div className="px-4 py-1.5 bg-gradient-to-r from-orange-600 to-orange-700 text-white text-xs font-bold rounded-full shadow-lg">
+                <div className="px-4 py-1.5 bg-gradient-to-r from-[#00cc99] to-[#00b388] text-white text-xs font-bold rounded-full shadow-lg">
                   Sentiment Analysis
                 </div>
               </div>
@@ -197,7 +199,7 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
                   <SentimentBar label="Neutral" percentage={31} color="gray" />
                   <SentimentBar label="Negative" percentage={7} color="red" />
                 </div>
-                <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-orange-50 rounded-xl border border-purple-200/50">
+                <div className="mt-6 p-4 bg-gradient-to-r from-[rgba(61,90,128,0.05)] to-[rgba(0,204,153,0.05)] rounded-xl border border-[rgba(61,90,128,0.2)]">
                   <div className="text-xs text-gray-500 mb-2 font-bold uppercase tracking-wider">Latest AI Insight</div>
                   <div className="text-gray-900 text-sm font-semibold">
                     "{content.insight}"
@@ -235,14 +237,14 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
         {/* Call Center Coaching */}
         <div className="mt-16 p-10 bg-white border border-gray-200 rounded-3xl shadow-2xl relative overflow-hidden">
           {/* Subtle gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 via-transparent to-orange-50/50 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[rgba(61,90,128,0.03)] via-transparent to-[rgba(0,204,153,0.03)] pointer-events-none" />
           
           <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-orange-100 border border-purple-200 rounded-full mb-6">
-                <FontAwesomeIcon icon={faBullseye} className="text-xl text-purple-600" />
-                <span className="text-sm font-black text-transparent bg-gradient-to-r from-purple-600 to-orange-600 bg-clip-text">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[rgba(61,90,128,0.1)] to-[rgba(0,204,153,0.1)] border border-[rgba(61,90,128,0.2)] rounded-full mb-6">
+                <FontAwesomeIcon icon={faBullseye} className="text-xl" style={{ color: '#3d5a80' }} />
+                <span className="text-sm font-black text-transparent bg-gradient-to-r from-[#3d5a80] to-[#00cc99] bg-clip-text">
                   AI-Powered Coaching
                 </span>
               </div>
@@ -257,7 +259,7 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
               </p>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 group">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[#3d5a80] to-[#2d4560] rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <FontAwesomeIcon icon={faCheck} className="text-white text-sm" />
                   </div>
                   <span className="text-gray-700 font-medium pt-1">
@@ -265,7 +267,7 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
                   </span>
                 </li>
                 <li className="flex items-start gap-3 group">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[#3d5a80] to-[#2d4560] rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <FontAwesomeIcon icon={faCheck} className="text-white text-sm" />
                   </div>
                   <span className="text-gray-700 font-medium pt-1">
@@ -273,7 +275,7 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
                   </span>
                 </li>
                 <li className="flex items-start gap-3 group">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[#3d5a80] to-[#2d4560] rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <FontAwesomeIcon icon={faCheck} className="text-white text-sm" />
                   </div>
                   <span className="text-gray-700 font-medium pt-1">
@@ -281,7 +283,7 @@ export default function Dashboard({ industry }: DashboardProps = {}) {
                   </span>
                 </li>
                 <li className="flex items-start gap-3 group">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[#3d5a80] to-[#2d4560] rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <FontAwesomeIcon icon={faCheck} className="text-white text-sm" />
                   </div>
                   <span className="text-gray-700 font-medium pt-1">
@@ -325,12 +327,12 @@ interface MetricCardProps {
 
 function MetricCard({ label, value, change, positive, color }: MetricCardProps) {
   const gradient = color === 'purple'
-    ? 'from-purple-500 to-purple-600'
-    : 'from-orange-500 to-orange-600';
+    ? 'from-[#3d5a80] to-[#2d4560]'
+    : 'from-[#00cc99] to-[#00b388]';
   
   const glowColor = color === 'purple'
-    ? 'shadow-purple-500/15'
-    : 'shadow-orange-500/15';
+    ? 'shadow-[rgba(61,90,128,0.15)]'
+    : 'shadow-[rgba(0,204,153,0.15)]';
 
   return (
     <div className={`group relative p-8 bg-white border-2 border-gray-200 rounded-2xl hover:border-gray-300 transition-all duration-500 hover:shadow-2xl ${glowColor} hover:-translate-y-2 card-hover`}>
@@ -358,10 +360,10 @@ interface ChannelBarProps {
 }
 
 function ChannelBar({ channel, percentage, color }: ChannelBarProps) {
-  const bgColor = color === 'purple' ? 'bg-purple-500' : 'bg-orange-500';
+  const bgColor = color === 'purple' ? 'bg-[#3d5a80]' : 'bg-[#00cc99]';
   const bgGradient = color === 'purple' 
-    ? 'bg-gradient-to-r from-purple-500 to-purple-600' 
-    : 'bg-gradient-to-r from-orange-500 to-orange-600';
+    ? 'bg-gradient-to-r from-[#3d5a80] to-[#2d4560]' 
+    : 'bg-gradient-to-r from-[#00cc99] to-[#00b388]';
 
   return (
     <div className="group">
@@ -416,18 +418,22 @@ interface DashboardFeatureProps {
 
 function DashboardFeature({ title, description, color }: DashboardFeatureProps) {
   const gradient = color === 'purple'
-    ? 'from-purple-500 to-purple-600'
-    : 'from-orange-500 to-orange-600';
+    ? 'from-[#3d5a80] to-[#2d4560]'
+    : 'from-[#00cc99] to-[#00b388]';
   
-  const hoverBorder = color === 'purple' ? 'hover:border-purple-300' : 'hover:border-orange-300';
+  const hoverBorderColor = color === 'purple' ? 'rgba(61, 90, 128, 0.3)' : 'rgba(0, 204, 153, 0.3)';
 
   return (
-    <div className={`group relative p-6 bg-gradient-to-br from-gray-50 to-white border border-gray-200 ${hoverBorder} rounded-2xl transition-all duration-300 hover:shadow-lg overflow-hidden`}>
+    <div
+      className="group relative p-6 bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl transition-all duration-300 hover:shadow-lg overflow-hidden"
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = hoverBorderColor}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgb(229, 231, 235)'}
+    >
       {/* Top gradient accent - properly aligned with border */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
       
       <div className="relative">
-        <h4 className="text-lg font-black text-black mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-purple-600 group-hover:to-orange-600 transition-all duration-300">
+        <h4 className="text-lg font-black text-black mb-2 transition-all duration-300">
           {title}
         </h4>
         <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
@@ -445,20 +451,20 @@ interface CoachingAlertProps {
 function CoachingAlert({ type, message, action }: CoachingAlertProps) {
   const styles = {
     success: 'border-green-300 bg-gradient-to-br from-green-50 to-white',
-    warning: 'border-orange-300 bg-gradient-to-br from-orange-50 to-white',
-    info: 'border-purple-300 bg-gradient-to-br from-purple-50 to-white',
+    warning: 'border-[rgba(0,204,153,0.3)] bg-gradient-to-br from-[rgba(0,204,153,0.05)] to-white',
+    info: 'border-[rgba(61,90,128,0.3)] bg-gradient-to-br from-[rgba(61,90,128,0.05)] to-white',
   };
 
   const iconColors = {
     success: 'text-green-600',
-    warning: 'text-orange-600',
-    info: 'text-purple-600',
+    warning: 'text-[#00cc99]',
+    info: 'text-[#3d5a80]',
   };
-  
+
   const iconBg = {
     success: 'bg-green-100',
-    warning: 'bg-orange-100',
-    info: 'bg-purple-100',
+    warning: 'bg-[rgba(0,204,153,0.1)]',
+    info: 'bg-[rgba(61,90,128,0.1)]',
   };
   
   const iconMap = {

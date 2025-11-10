@@ -4,32 +4,42 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative py-12 sm:py-14 md:py-16 px-4 sm:px-6 bg-black border-t border-purple-500/20">
+    <footer id="contact" className="relative py-12 sm:py-14 md:py-16 px-4 sm:px-6 bg-black border-t" style={{ borderColor: 'rgba(61, 90, 128, 0.2)' }}>
       {/* Subtle grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(61,90,128,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(61,90,128,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       {/* Animated gradient line at top */}
       <div className="absolute top-0 left-0 right-0 h-px">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50 animate-shimmer" />
+        <div className="absolute inset-0 opacity-50 animate-shimmer" style={{
+          backgroundImage: 'linear-gradient(90deg, transparent 0%, #3d5a80 50%, transparent 100%)'
+        }} />
       </div>
 
       <div className="relative max-w-7xl mx-auto">
         {/* CTA Section */}
         <div className="text-center mb-12 sm:mb-14 md:mb-16 pb-12 sm:pb-14 md:pb-16 border-b border-white/10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6" style={{ color: '#e0fbfc' }}>
             Ready to Transform Your{' '}
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
+            <span className="text-transparent bg-clip-text" style={{
+              backgroundImage: 'linear-gradient(90deg, #3d5a80 0%, #00cc99 100%)'
+            }}>
               Customer Experience?
             </span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-white/60 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
             Start with a live demo or speak with our team to see how AIVI can drive results for your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black rounded-lg transition-all transform hover:scale-105 shadow-2xl uppercase tracking-wider text-sm sm:text-base">
+            <button className="px-6 sm:px-8 py-3 sm:py-4 font-black rounded-lg transition-all transform hover:scale-105 shadow-2xl uppercase tracking-wider text-sm sm:text-base" style={{
+              backgroundImage: 'linear-gradient(90deg, #3d5a80 0%, #00cc99 100%)',
+              color: '#e0fbfc'
+            }}>
               Start Free Demo
             </button>
-            <button className="px-6 sm:px-8 py-3 sm:py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-lg transition-all border-2 border-purple-500/50 hover:border-purple-500 text-sm sm:text-base">
+            <button className="px-6 sm:px-8 py-3 sm:py-4 bg-white/5 hover:bg-white/10 font-bold rounded-lg transition-all border-2 text-sm sm:text-base" style={{
+              borderColor: 'rgba(61, 90, 128, 0.5)',
+              color: '#e0fbfc'
+            }} onMouseEnter={(e) => e.currentTarget.style.borderColor = '#3d5a80'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(61, 90, 128, 0.5)'}>
               Talk to Sales
             </button>
           </div>
@@ -41,22 +51,22 @@ export default function Footer() {
             <h4 className="text-sm sm:text-base text-white font-black mb-4">Product</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#features" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#features" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Features
                 </a>
               </li>
               <li>
-                <a href="#solutions" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#solutions" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Solutions
                 </a>
               </li>
               <li>
-                <a href="#integrations" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#integrations" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Integrations
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Pricing
                 </a>
               </li>
@@ -67,22 +77,22 @@ export default function Footer() {
             <h4 className="text-sm sm:text-base text-white font-black mb-4">Industries</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Trucking & Logistics
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Financial Services
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Insurance
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Healthcare
                 </a>
               </li>
@@ -93,22 +103,22 @@ export default function Footer() {
             <h4 className="text-sm sm:text-base text-white font-black mb-4">Company</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Careers
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#contact" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Contact
                 </a>
               </li>
@@ -119,22 +129,22 @@ export default function Footer() {
             <h4 className="text-sm sm:text-base text-white font-black mb-4">Resources</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Documentation
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   API Reference
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Case Studies
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/60 hover:text-purple-400 transition-colors text-sm">
+                <a href="#" className="text-white/60 hover:text-[#3d5a80] transition-colors text-sm">
                   Support
                 </a>
               </li>
@@ -159,13 +169,13 @@ export default function Footer() {
             </div>
 
             <div className="flex items-center gap-6">
-              <a href="/privacy" className="text-white/50 hover:text-purple-400 transition-colors text-sm">
+              <a href="/privacy" className="text-white/50 hover:text-[#3d5a80] transition-colors text-sm">
                 Privacy Policy
               </a>
-              <a href="/terms" className="text-white/50 hover:text-purple-400 transition-colors text-sm">
+              <a href="/terms" className="text-white/50 hover:text-[#3d5a80] transition-colors text-sm">
                 Terms of Service
               </a>
-              <a href="#" className="text-white/50 hover:text-purple-400 transition-colors text-sm">
+              <a href="#" className="text-white/50 hover:text-[#3d5a80] transition-colors text-sm">
                 Security
               </a>
             </div>

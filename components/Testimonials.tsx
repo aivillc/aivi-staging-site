@@ -420,18 +420,20 @@ export default function Testimonials({ industry }: TestimonialsProps = {}) {
   return (
     <section className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-black">
       {/* Subtle grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(61,90,128,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(61,90,128,0.02)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-14 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4" style={{ color: '#e0fbfc' }}>
             Trusted by{' '}
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
+            <span className="text-transparent bg-clip-text" style={{
+              backgroundImage: 'linear-gradient(90deg, #3d5a80 0%, #00cc99 100%)'
+            }}>
               {content.subtitle}
             </span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto" style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
             {content.description}
           </p>
         </div>
@@ -520,26 +522,42 @@ interface TestimonialCardProps {
 }
 
 function TestimonialCard({ quote, author, role, company, industry, color }: TestimonialCardProps) {
-  const gradient = color === 'purple'
-    ? 'from-purple-500 to-purple-700'
-    : 'from-orange-500 to-orange-700';
-  const borderColor = color === 'purple' ? 'border-purple-500/30' : 'border-orange-500/30';
-  const hoverBorder = color === 'purple' ? 'hover:border-purple-500/50' : 'hover:border-orange-500/50';
-  const badgeText = color === 'purple' ? 'text-purple-400' : 'text-orange-400';
-  const avatarGradient = color === 'purple'
-    ? 'from-purple-500/20 to-purple-600/20 border-purple-500/30 group-hover:border-purple-500'
-    : 'from-orange-500/20 to-orange-600/20 border-orange-500/30 group-hover:border-orange-500';
+  const gradientStyle = color === 'purple'
+    ? 'linear-gradient(90deg, #3d5a80 0%, #2d4560 100%)'
+    : 'linear-gradient(90deg, #00cc99 0%, #00b388 100%)';
+  const borderColor = color === 'purple' ? 'rgba(61, 90, 128, 0.3)' : 'rgba(0, 204, 153, 0.3)';
+  const hoverBorderColor = color === 'purple' ? 'rgba(61, 90, 128, 0.5)' : 'rgba(0, 204, 153, 0.5)';
+  const badgeColor = color === 'purple' ? '#3d5a80' : '#00cc99';
+  const avatarBg = color === 'purple'
+    ? 'linear-gradient(135deg, rgba(61, 90, 128, 0.2) 0%, rgba(61, 90, 128, 0.3) 100%)'
+    : 'linear-gradient(135deg, rgba(0, 204, 153, 0.2) 0%, rgba(0, 204, 153, 0.3) 100%)';
+  const avatarBorder = color === 'purple' ? 'rgba(61, 90, 128, 0.3)' : 'rgba(0, 204, 153, 0.3)';
+  const avatarHoverBorder = color === 'purple' ? '#3d5a80' : '#00cc99';
 
   return (
-    <div className={`group relative p-5 sm:p-6 md:p-7 lg:p-8 bg-white/5 hover:bg-white/10 backdrop-blur-md border-2 ${borderColor} ${hoverBorder} rounded-xl transition-all duration-300 hover:scale-105 overflow-hidden h-full`}>
-      {/* Gradient accent bar at top - matching Integrations style */}
-      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient}`} />
+    <div
+      className="group relative p-5 sm:p-6 md:p-7 lg:p-8 bg-white/5 hover:bg-white/10 backdrop-blur-md border-2 rounded-xl transition-all duration-300 hover:scale-105 overflow-hidden h-full"
+      style={{ borderColor }}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = hoverBorderColor}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = borderColor}
+    >
+      {/* Gradient accent bar at top */}
+      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: gradientStyle }} />
 
       <div className="relative">
-        <div className={`${badgeText} text-5xl font-bold mb-4 leading-none opacity-30`}>"</div>
-        <p className="text-white/90 mb-6 leading-relaxed text-base font-light">{quote}</p>
+        <div className="text-5xl font-bold mb-4 leading-none opacity-30" style={{ color: badgeColor }}>"</div>
+        <p className="mb-6 leading-relaxed text-base font-light" style={{ color: 'rgba(224, 251, 252, 0.9)' }}>{quote}</p>
         <div className="flex items-center gap-4 mb-4">
-          <div className={`w-14 h-14 bg-gradient-to-br ${avatarGradient} border-2 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg transition-all`}>
+          <div
+            className="w-14 h-14 border-2 rounded-full flex items-center justify-center font-black text-xl shadow-lg transition-all"
+            style={{
+              background: avatarBg,
+              borderColor: avatarBorder,
+              color: '#e0fbfc'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = avatarHoverBorder}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = avatarBorder}
+          >
             {author.charAt(0)}
           </div>
           <div>
@@ -548,7 +566,7 @@ function TestimonialCard({ quote, author, role, company, industry, color }: Test
             <div className="text-sm text-white/50">{company}</div>
           </div>
         </div>
-        <div className={`inline-block px-3 py-1 bg-white/5 border border-white/20 rounded text-xs ${badgeText} font-semibold tracking-wide uppercase`}>
+        <div className="inline-block px-3 py-1 bg-white/5 border border-white/20 rounded text-xs font-semibold tracking-wide uppercase" style={{ color: badgeColor }}>
           {industry}
         </div>
       </div>
@@ -563,16 +581,22 @@ interface StatCardProps {
 }
 
 function StatCard({ number, label, color }: StatCardProps) {
-  const gradient = color === 'purple'
-    ? 'from-purple-500 to-purple-700'
-    : 'from-orange-500 to-orange-700';
+  const gradientStyle = color === 'purple'
+    ? 'linear-gradient(90deg, #3d5a80 0%, #2d4560 100%)'
+    : 'linear-gradient(90deg, #00cc99 0%, #00b388 100%)';
 
   return (
-    <div className="text-center p-4 sm:p-5 md:p-6 bg-white/5 border-2 border-white/10 rounded-xl hover:border-purple-500/50 transition-all">
-      <div className={`text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r ${gradient} text-transparent bg-clip-text mb-2`}>
+    <div
+      className="text-center p-4 sm:p-5 md:p-6 bg-white/5 border-2 border-white/10 rounded-xl transition-all"
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(61, 90, 128, 0.5)'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'}
+    >
+      <div className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text mb-2" style={{
+        backgroundImage: gradientStyle
+      }}>
         {number}
       </div>
-      <div className="text-sm text-white/60 font-medium">{label}</div>
+      <div className="text-sm font-medium" style={{ color: 'rgba(224, 251, 252, 0.6)' }}>{label}</div>
     </div>
   );
 }

@@ -83,40 +83,47 @@ export default function Hero({ industry }: HeroProps = {}) {
       <div className="absolute inset-0 bg-black" />
 
       {/* Moving gradient orbs */}
-      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-3xl animate-pulse-slower" />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-to-r from-purple-600/10 via-transparent to-orange-500/10 rounded-full blur-3xl animate-spin-slow" />
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-3xl animate-pulse-slow" style={{ backgroundColor: 'rgba(61, 90, 128, 0.15)' }} />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse-slower" style={{ backgroundColor: 'rgba(0, 204, 153, 0.12)' }} />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-3xl animate-spin-slow" style={{ background: 'linear-gradient(90deg, rgba(61, 90, 128, 0.08) 0%, transparent 50%, rgba(0, 204, 153, 0.08) 100%)' }} />
 
       {/* Grid overlay - cyberpunk style */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(61,90,128,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(61,90,128,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       {/* Diagonal moving gradient lines */}
       <div className="absolute inset-0 overflow-hidden opacity-30">
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent top-1/4 animate-scan-horizontal" />
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent top-1/2 animate-scan-horizontal-reverse" />
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent top-3/4 animate-scan-horizontal-slow" />
+        <div className="absolute w-full h-px top-1/4 animate-scan-horizontal" style={{ background: 'linear-gradient(90deg, transparent 0%, #3d5a80 50%, transparent 100%)' }} />
+        <div className="absolute w-full h-px top-1/2 animate-scan-horizontal-reverse" style={{ background: 'linear-gradient(90deg, transparent 0%, #00cc99 50%, transparent 100%)' }} />
+        <div className="absolute w-full h-px top-3/4 animate-scan-horizontal-slow" style={{ background: 'linear-gradient(90deg, transparent 0%, #3d5a80 50%, transparent 100%)' }} />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full pt-[15vh]">
         <div className="text-center mb-16">
           {/* Main Headline - ROTATING with smooth transition */}
           <div className={`transition-all duration-700 ease-out ${isTransitioning ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'}`}>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] mb-10 tracking-tight">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] mb-10 tracking-tight" style={{ color: '#e0fbfc' }}>
               <span className="inline-block animate-fadeInUp">{current.title}</span>{' '}
-              <span className="inline-block bg-gradient-to-r from-orange-500 via-purple-500 to-orange-500 text-transparent bg-clip-text animate-gradient-x bg-[length:200%_auto] drop-shadow-[0_0_30px_rgba(139,92,246,0.4)]">
+              <span className="inline-block text-transparent bg-clip-text animate-gradient-x bg-[length:200%_auto]" style={{
+                backgroundImage: 'linear-gradient(90deg, #3d5a80 0%, #00cc99 50%, #3d5a80 100%)',
+                filter: 'drop-shadow(0 0 30px rgba(61, 90, 128, 0.5))'
+              }}>
                 Revenue
               </span>
               <br />
-              <span className="text-4xl md:text-6xl lg:text-7xl text-white/50 font-light tracking-wide">
+              <span className="text-4xl md:text-6xl lg:text-7xl font-light tracking-wide" style={{ color: 'rgba(224, 251, 252, 0.5)' }}>
                 {current.subtitle}
               </span>
             </h1>
 
             {/* Sub-headline - ROTATING with smooth transition */}
-            <p className="text-xl md:text-2xl text-white/60 max-w-4xl mx-auto mb-12 leading-relaxed font-light tracking-wide">
+            <p className="text-xl md:text-2xl max-w-4xl mx-auto mb-12 leading-relaxed font-light tracking-wide" style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
               {current.description}
               <br className="hidden md:block" />
-              <span className="text-orange-500 font-bold bg-orange-500/10 px-3 py-1 rounded-lg border border-orange-500/20">{current.stat}</span>
+              <span className="font-bold px-3 py-1 rounded-lg border" style={{
+                color: '#00cc99',
+                backgroundColor: 'rgba(0, 204, 153, 0.1)',
+                borderColor: 'rgba(0, 204, 153, 0.3)'
+              }}>{current.stat}</span>
             </p>
           </div>
         </div>
@@ -251,16 +258,38 @@ export default function Hero({ industry }: HeroProps = {}) {
 }
 
 function FeaturePill({ text }: { text: string }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <span className="px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-sm font-semibold text-white/80 hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-orange-500/20 hover:border-purple-500/50 hover:text-white hover:scale-105 transition-all duration-400 cursor-default">
+    <span
+      className="px-6 py-3 backdrop-blur-sm border rounded-full text-sm font-semibold hover:scale-105 transition-all duration-400 cursor-default"
+      style={{
+        backgroundColor: isHovered ? 'rgba(61, 90, 128, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+        borderColor: isHovered ? 'rgba(61, 90, 128, 0.5)' : 'rgba(255, 255, 255, 0.1)',
+        color: isHovered ? '#e0fbfc' : 'rgba(224, 251, 252, 0.8)'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {text}
     </span>
   );
 }
 
 function TrustBadge({ text }: { text: string }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <span className="px-5 py-2.5 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:border-purple-500/40 hover:bg-white/10 transition-all duration-400 text-white/50 hover:text-white/70 font-medium">
+    <span
+      className="px-5 py-2.5 backdrop-blur-sm rounded-lg border transition-all duration-400 font-medium"
+      style={{
+        backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
+        borderColor: isHovered ? 'rgba(61, 90, 128, 0.5)' : 'rgba(255, 255, 255, 0.1)',
+        color: isHovered ? 'rgba(224, 251, 252, 0.8)' : 'rgba(224, 251, 252, 0.5)'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {text}
     </span>
   );

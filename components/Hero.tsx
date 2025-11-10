@@ -78,7 +78,7 @@ export default function Hero({ industry }: HeroProps = {}) {
   const current = fixedIndustry || industryHeadlines[currentIndex];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden bg-black">
       {/* Animated Background Gradients - TRON Style */}
       <div className="absolute inset-0 bg-black" />
 

@@ -9,11 +9,11 @@ export default function Solutions() {
   const [hoveredCard, setHoveredCard] = useState<'saas' | 'managed' | null>(null);
 
   return (
-    <section id="solutions" className="relative py-24 px-6 bg-white overflow-hidden">
+    <section id="solutions" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-white overflow-hidden">
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-black text-black mb-6">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-black mb-6">
             Choose Your{' '}
             <span className="bg-gradient-to-r from-orange-500 to-purple-500 text-transparent bg-clip-text">
               Implementation Path

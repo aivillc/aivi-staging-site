@@ -9,6 +9,8 @@ import { faChartLine, faHospital, faTruck, faHouse, faGavel } from '@fortawesome
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [useCasesOpen, setUseCasesOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileUseCasesOpen, setMobileUseCasesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +20,15 @@ export default function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [mobileMenuOpen]);
 
   return (
     <nav
@@ -29,7 +40,7 @@ export default function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-6 py-5">
         <div className="flex items-center justify-between">
-          {/* Logo - 35% bigger */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/AIVI-LOGO-W.png"
@@ -37,7 +48,7 @@ export default function Navigation() {
               width={246}
               height={105}
               priority
-              className="h-16 w-auto transition-all duration-500 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(139,92,246,0.5)] cursor-pointer"
+              className="h-10 md:h-16 w-auto transition-all duration-500 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(139,92,246,0.5)] cursor-pointer"
             />
           </Link>
 
@@ -154,7 +165,10 @@ export default function Navigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden text-white hover:text-purple-400 transition-all duration-300 hover:scale-110">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden text-white hover:text-purple-400 transition-all duration-300 hover:scale-110"
+          >
             <svg
               className="w-7 h-7"
               fill="none"
@@ -164,9 +178,122 @@ export default function Navigation() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path d="M4 6h16M4 12h16M4 18h16"></path>
+              {mobileMenuOpen ? (
+                <path d="M6 18L18 6M6 6l12 12"></path>
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16"></path>
+              )}
             </svg>
           </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`md:hidden fixed inset-0 top-[80px] bg-black/98 backdrop-blur-2xl transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+        <div className="h-full overflow-y-auto px-6 py-8">
+          <div className="space-y-1">
+            <a
+              href="#features"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block px-4 py-4 text-white/80 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all text-base font-semibold"
+            >
+              Features
+            </a>
+            <a
+              href="#solutions"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block px-4 py-4 text-white/80 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all text-base font-semibold"
+            >
+              Solutions
+            </a>
+            <a
+              href="#integrations"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block px-4 py-4 text-white/80 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all text-base font-semibold"
+            >
+              Integrations
+            </a>
+
+            {/* Mobile Use Cases Dropdown */}
+            <div>
+              <button
+                onClick={() => setMobileUseCasesOpen(!mobileUseCasesOpen)}
+                className="w-full flex items-center justify-between px-4 py-4 text-white/80 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all text-base font-semibold"
+              >
+                <span>Use Cases</span>
+                <svg
+                  className={`w-5 h-5 transition-transform duration-300 ${mobileUseCasesOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${mobileUseCasesOpen ? 'max-h-96' : 'max-h-0'}`}>
+                <div className="pl-4 py-2 space-y-1">
+                  <Link
+                    href="/financial"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all"
+                  >
+                    <FontAwesomeIcon icon={faChartLine} className="text-orange-500 w-4 h-4" />
+                    <span>Financial</span>
+                  </Link>
+                  <Link
+                    href="/healthcare"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all"
+                  >
+                    <FontAwesomeIcon icon={faHospital} className="text-purple-400 w-4 h-4" />
+                    <span>Healthcare</span>
+                  </Link>
+                  <Link
+                    href="/law-firms"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all"
+                  >
+                    <FontAwesomeIcon icon={faGavel} className="text-orange-400 w-4 h-4" />
+                    <span>Law Firms</span>
+                  </Link>
+                  <Link
+                    href="/logistics"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all"
+                  >
+                    <FontAwesomeIcon icon={faTruck} className="text-purple-500 w-4 h-4" />
+                    <span>Logistics</span>
+                  </Link>
+                  <Link
+                    href="/real-estate"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all"
+                  >
+                    <FontAwesomeIcon icon={faHouse} className="text-orange-500 w-4 h-4" />
+                    <span>Real Estate</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="#about"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block px-4 py-4 text-white/80 hover:text-white hover:bg-purple-600/10 rounded-lg transition-all text-base font-semibold"
+            >
+              About Us
+            </a>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                window.location.href = '#demo-form';
+              }}
+              className="w-full mt-4 py-4 px-6 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-bold rounded-xl transition-all hover:shadow-[0_8px_30px_rgba(139,92,246,0.5)] uppercase tracking-wider"
+            >
+              Contact
+            </button>
+          </div>
         </div>
       </div>
     </nav>

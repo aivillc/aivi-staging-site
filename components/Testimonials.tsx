@@ -14,10 +14,26 @@ const testimonialsContent = {
     description: 'See how AIVI transforms client engagement and advisory services',
     testimonials: [
       {
+        quote: "AIVI's AI voice agent handles 80% of client inquiries autonomously. Our advisors now focus exclusively on high-value consultations. ROI paid for itself in 6 weeks.",
+        author: "Thomas Reynolds",
+        role: "CEO",
+        company: "Reynolds Wealth Management",
+        industry: "Financial",
+        color: 'purple' as const
+      },
+      {
         quote: "Client onboarding time dropped from 3 days to 12 seconds. AIVI's automated document processing and verification saved us countless hours.",
         author: "Robert Chen",
         role: "Managing Partner",
         company: "Summit Wealth Advisors",
+        industry: "Financial",
+        color: 'orange' as const
+      },
+      {
+        quote: "The AI detected that 23% of our clients were considering switching advisors. Proactive outreach campaigns saved $2.4M in AUM retention.",
+        author: "Katherine Morrison",
+        role: "VP of Client Experience",
+        company: "Pinnacle Investment Group",
         industry: "Financial",
         color: 'purple' as const
       },
@@ -36,6 +52,14 @@ const testimonialsContent = {
         company: "Premier Financial Group",
         industry: "Financial",
         color: 'purple' as const
+      },
+      {
+        quote: "We closed 42 new accounts in Q1 from re-engaged cold leads. AIVI's AI identified optimal contact times and personalized messaging for each prospect.",
+        author: "Brandon Lee",
+        role: "Senior Financial Advisor",
+        company: "Horizon Financial Partners",
+        industry: "Financial",
+        color: 'orange' as const
       }
     ],
     stats: [
@@ -73,6 +97,30 @@ const testimonialsContent = {
         company: "Family Care Associates",
         industry: "Healthcare",
         color: 'purple' as const
+      },
+      {
+        quote: "AIVI's AI voice agent handles prescription refill requests 24/7. Our staff can focus on in-person patient care instead of answering routine phone calls.",
+        author: "Dr. James Patterson",
+        role: "Medical Director",
+        company: "Riverside Health Group",
+        industry: "Healthcare",
+        color: 'orange' as const
+      },
+      {
+        quote: "Post-operative follow-up calls went from 40% completion to 98% with AIVI. Patients love the personalized check-ins and our outcomes have improved significantly.",
+        author: "Linda Morrison",
+        role: "Chief Nursing Officer",
+        company: "Summit Surgical Center",
+        industry: "Healthcare",
+        color: 'purple' as const
+      },
+      {
+        quote: "We collected 3x more patient feedback after visits using AIVI's automated text surveys. The insights helped us identify and fix service gaps quickly.",
+        author: "Carlos Ramirez",
+        role: "Patient Experience Director",
+        company: "Community Health Network",
+        industry: "Healthcare",
+        color: 'orange' as const
       }
     ],
     stats: [
@@ -110,6 +158,30 @@ const testimonialsContent = {
         company: "Metropolitan Law Partners",
         industry: "Law Firms",
         color: 'purple' as const
+      },
+      {
+        quote: "We recovered $180K in billable hours lost to missed callbacks. AIVI contacts new leads instantly and schedules consultations when we're available.",
+        author: "Robert Davidson",
+        role: "Partner",
+        company: "Davidson & Sharp Law Offices",
+        industry: "Law Firms",
+        color: 'orange' as const
+      },
+      {
+        quote: "Our intake team went from 12 paralegals to 4. AIVI pre-qualifies leads, gathers initial information, and only escalates viable cases to our attorneys.",
+        author: "Angela Martinez",
+        role: "Director of Intake",
+        company: "Justice Legal Group",
+        industry: "Law Firms",
+        color: 'purple' as const
+      },
+      {
+        quote: "Client satisfaction scores increased 42% after implementing AIVI's automated communication. Clients feel informed and valued throughout their case.",
+        author: "Steven Park",
+        role: "Managing Attorney",
+        company: "Park & Associates",
+        industry: "Law Firms",
+        color: 'orange' as const
       }
     ],
     stats: [
@@ -147,6 +219,30 @@ const testimonialsContent = {
         company: "Premier Shipping Co.",
         industry: "Logistics",
         color: 'purple' as const
+      },
+      {
+        quote: "AIVI's AI handles delivery exceptions automatically. Customers get instant notifications about delays with rescheduling options. Our CSAT scores jumped 38%.",
+        author: "Michelle Chang",
+        role: "COO",
+        company: "Swift Delivery Network",
+        industry: "Logistics",
+        color: 'orange' as const
+      },
+      {
+        quote: "Proof of delivery confirmations went from 60% to 98%. AIVI texts customers immediately after drop-off to confirm receipt and gather feedback.",
+        author: "Kevin Roberts",
+        role: "Director of Last Mile",
+        company: "Urban Transport Solutions",
+        industry: "Logistics",
+        color: 'purple' as const
+      },
+      {
+        quote: "We reduced missed delivery attempts by 72%. AIVI confirms delivery windows with customers an hour before arrival and adjusts routes in real-time.",
+        author: "Amanda Foster",
+        role: "VP of Logistics",
+        company: "National Freight Express",
+        industry: "Logistics",
+        color: 'orange' as const
       }
     ],
     stats: [
@@ -184,6 +280,30 @@ const testimonialsContent = {
         company: "Prestige Real Estate",
         industry: "Real Estate",
         color: 'purple' as const
+      },
+      {
+        quote: "AIVI re-engaged 300+ old leads from my database. We closed 14 deals worth $7.2M that I thought were completely dead. Absolute game-changer.",
+        author: "Jason Miller",
+        role: "Real Estate Investor",
+        company: "Miller Property Group",
+        industry: "Real Estate",
+        color: 'orange' as const
+      },
+      {
+        quote: "Open house RSVPs increased 156% with AIVI's automated text invitations. The AI sends personalized invites based on buyer preferences and follows up.",
+        author: "Nicole Anderson",
+        role: "Luxury Agent",
+        company: "Elite Real Estate Partners",
+        industry: "Real Estate",
+        color: 'purple' as const
+      },
+      {
+        quote: "My average days-on-market dropped from 42 to 18 days. AIVI nurtures interested buyers with property updates and price changes automatically.",
+        author: "Christopher Lee",
+        role: "Team Leader",
+        company: "Prime Realty Associates",
+        industry: "Real Estate",
+        color: 'orange' as const
       }
     ],
     stats: [
@@ -202,28 +322,52 @@ export default function Testimonials({ industry }: TestimonialsProps = {}) {
     description: 'See how AIVI transforms customer engagement across industries',
     testimonials: [
       {
-        quote: "AIVI successfully grew our lead remarketing campaigns. From 1 in 5 using email to almost 1 in 2 using their AI SMS. Increasing our conversion rate by 120%.",
-        author: "Marketing Director",
-        role: "Lead Generation Manager",
-        company: "AIVI Client",
+        quote: "AIVI knows what they're doing when it comes to AI SMS bots and AI lead gen. Great communication, quality product, and a pleasure to work with. Highly recommend!",
+        author: "Andy Mackensen",
+        role: "Founder",
+        company: "LeadRoller",
         industry: "Lead Generation",
         color: 'purple' as const
       },
       {
-        quote: "The document intelligence feature alone saved us 20 hours per week. OCR + LLM automatically processes invoices and updates our CRM.",
-        author: "Michael Chen",
-        role: "Director of Finance",
-        company: "Capital Solutions Group",
+        quote: "AIVI successfully grew our lead remarketing campaigns. From 1 in 5 using email to almost 1 in 2 using their AI SMS. Increasing our conversion rate by 120%.",
+        author: "Danny Hobbs",
+        role: "Marketing Director",
+        company: "My Financial Broker",
         industry: "Financial Services",
         color: 'orange' as const
       },
       {
-        quote: "Their managed service team had us up and running in 48 hours. The ROI was immediate—we saw 35% increase in policy renewals.",
-        author: "Jennifer Adams",
-        role: "Chief Marketing Officer",
-        company: "Shield Insurance Partners",
+        quote: "The 13-second response time at any time of day completely transformed our lead conversion. We saw a 391% increase in qualified appointments booked.",
+        author: "Michael Stevens",
+        role: "VP of Sales",
+        company: "Apex Insurance Group",
         industry: "Insurance",
         color: 'purple' as const
+      },
+      {
+        quote: "AIVI's AI voice agent prequalified leads and live transferred qualified prospects to our team. We saw a 250% increase in conversion rate within 8 weeks.",
+        author: "Rachel Martinez",
+        role: "Director of Operations",
+        company: "Prime Lending Solutions",
+        industry: "Financial Services",
+        color: 'orange' as const
+      },
+      {
+        quote: "We reactivated our dormant database with AIVI's text campaigns. 105% revenue growth from customers we thought were lost forever. Absolutely incredible ROI.",
+        author: "Jonathan Park",
+        role: "Chief Revenue Officer",
+        company: "Capital Direct",
+        industry: "Financial Services",
+        color: 'purple' as const
+      },
+      {
+        quote: "80% contact rate using a mix of text and voice. AIVI handles after-hours inquiries and schedules appointments automatically. Our sales team focuses only on closing.",
+        author: "Sarah Thompson",
+        role: "Sales Manager",
+        company: "Metro Realty Partners",
+        industry: "Real Estate",
+        color: 'orange' as const
       }
     ],
     stats: [

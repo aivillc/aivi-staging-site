@@ -63,7 +63,8 @@ export default function Navigation() {
               </button>
               
               {/* Dropdown Menu */}
-              <div className={`absolute top-full left-0 mt-3 w-52 bg-black/98 backdrop-blur-2xl border border-purple-600/30 rounded-xl shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-400 ease-out ${useCasesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-3 pointer-events-none'}`}>
+              <div className={`absolute top-full left-0 pt-3 w-52 transition-all duration-400 ease-out ${useCasesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-3 pointer-events-none'}`}>
+                <div className="bg-black/98 backdrop-blur-2xl border border-purple-600/30 rounded-xl shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden">
                 <Link
                   href="/financial"
                   className="block px-5 py-3.5 text-white/75 hover:text-white hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-transparent transition-all duration-300 text-sm font-medium border-b border-purple-600/10 group"
@@ -109,6 +110,7 @@ export default function Navigation() {
                     <span className="group-hover:translate-x-1 transition-transform duration-300">Real Estate</span>
                   </span>
                 </Link>
+                </div>
               </div>
             </div>
 

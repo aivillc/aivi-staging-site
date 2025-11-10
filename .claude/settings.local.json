@@ -4,7 +4,15 @@
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
       "Bash(vercel:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git log:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(taskkill:*)",
+      "Bash(nul)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(del nul)"
     ],
     "deny": [],
     "ask": []

@@ -17,6 +17,7 @@ interface Question {
 }
 
 interface BotResponses {
+  userName?: string;
   industry?: string;
   challenge?: string;
   channels?: string[];
@@ -33,8 +34,14 @@ interface BotResponses {
 
 const questions: Question[] = [
   {
+    id: 0,
+    question: "Hi! I'm AIVI's AI Assistant. Let me help design the perfect automation solution for your business.",
+    type: 'text',
+    key: 'userName',
+  },
+  {
     id: 1,
-    question: "Hi! I'm AIVI's AI assistant. Let me help design the perfect automation solution for your business. What industry are you in?",
+    question: "What industry are you in?",
     type: 'select',
     key: 'industry',
     options: [
@@ -47,7 +54,7 @@ const questions: Question[] = [
   },
   {
     id: 2,
-    question: "Great! What's your biggest customer engagement challenge right now?",
+    question: "What's your biggest customer engagement challenge right now?",
     type: 'select',
     key: 'challenge',
     options: [
@@ -116,6 +123,7 @@ export default function DemoForm() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [responses, setResponses] = useState<BotResponses>({});
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [textInput, setTextInput] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -130,25 +138,33 @@ export default function DemoForm() {
 
   const handleAnswer = (answer: string | string[]) => {
     const question = questions[currentQuestion];
-    
+
     setIsAnimating(true);
-    
+
     setTimeout(() => {
       setResponses({
         ...responses,
         [question.key]: answer
       });
-      
+
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
         setSelectedOptions([]);
+        setTextInput('');
       } else {
         // After last question, show contact form
         setShowContactForm(true);
       }
-      
+
       setIsAnimating(false);
     }, 300);
+  };
+
+  const handleTextSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (textInput.trim()) {
+      handleAnswer(textInput.trim());
+    }
   };
 
   const handleOptionClick = (option: string) => {
@@ -317,6 +333,7 @@ export default function DemoForm() {
     setCurrentQuestion(0);
     setResponses({});
     setSelectedOptions([]);
+    setTextInput('');
     setShowContactForm(false);
     setShowResults(false);
     setShowThankYouPopup(false);
@@ -327,6 +344,27 @@ export default function DemoForm() {
       phone: '',
       additionalNotes: ''
     });
+  };
+
+  // Helper function to personalize questions with user's name
+  const getPersonalizedQuestion = (question: Question): string => {
+    const userName = responses.userName as string;
+
+    if (!userName || currentQuestion === 0) {
+      return question.question;
+    }
+
+    // Map of question IDs to personalized versions
+    const personalizedQuestions: { [key: number]: string } = {
+      1: `Great to meet you, ${userName}! What industry are you in?`,
+      2: `Thanks, ${userName}! What's your biggest customer engagement challenge right now?`,
+      3: `Got it, ${userName}! Which channels do you currently use to reach customers? (Select all that apply)`,
+      4: `Perfect, ${userName}! How many customer interactions do you handle monthly?`,
+      5: `Excellent, ${userName}! What's your primary goal with AI automation?`,
+      6: `Almost done, ${userName}! Last question - do you currently use a CRM?`
+    };
+
+    return personalizedQuestions[question.id] || question.question;
   };
 
   // Contact Form View
@@ -349,7 +387,7 @@ export default function DemoForm() {
 
           <div className="mb-6">
             <h3 className="text-2xl font-black text-white mb-2">
-              Perfect! Let's get you started
+              Perfect{responses.userName ? `, ${responses.userName}` : ''}! Let's get you started
             </h3>
             <p className="text-white/70">
               Please share your contact information so we can create your custom AI solution and get in touch.
@@ -626,33 +664,57 @@ export default function DemoForm() {
         {/* Question */}
         <div className="mb-6">
           <h3 className="text-xl md:text-2xl font-bold text-white leading-relaxed">
-            {question.question}
+            {getPersonalizedQuestion(question)}
           </h3>
         </div>
 
-        {/* Options */}
-        <div className="space-y-3">
-          {question.options?.map((option, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => handleOptionClick(option)}
+        {/* Text Input (for first question) */}
+        {question.type === 'text' && (
+          <form onSubmit={handleTextSubmit} className="space-y-4">
+            <input
+              type="text"
+              value={textInput}
+              onChange={(e) => setTextInput(e.target.value)}
+              placeholder="Your Name"
               disabled={isAnimating}
-              className={`w-full text-left px-6 py-4 rounded-xl border-2 font-medium transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed ${
-                selectedOptions.includes(option)
-                  ? 'bg-purple-500/20 border-purple-500 text-white'
-                  : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-purple-500/50'
-              }`}
+              className="w-full px-6 py-4 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-lg disabled:opacity-50"
+              autoFocus
+            />
+            <button
+              type="submit"
+              disabled={isAnimating || !textInput.trim()}
+              className="w-full py-4 px-6 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-black rounded-lg shadow-lg transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
             >
-              <div className="flex items-center justify-between">
-                <span>{option}</span>
-                {selectedOptions.includes(option) && (
-                  <FontAwesomeIcon icon={faCheck} className="text-purple-400 text-xl" />
-                )}
-              </div>
+              Continue →
             </button>
-          ))}
-        </div>
+          </form>
+        )}
+
+        {/* Options (for select/multiselect questions) */}
+        {question.type !== 'text' && (
+          <div className="space-y-3">
+            {question.options?.map((option, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => handleOptionClick(option)}
+                disabled={isAnimating}
+                className={`w-full text-left px-6 py-4 rounded-xl border-2 font-medium transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed ${
+                  selectedOptions.includes(option)
+                    ? 'bg-purple-500/20 border-purple-500 text-white'
+                    : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-purple-500/50'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span>{option}</span>
+                  {selectedOptions.includes(option) && (
+                    <FontAwesomeIcon icon={faCheck} className="text-purple-400 text-xl" />
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Multi-select confirm button */}
         {question.type === 'multiselect' && selectedOptions.length > 0 && (

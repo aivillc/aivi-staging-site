@@ -119,18 +119,6 @@ export default function Hero({ industry }: HeroProps = {}) {
               <span className="text-orange-500 font-bold bg-orange-500/10 px-3 py-1 rounded-lg border border-orange-500/20">{current.stat}</span>
             </p>
           </div>
-
-
-          {/* Key Features - NO EMOJIS, sleek icons */}
-          <div className="flex flex-wrap justify-center gap-3 mb-16 animate-fadeInUp">
-            <FeaturePill text="AI Voice" />
-            <FeaturePill text="SMS Automation" />
-            <FeaturePill text="Email Campaigns" />
-            <FeaturePill text="Document AI" />
-            <FeaturePill text="CRM Integration" />
-            <FeaturePill text="Agent Coaching" />
-            <FeaturePill text="Secure PII" />
-          </div>
         </div>
 
         {/* Demo Form */}
@@ -138,8 +126,19 @@ export default function Hero({ industry }: HeroProps = {}) {
           <DemoForm />
         </div>
 
+        {/* Key Features - NO EMOJIS, sleek icons */}
+        <div className="flex flex-wrap justify-center gap-3 mt-16 mb-16 animate-fadeInUp">
+          <FeaturePill text="AI Voice" />
+          <FeaturePill text="SMS Automation" />
+          <FeaturePill text="Email Campaigns" />
+          <FeaturePill text="Document AI" />
+          <FeaturePill text="CRM Integration" />
+          <FeaturePill text="Agent Coaching" />
+          <FeaturePill text="Secure PII" />
+        </div>
+
         {/* Trust Indicators - Sleek */}
-        <div className="mt-16 text-center animate-fadeInUp">
+        <div className="text-center animate-fadeInUp">
           <p className="text-sm text-white/30 mb-5 uppercase tracking-widest font-semibold">Trusted Globally</p>
           <div className="flex flex-wrap justify-center gap-4 text-sm font-medium text-white/50">
             <TrustBadge text="Trucking & Logistics" />

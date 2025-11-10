@@ -141,7 +141,7 @@ export default function Navigation() {
                   }}
                 >
                   <span className="flex items-center gap-3">
-                    <FontAwesomeIcon icon={faChartLine} className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" style={{ color: '#ee6c4d' }} />
+                    <FontAwesomeIcon icon={faChartLine} className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" style={{ color: '#00cc99' }} />
                     <span className="group-hover:translate-x-1 transition-transform duration-300">Financial</span>
                   </span>
                 </Link>
@@ -162,7 +162,7 @@ export default function Navigation() {
                   }}
                 >
                   <span className="flex items-center gap-3">
-                    <FontAwesomeIcon icon={faHospital} className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" style={{ color: '#98c1d9' }} />
+                    <FontAwesomeIcon icon={faHospital} className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" style={{ color: '#00cc99' }} />
                     <span className="group-hover:translate-x-1 transition-transform duration-300">Healthcare</span>
                   </span>
                 </Link>
@@ -204,7 +204,7 @@ export default function Navigation() {
                   }}
                 >
                   <span className="flex items-center gap-3">
-                    <FontAwesomeIcon icon={faTruck} className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" style={{ color: '#3d5a80' }} />
+                    <FontAwesomeIcon icon={faTruck} className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" style={{ color: '#00cc99' }} />
                     <span className="group-hover:translate-x-1 transition-transform duration-300">Logistics</span>
                   </span>
                 </Link>
@@ -224,7 +224,7 @@ export default function Navigation() {
                   }}
                 >
                   <span className="flex items-center gap-3">
-                    <FontAwesomeIcon icon={faHouse} className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" style={{ color: '#ee6c4d' }} />
+                    <FontAwesomeIcon icon={faHouse} className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" style={{ color: '#00cc99' }} />
                     <span className="group-hover:translate-x-1 transition-transform duration-300">Real Estate</span>
                   </span>
                 </Link>
@@ -380,7 +380,7 @@ export default function Navigation() {
                       e.currentTarget.style.backgroundColor = 'transparent';
                     }}
                   >
-                    <FontAwesomeIcon icon={faChartLine} className="w-4 h-4" style={{ color: '#ee6c4d' }} />
+                    <FontAwesomeIcon icon={faChartLine} className="w-4 h-4" style={{ color: '#00cc99' }} />
                     <span>Financial</span>
                   </Link>
                   <Link
@@ -397,7 +397,7 @@ export default function Navigation() {
                       e.currentTarget.style.backgroundColor = 'transparent';
                     }}
                   >
-                    <FontAwesomeIcon icon={faHospital} className="w-4 h-4" style={{ color: '#98c1d9' }} />
+                    <FontAwesomeIcon icon={faHospital} className="w-4 h-4" style={{ color: '#00cc99' }} />
                     <span>Healthcare</span>
                   </Link>
                   <Link
@@ -431,7 +431,7 @@ export default function Navigation() {
                       e.currentTarget.style.backgroundColor = 'transparent';
                     }}
                   >
-                    <FontAwesomeIcon icon={faTruck} className="w-4 h-4" style={{ color: '#3d5a80' }} />
+                    <FontAwesomeIcon icon={faTruck} className="w-4 h-4" style={{ color: '#00cc99' }} />
                     <span>Logistics</span>
                   </Link>
                   <Link
@@ -448,7 +448,7 @@ export default function Navigation() {
                       e.currentTarget.style.backgroundColor = 'transparent';
                     }}
                   >
-                    <FontAwesomeIcon icon={faHouse} className="w-4 h-4" style={{ color: '#ee6c4d' }} />
+                    <FontAwesomeIcon icon={faHouse} className="w-4 h-4" style={{ color: '#00cc99' }} />
                     <span>Real Estate</span>
                   </Link>
                 </div>

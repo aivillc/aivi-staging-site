@@ -158,10 +158,21 @@ export default function DemoForm() {
     }, 300);
   };
 
+  // Helper function to extract first name from full name
+  const extractFirstName = (fullName: string): string => {
+    return fullName.trim().split(/\s+/)[0] || fullName.trim();
+  };
+
   const handleTextSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (textInput.trim()) {
-      handleAnswer(textInput.trim());
+      // Extract only first name if this is the name question (question 0)
+      if (currentQuestion === 0) {
+        const firstName = extractFirstName(textInput.trim());
+        handleAnswer(firstName);
+      } else {
+        handleAnswer(textInput.trim());
+      }
     }
   };
 

@@ -226,18 +226,19 @@ export default function Solutions() {
 }
 
 function Feature({ text, highlight = false }: { text: string; highlight?: boolean }) {
-  const gradientStyle = highlight
-    ? 'linear-gradient(90deg, #0ea5e9 0%, #14b8a6 100%)'
-    : 'linear-gradient(90deg, #14b8a6 0%, #98c1d9 100%)';
+  const iconBgGradient = highlight
+    ? 'from-[#0ea5e9] to-[#14b8a6]'
+    : 'from-[#14b8a6] to-[#98c1d9]';
 
   return (
     <div className="flex items-center gap-3 group">
       <div className="flex items-center gap-3 flex-1">
-        <FontAwesomeIcon
-          icon={faCheck}
-          className="font-black text-lg transition-all text-transparent bg-clip-text"
-          style={{ backgroundImage: gradientStyle }}
-        />
+        <div className={`flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-br ${iconBgGradient} flex items-center justify-center`}>
+          <FontAwesomeIcon
+            icon={faCheck}
+            className="text-white text-xs font-bold"
+          />
+        </div>
         <span className="text-gray-700 font-medium group-hover:text-gray-900 transition-colors">{text}</span>
       </div>
     </div>

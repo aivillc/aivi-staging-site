@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer id="contact" className="relative py-12 sm:py-14 md:py-16 px-4 sm:px-6 bg-black border-t" style={{ borderColor: 'rgba(14, 165, 233, 0.2)' }}>
       {/* Subtle grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(61,90,128,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(61,90,128,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       {/* Animated gradient line at top */}
       <div className="absolute top-0 left-0 right-0 h-px">
@@ -26,7 +26,7 @@ export default function Footer() {
               Customer Experience?
             </span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
+          <p className="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: 'rgba(224, 242, 254, 0.6)' }}>
             Start with a live demo or speak with our team to see how AIVI can drive results for your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

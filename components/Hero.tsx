@@ -83,12 +83,12 @@ export default function Hero({ industry }: HeroProps = {}) {
       <div className="absolute inset-0 bg-black" />
 
       {/* Moving gradient orbs */}
-      <div className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-3xl animate-pulse-slow" style={{ backgroundColor: 'rgba(61, 90, 128, 0.15)' }} />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse-slower" style={{ backgroundColor: 'rgba(0, 204, 153, 0.12)' }} />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-3xl animate-spin-slow" style={{ background: 'linear-gradient(90deg, rgba(61, 90, 128, 0.08) 0%, transparent 50%, rgba(0, 204, 153, 0.08) 100%)' }} />
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-3xl animate-pulse-slow" style={{ backgroundColor: 'rgba(14, 165, 233, 0.15)' }} />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse-slower" style={{ backgroundColor: 'rgba(20, 184, 166, 0.12)' }} />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-3xl animate-spin-slow" style={{ background: 'linear-gradient(90deg, rgba(14, 165, 233, 0.08) 0%, transparent 50%, rgba(20, 184, 166, 0.08) 100%)' }} />
 
       {/* Grid overlay - cyberpunk style */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(61,90,128,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(61,90,128,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       {/* Diagonal moving gradient lines */}
       <div className="absolute inset-0 overflow-hidden opacity-30">

@@ -18,7 +18,7 @@ export default function Home() {
       <PainPoints />
       <Features />
       <Solutions />
-      <Integrations />
+      {/* <Integrations /> */}
       <Dashboard />
       <Testimonials />
       <Footer />

@@ -73,7 +73,7 @@ export default function PainPoints({ industry }: PainPointsProps = {}) {
   const content = industry ? painPointsContent[industry] : {
     title: 'Stop Losing Revenue to Outbound That\'s Now',
     subtitle: 'Outdated',
-    description: 'Traditional outbound calling is failing. Modern customers ignore unknown numbers and sophisticated call screening blocks your reach. Can your business afford to keep losing opportunities?',
+    description: '',
     painPoints: [
       { title: 'Unknown Numbers', stat: '87% don\'t answer', solution: 'AIVI warms leads through SMS and email before initiating outbound calls, ensuring higher connection rates', color: 'purple' as const },
       { title: 'Apple & Google Call Screening', stat: 'Blocks 60% of calls', solution: 'AIVI\'s intelligent system detects call screening technology and adapts in real-time to reach customers through alternative channels', color: 'orange' as const },

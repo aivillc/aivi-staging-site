@@ -38,7 +38,7 @@ export default function Features({ industry }: FeaturesProps = {}) {
   const content = industry ? featuresContent[industry] : {
     title: 'Multi-Channel AI',
     subtitle: 'Capabilities',
-    description: 'Seamlessly engage customers across every channel with AI-powered automation'
+    description: ''
   };
 
   return (

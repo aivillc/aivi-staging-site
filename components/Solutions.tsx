@@ -22,7 +22,6 @@ export default function Solutions() {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Whether you want full control or turnkey deployment, we've got you covered
           </p>
         </div>
 

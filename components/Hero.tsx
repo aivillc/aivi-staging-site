@@ -42,16 +42,6 @@ export default function Hero() {
               <span className="inline-block animate-fadeInUp">What no human can</span>
             </h1>
 
-            {/* Sub-headline - Static */}
-            <p className="text-xl md:text-2xl max-w-4xl mx-auto mb-12 leading-relaxed font-light tracking-wide" style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
-              AI-powered omnichannel automation that reactivates 50% of dead leads and increases conversions by
-              <br className="hidden md:block" />
-              <span className="font-bold px-3 py-1 rounded-lg border" style={{
-                color: '#14b8a6',
-                backgroundColor: 'rgba(20, 184, 166, 0.1)',
-                borderColor: 'rgba(20, 184, 166, 0.3)'
-              }}>391%</span>
-            </p>
           </div>
         </div>
 

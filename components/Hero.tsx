@@ -30,17 +30,16 @@ export default function Hero() {
           {/* Main Headline - Static */}
           <div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] mb-10 tracking-tight" style={{ color: '#e0fbfc' }}>
-              <span className="inline-block animate-fadeInUp">Turn Cold Leads Into</span>{' '}
+              <span className="inline-block animate-fadeInUp">Outbound has changed forever</span>
+              <br />
               <span className="inline-block text-transparent bg-clip-text animate-gradient-x bg-[length:200%_auto]" style={{
                 backgroundImage: 'linear-gradient(90deg, #0ea5e9 0%, #14b8a6 50%, #0ea5e9 100%)',
                 filter: 'drop-shadow(0 0 30px rgba(14, 165, 233, 0.5))'
               }}>
-                Revenue
+                AIVI achieves
               </span>
               <br />
-              <span className="text-4xl md:text-6xl lg:text-7xl font-light tracking-wide" style={{ color: 'rgba(224, 251, 252, 0.5)' }}>
-                In 13 Seconds
-              </span>
+              <span className="inline-block animate-fadeInUp">What no human can</span>
             </h1>
 
             {/* Sub-headline - Static */}
@@ -97,16 +96,6 @@ export default function Hero() {
           <FeaturePill text="Secure PII" />
         </div>
 
-        {/* Trust Indicators - Sleek */}
-        <div className="text-center animate-fadeInUp">
-          <p className="text-sm text-white/30 mb-5 uppercase tracking-widest font-semibold">Trusted Globally</p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm font-medium text-white/50">
-            <TrustBadge text="Trucking & Logistics" />
-            <TrustBadge text="Financial Services" />
-            <TrustBadge text="Insurance" />
-            <TrustBadge text="Healthcare" />
-          </div>
-        </div>
       </div>
 
       <style jsx>{`

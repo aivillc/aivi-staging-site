@@ -50,10 +50,10 @@ export default function Navigation() {
             <Image
               src="/AIVI-LOGO-W.png"
               alt="AIVI"
-              width={246}
-              height={105}
+              width={308}
+              height={131}
               priority
-              className="h-10 md:h-16 w-auto transition-all duration-500 hover:scale-105 cursor-pointer"
+              className="h-12 md:h-20 w-auto transition-all duration-500 hover:scale-105 cursor-pointer"
               style={{
                 filter: 'drop-shadow(0 0 12px rgba(14, 165, 233, 0.5))'
               }}
@@ -254,7 +254,7 @@ export default function Navigation() {
               onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 204, 153, 0.5)'}
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 30px rgba(14, 165, 233, 0.3)'}
             >
-              <span className="relative z-10">Contact</span>
+              <span className="relative z-10">TRY AIVI</span>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400" style={{ background: 'linear-gradient(90deg, #14b8a6 0%, #0ea5e9 100%)' }} />
             </button>
           </div>
@@ -486,7 +486,7 @@ export default function Navigation() {
               onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 204, 153, 0.5)'}
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 30px rgba(14, 165, 233, 0.3)'}
             >
-              Contact
+              TRY AIVI
             </button>
           </div>
         </div>

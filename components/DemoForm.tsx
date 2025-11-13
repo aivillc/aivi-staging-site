@@ -33,7 +33,7 @@ interface BotResponses {
 const questions: Question[] = [
   {
     id: 0,
-    question: "Hi! I'm AIVI's AI Assistant. Let me help design the perfect automation solution for your business.",
+    question: "Start your AIVI journey here...",
     type: 'text',
     key: 'userName',
   },
@@ -656,7 +656,7 @@ export default function DemoForm() {
               />
               <button
                 type="submit"
-                disabled={isAnimating || !textInput.trim()}
+                disabled={isAnimating}
                 className="relative px-8 py-3 bg-gradient-to-r from-[#0ea5e9] to-[#14b8a6] text-white font-bold rounded-xl transition-all duration-400 hover:shadow-[0_8px_30px_rgba(14,165,233,0.5)] hover:-translate-y-1 uppercase tracking-wider overflow-hidden group disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 <span className="relative z-10">Continue</span>

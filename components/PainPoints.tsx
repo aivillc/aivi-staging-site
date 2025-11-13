@@ -71,13 +71,13 @@ const painPointsContent = {
 
 export default function PainPoints({ industry }: PainPointsProps = {}) {
   const content = industry ? painPointsContent[industry] : {
-    title: 'Stop Losing Clients to Outbound That\'s Now',
+    title: 'Stop Losing Revenue to Outbound That\'s Now',
     subtitle: 'Outdated',
     description: 'Traditional outbound calling is failing. Modern customers ignore unknown numbers and sophisticated call screening blocks your reach. Can your business afford to keep losing opportunities?',
     painPoints: [
       { title: 'Unknown Numbers', stat: '87% don\'t answer', solution: 'AIVI warms leads through SMS and email before initiating outbound calls, ensuring higher connection rates', color: 'purple' as const },
       { title: 'Apple & Google Call Screening', stat: 'Blocks 60% of calls', solution: 'AIVI\'s intelligent system detects call screening technology and adapts in real-time to reach customers through alternative channels', color: 'orange' as const },
-      { title: 'Loss of Intent', stat: 'Intent drops 80%/hour', solution: 'AIVI\'s instant multi-channel outreach captures customers at peak interest, maximizing conversion potential', color: 'purple' as const },
+      { title: 'Loss of Customer Intent', stat: '1 hour delay kills 90% of leads', solution: 'AIVI\'s instant multi-channel outreach captures customers at peak interest, maximizing conversion potential', color: 'purple' as const },
     ],
     ctaText: 'Limited: 10 Spots This Month',
     spotsText: 'Current availability: 6 spots'
@@ -114,17 +114,6 @@ export default function PainPoints({ industry }: PainPointsProps = {}) {
           ))}
         </div>
 
-        {/* Urgency CTA */}
-        <div className="max-w-3xl mx-auto text-center p-8 rounded-2xl shadow-2xl" style={{
-          backgroundImage: 'linear-gradient(90deg, #0ea5e9 0%, #14b8a6 100%)'
-        }}>
-          <p className="text-2xl font-bold mb-2" style={{ color: '#e0fbfc' }}>
-            {content.ctaText}
-          </p>
-          <p className="text-lg" style={{ color: 'rgba(224, 251, 252, 0.9)' }}>
-            {content.spotsText.split(':')[0]}: <span className="font-black text-3xl">{content.spotsText.split(':')[1]}</span>
-          </p>
-        </div>
       </div>
     </section>
   );

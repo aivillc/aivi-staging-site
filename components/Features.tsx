@@ -185,8 +185,8 @@ function FeatureCard({ title, description, features, icon, gradient }: FeatureCa
   const [isHovered, setIsHovered] = useState(false);
 
   const gradientStyle = gradient === 'blue'
-    ? 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)'
-    : 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)';
+    ? 'linear-gradient(135deg, #0ea5e9 0%, #2d4560 100%)'
+    : 'linear-gradient(135deg, #14b8a6 0%, #00b388 100%)';
 
   return (
     <div
@@ -197,12 +197,12 @@ function FeatureCard({ title, description, features, icon, gradient }: FeatureCa
       {/* Glow effect */}
       <div
         className={`absolute -inset-1 rounded-2xl blur-xl transition-all duration-500 ${
-          isHovered ? 'opacity-40' : 'opacity-0'
+          isHovered ? 'opacity-30' : 'opacity-0'
         }`}
         style={{ background: gradientStyle }}
       />
-      
-      <div className="relative h-full p-6 sm:p-7 md:p-8 bg-white/5 backdrop-blur-sm border-2 border-white/10 hover:border-white/30 rounded-2xl transition-all duration-500 overflow-hidden">
+
+      <div className="relative h-full p-6 sm:p-7 md:p-8 bg-white/5 backdrop-blur-sm border-2 border-white/10 hover:border-white/30 rounded-2xl transition-all duration-500 overflow-hidden shadow-lg hover:shadow-2xl">
         {/* Animated top border */}
         <div
           className={`absolute top-0 left-0 h-1 transition-all duration-500 ${
@@ -211,69 +211,72 @@ function FeatureCard({ title, description, features, icon, gradient }: FeatureCa
           style={{ background: gradientStyle }}
         />
 
-        {/* Side accent bar */}
+        {/* Animated side accent bar */}
         <div
           className={`absolute top-0 left-0 w-1 transition-all duration-500 ${
-            isHovered ? 'h-full' : 'h-0'
+            isHovered ? 'h-full' : 'h-16'
           }`}
           style={{ background: gradientStyle }}
         />
 
-        {/* Icon */}
-        <div className={`mb-6 transition-all duration-300 ${isHovered ? '-translate-y-2' : 'translate-y-0'}`}>
-          <div
-            className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 ${
-              isHovered ? 'scale-110 shadow-2xl' : 'scale-100'
-            }`}
-            style={{
-              background: gradientStyle,
+        {/* Content */}
+        <div className={`transition-all duration-300 ${isHovered ? '-translate-y-1' : 'translate-y-0'}`}>
+          {/* Icon */}
+          <div className="mb-6">
+            <div
+              className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 ${
+                isHovered ? 'scale-105' : 'scale-100'
+              }`}
+              style={{
+                background: gradientStyle,
+                color: '#e0f2fe'
+              }}
+            >
+              {icon}
+            </div>
+          </div>
+
+          <h3
+            className="text-xl sm:text-2xl font-black mb-3 transition-all duration-300"
+            style={isHovered ? {
+              color: 'transparent',
+              backgroundImage: gradientStyle,
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text'
+            } : {
               color: '#e0f2fe'
             }}
           >
-            {icon}
-          </div>
+            {title}
+          </h3>
+
+          <p className="text-sm sm:text-base mb-6 leading-relaxed transition-colors duration-300" style={{
+            color: isHovered ? 'rgba(224, 251, 252, 0.8)' : 'rgba(224, 251, 252, 0.6)'
+          }}>{description}</p>
+
+          <ul className="space-y-3">
+            {features.map((feature, index) => (
+              <li key={index} className="flex items-center gap-3 text-sm transition-all" style={{
+                color: isHovered ? 'rgba(224, 251, 252, 0.9)' : 'rgba(224, 251, 252, 0.7)'
+              }}>
+                <span
+                  className="font-black text-lg transition-all duration-300"
+                  style={isHovered ? {
+                    color: 'transparent',
+                    backgroundImage: gradientStyle,
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    transform: 'scale(1.25)'
+                  } : {
+                    color: '#14b8a6',
+                    transform: 'scale(1)'
+                  }}
+                >✓</span>
+                <span className="transition-transform">{feature}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        
-        <h3
-          className="text-xl sm:text-2xl font-black mb-3 transition-all"
-          style={isHovered ? {
-            color: 'transparent',
-            backgroundImage: gradientStyle,
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text'
-          } : {
-            color: '#e0f2fe'
-          }}
-        >
-          {title}
-        </h3>
-
-        <p className="text-sm sm:text-base mb-6 leading-relaxed transition-colors" style={{
-          color: isHovered ? 'rgba(224, 251, 252, 0.8)' : 'rgba(224, 251, 252, 0.6)'
-        }}>{description}</p>
-
-        <ul className="space-y-3">
-          {features.map((feature, index) => (
-            <li key={index} className="flex items-center gap-3 text-sm transition-all" style={{
-              color: isHovered ? 'rgba(224, 251, 252, 0.9)' : 'rgba(224, 251, 252, 0.7)'
-            }}>
-              <span
-                className="font-black text-lg transition-transform"
-                style={isHovered ? {
-                  color: 'transparent',
-                  backgroundImage: gradientStyle,
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  transform: 'scale(1.25)'
-                } : {
-                  color: '#14b8a6',
-                  transform: 'scale(1)'
-                }}
-              >✓</span>
-              <span className="transition-transform">{feature}</span>
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );

@@ -56,6 +56,31 @@ export default function Hero() {
           </div>
         </div>
 
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12 animate-fadeInUp">
+          <button
+            onClick={() => {
+              const demoForm = document.getElementById('demo-form');
+              if (demoForm) {
+                demoForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }}
+            className="relative px-10 py-4 bg-gradient-to-r from-[#0ea5e9] to-[#14b8a6] text-white font-bold rounded-xl transition-all duration-400 hover:shadow-[0_8px_30px_rgba(14,165,233,0.6)] hover:-translate-y-1 uppercase tracking-wider overflow-hidden group text-lg"
+          >
+            <span className="relative z-10">Try AIVI</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#14b8a6] to-[#0ea5e9] opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+          </button>
+
+          <button
+            onClick={() => {
+              window.location.href = 'tel:+1-555-000-0000';
+            }}
+            className="relative px-10 py-4 bg-transparent border-2 border-white/80 text-white font-bold rounded-xl transition-all duration-400 hover:bg-white hover:text-black hover:shadow-[0_8px_30px_rgba(255,255,255,0.4)] hover:-translate-y-1 uppercase tracking-wider overflow-hidden group text-lg"
+          >
+            <span className="relative z-10">Call Me</span>
+          </button>
+        </div>
+
         {/* Demo Form */}
         <div id="demo-form" className="animate-fadeInUp">
           <DemoForm />

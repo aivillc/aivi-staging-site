@@ -63,7 +63,7 @@ export default function AIVIMetrics() {
     <section className="w-full bg-[#E8E5E0] px-6 py-6">
       <div className="w-full max-w-[calc(100%-48px)] mx-auto bg-white rounded-3xl shadow-lg p-12 lg:p-16">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-[fadeInUp_0.6s_ease-out]">
           <h2 className="text-[48px] leading-[1.2] font-normal text-[#000000] mb-4">
             Lead Generation Performance
           </h2>
@@ -79,7 +79,7 @@ export default function AIVIMetrics() {
               key={metric.id}
               onMouseEnter={() => setHoveredMetric(metric.id)}
               onMouseLeave={() => setHoveredMetric(null)}
-              className="relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 cursor-pointer overflow-hidden group"
+              className="relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 cursor-pointer overflow-hidden group animate-[fadeInUp_0.6s_ease-out]"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Animated background gradient */}

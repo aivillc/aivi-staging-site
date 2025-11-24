@@ -104,20 +104,29 @@ export default function AIVIFeatureTabs() {
         </div>
 
         {/* Horizontal Tab Navigation */}
-        <div className="flex gap-2 mb-12 overflow-x-auto pb-2">
-          {features.map((feature) => (
+        <div className="flex gap-2 mb-12 flex-wrap justify-center">
+          {features.map((feature, index) => (
             <button
               key={feature.id}
               onClick={() => setActiveTab(feature.id)}
-              className={`flex-1 px-4 py-2.5 rounded-lg transition-all duration-300 whitespace-nowrap ${
+              className={`group relative flex-1 px-4 py-2.5 rounded-lg transition-all duration-300 whitespace-nowrap overflow-hidden animate-[fadeInUp_0.5s_ease-out] ${
                 activeTab === feature.id
-                  ? `${feature.activeColor} text-[#000000] shadow-md`
-                  : 'bg-[#F5F5F5] text-[#666666] hover:bg-[#E8E8E8]'
+                  ? `${feature.activeColor} text-[#000000] shadow-md scale-105`
+                  : 'bg-[#F5F5F5] text-[#666666] hover:bg-[#E8E8E8] hover:scale-102 hover:shadow-sm'
               }`}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <span className="text-[13px] font-semibold uppercase tracking-[0.5px]">
+              {/* Shimmer effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+
+              <span className="relative z-10 text-[13px] font-semibold uppercase tracking-[0.5px]">
                 {feature.title}
               </span>
+
+              {/* Active indicator */}
+              {activeTab === feature.id && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#000000] animate-[expandWidth_0.3s_ease-out]" />
+              )}
             </button>
           ))}
         </div>
@@ -135,11 +144,13 @@ export default function AIVIFeatureTabs() {
 
             {/* CTA Buttons */}
             <div className="flex gap-3 flex-wrap">
-              <button className="px-6 py-3 bg-[#000000] text-white text-[15px] font-semibold rounded-md hover:bg-[#222222] transition-colors">
-                Get started for free
+              <button className="group relative px-6 py-3 bg-[#000000] text-white text-[15px] font-semibold rounded-md hover:bg-[#222222] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <span className="relative z-10">Get started for free</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </button>
-              <button className="px-6 py-3 bg-white border border-[#000000] text-[#000000] text-[15px] font-semibold rounded-md hover:bg-[#F5F5F5] transition-colors">
-                Learn more
+              <button className="group relative px-6 py-3 bg-white border-2 border-[#000000] text-[#000000] text-[15px] font-semibold rounded-md hover:bg-[#000000] hover:text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <span className="relative z-10">Learn more</span>
+                <div className="absolute inset-0 bg-[#000000] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" style={{ zIndex: 0 }} />
               </button>
             </div>
 
@@ -148,18 +159,15 @@ export default function AIVIFeatureTabs() {
               {activeFeature.features.map((item, index) => (
                 <div
                   key={index}
-                  className="flex gap-3 items-start animate-[fadeInLeft_0.5s_ease-out]"
+                  className="group flex gap-3 items-start animate-[fadeInLeft_0.5s_ease-out] hover:translate-x-2 transition-transform duration-300"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <svg className="w-5 h-5 text-[#000000] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                    <path
-                      fillRule="evenodd"
-                      d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="text-[15px] leading-[1.5] text-[#333333]">{item}</span>
+                  <div className="w-5 h-5 mt-0.5 flex-shrink-0 bg-[#E5FF00] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-3 h-3 text-[#000000]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-[15px] leading-[1.5] text-[#333333] group-hover:text-[#000000] transition-colors">{item}</span>
                 </div>
               ))}
             </div>
@@ -168,20 +176,27 @@ export default function AIVIFeatureTabs() {
           {/* Right Column - Product Demo */}
           <div
             key={`demo-${activeTab}`}
-            className={`relative rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.12)] ${activeFeature.activeColor} animate-[fadeInRight_0.5s_ease-out]`}
+            className={`group relative rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.18)] ${activeFeature.activeColor} animate-[fadeInRight_0.5s_ease-out] transition-shadow duration-500`}
           >
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
             <div className="aspect-[16/9] p-8 flex items-center justify-center">
-              <div className="w-full bg-white/20 backdrop-blur-sm rounded-xl p-6 space-y-4">
-                <div className="h-4 bg-white/30 rounded w-3/4"></div>
-                <div className="h-4 bg-white/30 rounded w-full"></div>
-                <div className="h-4 bg-white/30 rounded w-5/6"></div>
+              <div className="relative w-full bg-white/20 backdrop-blur-sm rounded-xl p-6 space-y-4 group-hover:bg-white/30 transition-all duration-300">
+                {/* Animated skeleton loaders */}
+                <div className="h-4 bg-white/30 rounded w-3/4 animate-pulse"></div>
+                <div className="h-4 bg-white/30 rounded w-full animate-pulse" style={{ animationDelay: '0.1s' }}></div>
+                <div className="h-4 bg-white/30 rounded w-5/6 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
                 <div className="mt-6 space-y-3">
-                  <div className="h-12 bg-[#E5FF00] rounded-lg flex items-center justify-center">
+                  <div className="h-12 bg-[#E5FF00] rounded-lg flex items-center justify-center hover:scale-105 transition-transform duration-300 cursor-pointer shadow-lg">
                     <span className="text-[14px] font-semibold text-[#000000]">{activeFeature.title} Dashboard</span>
                   </div>
-                  <div className="h-10 bg-white/30 rounded-lg"></div>
-                  <div className="h-10 bg-white/30 rounded-lg"></div>
+                  <div className="h-10 bg-white/30 rounded-lg hover:bg-white/40 transition-colors duration-300 cursor-pointer"></div>
+                  <div className="h-10 bg-white/30 rounded-lg hover:bg-white/40 transition-colors duration-300 cursor-pointer"></div>
                 </div>
+
+                {/* Corner accent */}
+                <div className="absolute top-2 right-2 w-2 h-2 bg-[#E5FF00] rounded-full opacity-50 group-hover:opacity-100 group-hover:scale-150 transition-all duration-300" />
               </div>
             </div>
           </div>

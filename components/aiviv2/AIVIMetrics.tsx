@@ -60,49 +60,49 @@ export default function AIVIMetrics() {
   const maxValue = Math.max(...performanceData.map(d => d.value));
 
   return (
-    <section className="w-full bg-[#E8E5E0] px-6 py-6">
-      <div className="w-full max-w-[calc(100%-48px)] mx-auto bg-white rounded-3xl shadow-lg p-12 lg:p-16">
+    <section className="w-full bg-[#E8E5E0] px-3 sm:px-6 py-6">
+      <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 md:p-12 lg:p-16">
         {/* Section Header */}
-        <div className="text-center mb-12 animate-[fadeInUp_0.6s_ease-out]">
-          <h2 className="text-[48px] leading-[1.2] font-normal text-[#000000] mb-4">
+        <div className="text-center mb-8 sm:mb-12 animate-[fadeInUp_0.6s_ease-out]">
+          <h2 className="text-[28px] sm:text-[36px] md:text-[48px] leading-[1.2] font-normal text-[#000000] mb-3 sm:mb-4 px-2">
             Lead Generation Performance
           </h2>
-          <p className="text-[17px] leading-[1.6] text-[#666666] max-w-[700px] mx-auto">
+          <p className="text-[15px] sm:text-[17px] leading-[1.6] text-[#666666] max-w-[700px] mx-auto px-2">
             Track your lead generation success with real-time metrics and insights
           </p>
         </div>
 
         {/* KPI Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {metrics.map((metric, index) => (
             <div
               key={metric.id}
               onMouseEnter={() => setHoveredMetric(metric.id)}
               onMouseLeave={() => setHoveredMetric(null)}
-              className="relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 cursor-pointer overflow-hidden group animate-[fadeInUp_0.6s_ease-out]"
+              className="relative bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 cursor-pointer overflow-hidden group animate-[fadeInUp_0.6s_ease-out]"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Animated background gradient */}
               <div className={`absolute inset-0 ${metric.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
 
               <div className="relative z-10">
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-xl ${metric.color} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}>
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div className="flex items-start justify-between mb-3 sm:mb-4">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl ${metric.color} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}>
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                     </svg>
                   </div>
-                  <span className="flex items-center gap-1 text-sm font-semibold text-emerald-600">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <span className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-emerald-600">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
                     {metric.change}
                   </span>
                 </div>
-                <div className="text-[13px] font-medium text-[#666666] uppercase tracking-wider mb-2">
+                <div className="text-[11px] sm:text-[13px] font-medium text-[#666666] uppercase tracking-wider mb-2">
                   {metric.label}
                 </div>
-                <div className="text-[36px] font-bold text-[#000000] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+                <div className="text-[28px] sm:text-[36px] font-bold text-[#000000] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
                   {metric.value}
                 </div>
               </div>
@@ -111,10 +111,10 @@ export default function AIVIMetrics() {
         </div>
 
         {/* Charts and Tables Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {/* Performance Chart */}
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-xl">
-            <h3 className="text-[24px] font-semibold text-[#000000] mb-6">
+          <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl sm:rounded-2xl p-6 sm:p-8 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-xl">
+            <h3 className="text-[20px] sm:text-[24px] font-semibold text-[#000000] mb-4 sm:mb-6">
               Lead Generation Trend
             </h3>
             <div className="h-64 mb-8">
@@ -144,8 +144,8 @@ export default function AIVIMetrics() {
           </div>
 
           {/* Activity Feed */}
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-xl">
-            <h3 className="text-[24px] font-semibold text-[#000000] mb-6">
+          <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl sm:rounded-2xl p-6 sm:p-8 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-xl">
+            <h3 className="text-[20px] sm:text-[24px] font-semibold text-[#000000] mb-4 sm:mb-6">
               Recent Activity
             </h3>
             <div className="space-y-3">
@@ -189,11 +189,11 @@ export default function AIVIMetrics() {
         </div>
 
         {/* Detailed Table */}
-        <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-xl">
-          <h3 className="text-[24px] font-semibold text-[#000000] mb-6">
+        <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl sm:rounded-2xl p-6 sm:p-8 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-xl">
+          <h3 className="text-[20px] sm:text-[24px] font-semibold text-[#000000] mb-4 sm:mb-6">
             Lead Pipeline
           </h3>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto -mx-2 sm:mx-0">
             <table className="w-full">
               <thead>
                 <tr className="border-b-2 border-gray-200">

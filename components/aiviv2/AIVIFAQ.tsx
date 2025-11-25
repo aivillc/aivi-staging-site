@@ -63,15 +63,15 @@ export default function AIVIFAQ() {
   };
 
   return (
-    <section className="w-full bg-[#F0EDE8] px-12 py-[100px]">
+    <section className="w-full bg-[#F0EDE8] px-4 sm:px-6 md:px-12 py-12 sm:py-16 md:py-[100px]">
       <div className="max-w-[1200px] mx-auto">
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-20">
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-8 sm:gap-12 md:gap-20">
           {/* Left Column - Title */}
           <div className="animate-[fadeInLeft_0.6s_ease-out]">
-            <h2 className="text-[36px] leading-[1.3] font-normal text-[#000000]">
+            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] leading-[1.3] font-normal text-[#000000]">
               Frequently asked questions
             </h2>
-            <div className="mt-4 w-20 h-1 bg-[#E5FF00] rounded-full" />
+            <div className="mt-3 sm:mt-4 w-16 sm:w-20 h-1 bg-[#E5FF00] rounded-full" />
           </div>
 
           {/* Right Column - Accordion */}
@@ -79,29 +79,29 @@ export default function AIVIFAQ() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="group border-b border-[#DDDDDD] py-6 hover:bg-white/50 transition-all duration-300 px-4 -mx-4 rounded-lg animate-[fadeInRight_0.5s_ease-out]"
+                className="group border-b border-[#DDDDDD] py-4 sm:py-6 hover:bg-white/50 transition-all duration-300 px-2 sm:px-4 -mx-2 sm:-mx-4 rounded-lg animate-[fadeInRight_0.5s_ease-out]"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full flex justify-between items-center gap-6 text-left"
+                  className="w-full flex justify-between items-center gap-3 sm:gap-6 text-left"
                 >
-                  <span className={`text-[17px] leading-[1.5] font-normal flex-1 transition-colors duration-300 ${
+                  <span className={`text-[15px] sm:text-[17px] leading-[1.5] font-normal flex-1 transition-colors duration-300 ${
                     openIndex === index ? 'text-[#000000] font-medium' : 'text-[#333333] group-hover:text-[#000000]'
                   }`}>
                     {faq.question}
                   </span>
-                  <div className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 ${
+                  <div className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full transition-all duration-300 ${
                     openIndex === index
                       ? 'bg-[#E5FF00] text-[#000000] rotate-90'
                       : 'bg-gray-100 text-[#666666] group-hover:bg-gray-200 group-hover:rotate-90'
                   }`}>
                     {openIndex === index ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                       </svg>
                     )}
@@ -109,10 +109,10 @@ export default function AIVIFAQ() {
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                    openIndex === index ? 'max-h-96 mt-4 opacity-100' : 'max-h-0 opacity-0'
+                    openIndex === index ? 'max-h-96 mt-3 sm:mt-4 opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <p className="text-[15px] leading-[1.6] text-[#666666] animate-[fadeIn_0.3s_ease-out]">{faq.answer}</p>
+                  <p className="text-[14px] sm:text-[15px] leading-[1.6] text-[#666666] animate-[fadeIn_0.3s_ease-out]">{faq.answer}</p>
                 </div>
               </div>
             ))}

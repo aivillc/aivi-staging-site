@@ -30,61 +30,56 @@ export default function AIVINavigation() {
           : 'bg-[#E8E5E0]'
       } h-[72px]`}
     >
-      <div className="w-full h-full px-6 lg:px-12">
+      <div className="w-full h-full px-4 sm:px-6 lg:px-12">
         <div className="flex items-center justify-between h-full">
-          {/* Logo */}
-          <div className="flex items-center gap-8 lg:gap-12">
-            <a href="/" className="flex items-center gap-2 group">
-              <Image
-                src="/aiviv2.png"
-                alt="AIVI Logo"
-                width={120}
-                height={40}
-                className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
-              />
-            </a>
+          {/* Logo - Left aligned */}
+          <a href="/" className="flex items-center gap-2 group flex-shrink-0">
+            <Image
+              src="/aiviv2.png"
+              alt="AIVI Logo"
+              width={120}
+              height={40}
+              className="h-8 sm:h-10 w-auto group-hover:scale-105 transition-transform duration-300"
+            />
+          </a>
 
-            {/* Main Navigation - Desktop */}
-            <div className="hidden lg:flex items-center gap-6">
-              {navItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className="relative text-[15px] font-normal text-[#000000] hover:text-[#333333] transition-colors group"
-                >
-                  {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#E5FF00] group-hover:w-full transition-all duration-300" />
-                </a>
-              ))}
-            </div>
+          {/* Main Navigation - Desktop Center */}
+          <div className="hidden lg:flex items-center gap-6 absolute left-1/2 transform -translate-x-1/2">
+            {navItems.map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                className="relative text-[15px] font-normal text-[#000000] hover:text-[#333333] transition-colors group whitespace-nowrap"
+              >
+                {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#E5FF00] group-hover:w-full transition-all duration-300" />
+              </a>
+            ))}
           </div>
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-3">
+          {/* Right Actions - Desktop only */}
+          <div className="hidden lg:flex items-center gap-3">
             <a
               href="#login"
-              className="hidden lg:block text-[15px] font-medium text-[#000000] px-5 py-2.5 rounded-md hover:bg-black/5 transition-all duration-300"
+              className="text-[15px] font-medium text-[#000000] px-5 py-2.5 rounded-md hover:bg-black/5 transition-all duration-300"
             >
               Log in
             </a>
-            <button className="hidden lg:block text-[15px] font-semibold text-[#000000] bg-white border-2 border-[#000000] px-5 py-2.5 rounded-md hover:bg-[#000000] hover:text-white transition-all duration-300">
+            <button className="text-[15px] font-semibold text-[#000000] bg-white border-2 border-[#000000] px-5 py-2.5 rounded-md hover:bg-[#000000] hover:text-white transition-all duration-300">
               Get a demo
             </button>
-            <button className="text-[15px] font-semibold text-[#000000] bg-[#E5FF00] px-5 py-2.5 rounded-md hover:bg-[#D4EE00] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(229,255,0,0.4)] transition-all duration-300">
-              Sign up for free
-            </button>
-
-            {/* Mobile menu button */}
-            <button
-              className="lg:hidden w-6 h-6 flex flex-col justify-center items-center gap-1 group"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle mobile menu"
-            >
-              <span className={`w-full h-0.5 bg-[#000000] transform transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
-              <span className={`w-full h-0.5 bg-[#000000] transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`} />
-              <span className={`w-full h-0.5 bg-[#000000] transform transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
-            </button>
           </div>
+
+          {/* Mobile menu button - Right aligned */}
+          <button
+            className="lg:hidden w-7 h-7 flex flex-col justify-center items-center gap-1.5 group"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            <span className={`w-full h-0.5 bg-[#000000] transform transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`w-full h-0.5 bg-[#000000] transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`} />
+            <span className={`w-full h-0.5 bg-[#000000] transform transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </button>
         </div>
       </div>
 

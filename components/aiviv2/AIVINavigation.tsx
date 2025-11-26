@@ -32,30 +32,47 @@ export default function AIVINavigation() {
     >
       <div className="w-full h-full px-4 sm:px-6 lg:px-12">
         <div className="flex items-center justify-between h-full">
-          {/* Logo - Left aligned */}
-          <a href="/" className="flex items-center gap-2 group flex-shrink-0">
+          {/* Left Section - Logo + Navigation */}
+          <div className="hidden lg:flex items-center gap-6">
+            {/* Logo */}
+            <a href="/" className="flex items-center gap-2 group flex-shrink-0">
+              <Image
+                src="/aivipo.png"
+                alt="AIVI Logo"
+                width={120}
+                height={40}
+                className="h-8 sm:h-10 w-auto group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+
+            {/* Vertical Divider */}
+            <div className="h-8 w-[1px] bg-[#CCCCCC] mx-2" />
+
+            {/* Main Navigation */}
+            <div className="flex items-center gap-6">
+              {navItems.map((item, index) => (
+                <a
+                  key={index}
+                  href={item.href}
+                  className="relative text-[15px] font-normal text-[#000000] hover:text-[#333333] transition-colors group whitespace-nowrap"
+                >
+                  {item.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#f84608] group-hover:w-full transition-all duration-300" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Logo */}
+          <a href="/" className="flex lg:hidden items-center gap-2 group flex-shrink-0">
             <Image
-              src="/aiviv2.png"
+              src="/aivipo.png"
               alt="AIVI Logo"
               width={120}
               height={40}
               className="h-8 sm:h-10 w-auto group-hover:scale-105 transition-transform duration-300"
             />
           </a>
-
-          {/* Main Navigation - Desktop Center */}
-          <div className="hidden lg:flex items-center gap-6 absolute left-1/2 transform -translate-x-1/2">
-            {navItems.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="relative text-[15px] font-normal text-[#000000] hover:text-[#333333] transition-colors group whitespace-nowrap"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#E5FF00] group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
-          </div>
 
           {/* Right Actions - Desktop only */}
           <div className="hidden lg:flex items-center gap-3">
@@ -65,7 +82,7 @@ export default function AIVINavigation() {
             >
               Log in
             </a>
-            <button className="text-[15px] font-semibold text-[#000000] bg-white border-2 border-[#000000] px-5 py-2.5 rounded-md hover:bg-[#000000] hover:text-white transition-all duration-300">
+            <button className="text-[15px] font-semibold text-white bg-[#321ca3] px-5 py-2.5 rounded-md hover:bg-[#2a1889] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
               Get a demo
             </button>
           </div>

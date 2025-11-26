@@ -4,54 +4,44 @@ import { useState } from 'react';
 
 const faqs = [
   {
-    question: 'Does AIVI.io provide a large and rich B2B contact and company database?',
+    question: 'How does AIVI charge?',
     answer:
-      'Yes, AIVI provides access to one of the most comprehensive B2B databases available, with millions of verified contacts and company records that are continuously updated to ensure accuracy.',
+      'We keep costs simple, charging on a per lead basis that AIVI processes - see more on pricing here.',
   },
   {
-    question: 'Can AIVI.io enable highly precise lead targeting via advanced filtering?',
+    question: 'Is AIVI customizable?',
     answer:
-      'Absolutely. Our platform offers advanced filtering capabilities that allow you to target leads based on dozens of criteria including company size, industry, location, revenue, and many other data points.',
+      'Yes every element of AIVI\'s outreach is customizable and personalized to your business.',
   },
   {
-    question: 'Does AIVI.io automate outreach sequences and follow-ups?',
+    question: 'What channels do you manage?',
     answer:
-      'Yes, AIVI includes powerful automation features that let you create multi-channel outreach sequences across email, phone, and SMS with intelligent follow-up scheduling.',
+      'We\'re omni-channel to get the best results including but not limited to voice, SMS and email',
   },
   {
-    question: 'Does AIVI.io integrate smoothly with CRMs and existing sales tools?',
+    question: 'Do we need to provide the sequences and content?',
     answer:
-      'AIVI integrates seamlessly with all major CRM platforms including Salesforce, HubSpot, and Pipedrive, as well as popular communication and productivity tools.',
+      'You can but our highly experienced team and AI data can guide you through the best options. Our managed packages will take care of all of this for you.',
   },
   {
-    question: 'Does AIVI.io offer strong analytics and reporting on outreach performance?',
+    question: 'What results can we expect?',
     answer:
-      'Yes, our platform provides comprehensive analytics dashboards with real-time metrics on email performance, call outcomes, meeting bookings, and pipeline generation.',
+      'Completely dependent on your data and so if we\'re provided with strong data you\'ll see higher contact rates and close rates to your human team.',
   },
   {
-    question: 'Is AIVI.io good value for its cost, especially for growing sales teams?',
+    question: 'Does AIVI offer a trial?',
     answer:
-      'AIVI offers exceptional value by replacing multiple tools with one unified platform, reducing your tech stack costs by up to 64% while improving team productivity.',
+      'Yes we offer a limited free trial for 100 leads or a paid 500 lead trial.',
   },
   {
-    question: 'Does AIVI.io support users with helpful educational resources and onboarding?',
+    question: 'I\'ve tried AI voice and it didn\'t work - what\'s the difference?',
     answer:
-      'We provide extensive onboarding support, comprehensive documentation, video tutorials, and a dedicated customer success team to ensure you get maximum value from the platform.',
+      'The team have 20 years experience in building AI, telecomms, contact center and lead gen tools for fortune 100 companies so we all come with immense experience to help businesses solve problems.',
   },
   {
-    question: 'Can AIVI.io help reduce time spent on manual prospecting?',
+    question: 'Is there a minimum lead volume?',
     answer:
-      'Yes, AIVI automates the most time-consuming parts of prospecting including lead research, data enrichment, and initial outreach, allowing your team to focus on high-value conversations.',
-  },
-  {
-    question: 'Does AIVI.io improve the quality of sales pipelines?',
-    answer:
-      'AIVI helps you build higher-quality pipelines through better targeting, automated lead qualification, and AI-powered insights that identify the most promising opportunities.',
-  },
-  {
-    question: 'Can AIVI.io scale with a business as sales needs grow?',
-    answer:
-      'Absolutely. AIVI is built to scale from small teams to enterprise organizations, with flexible pricing plans and infrastructure that grows with your business needs.',
+      'For the managed service yes there is but we\'re currently working on a self serve model that will have no limits.',
   },
 ];
 
@@ -71,7 +61,7 @@ export default function AIVIFAQ() {
             <h2 className="text-[28px] sm:text-[32px] md:text-[36px] leading-[1.3] font-normal text-[#000000]">
               Frequently asked questions
             </h2>
-            <div className="mt-3 sm:mt-4 w-16 sm:w-20 h-1 bg-[#E5FF00] rounded-full" />
+            <div className="mt-3 sm:mt-4 w-16 sm:w-20 h-1 bg-[#f84608] rounded-full" />
           </div>
 
           {/* Right Column - Accordion */}
@@ -93,7 +83,7 @@ export default function AIVIFAQ() {
                   </span>
                   <div className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full transition-all duration-300 ${
                     openIndex === index
-                      ? 'bg-[#E5FF00] text-[#000000] rotate-90'
+                      ? 'bg-[#f84608] text-white rotate-90'
                       : 'bg-gray-100 text-[#666666] group-hover:bg-gray-200 group-hover:rotate-90'
                   }`}>
                     {openIndex === index ? (

@@ -14,12 +14,12 @@ const features = [
       </svg>
     ),
     description: 'Book more meetings faster with better data, smarter AI, and easier automation.',
-    mainTitle: 'Build your pipeline smarter',
+    mainTitle: 'Every Call Executed in Seconds',
     features: [
-      'Access to 275M+ contacts and 73M+ companies',
-      'Advanced filters to find your ideal customer profile',
-      'AI-powered personalization at scale',
-      'Multi-channel sequences (email, phone, LinkedIn)',
+      'Never drop a lead',
+      '24/7 communication',
+      'Automated follow-up',
+      'Booked appointments',
     ],
   },
   {
@@ -37,17 +37,17 @@ const features = [
       </svg>
     ),
     description: 'Capture, qualify, and route every lead instantly so hot leads never go cold.',
-    mainTitle: 'Never miss a hot lead',
+    mainTitle: 'Never Hit Call Capacity',
     features: [
-      'Instant lead capture from any source',
-      'AI-powered lead scoring and qualification',
-      'Smart routing to the right rep at the right time',
-      'Real-time notifications for high-priority leads',
+      'Every call is answered',
+      'Data and query collection',
+      'Lead prequalification',
+      'Smart transfer routing',
     ],
   },
   {
     id: 'enrichment',
-    title: 'Data Enrichment',
+    title: 'Smart Routing',
     color: 'bg-[#E8E5F5]',
     activeColor: 'bg-[#E8E5F5]',
     icon: (
@@ -56,17 +56,17 @@ const features = [
       </svg>
     ),
     description: 'Cleanse and complete your records with always-fresh data that powers smarter targeting.',
-    mainTitle: 'Keep your data clean and complete',
+    mainTitle: 'Ensure Every Lead is Closed',
     features: [
-      'Automatic contact and company data enrichment',
-      'Real-time data validation and verification',
-      'Fill gaps in your existing CRM records',
-      'Stay up-to-date with job changes and company updates',
+      'Skill based agent routing',
+      'High value lead routing',
+      'Priority lead routing',
+      'Time of day call routing',
     ],
   },
   {
     id: 'execution',
-    title: 'Deal Execution',
+    title: 'CRM Integration',
     color: 'bg-[#5DD5D5]',
     activeColor: 'bg-[#5DD5D5]',
     icon: (
@@ -75,12 +75,12 @@ const features = [
       </svg>
     ),
     description: 'Keep deals moving with AI-powered prep, meeting insights, and follow-up.',
-    mainTitle: 'Close deals faster',
+    mainTitle: 'Capture Every Lead Detail',
     features: [
-      'Pre-meeting insights to prep in seconds',
-      'AI-powered call summaries and follow-ups',
-      'Pipeline boards with real-time deal alerts',
-      'Conversation intelligence and coaching insights',
+      'Post every interaction to your CRM',
+      'Transcript and call recording',
+      'CRM event update',
+      'Funnel status update',
     ],
   },
 ];
@@ -96,10 +96,10 @@ export default function AIVIFeatureTabs() {
         {/* Section Header */}
         <div className="text-center mb-6 sm:mb-8 mt-6 sm:mt-8 md:mt-12">
           <h2 className="text-[28px] sm:text-[36px] md:text-[48px] leading-[1.2] font-normal text-[#000000] mb-3 sm:mb-4 max-w-[800px] mx-auto px-2">
-            Everything you need, from finding leads to winning deals
+            AI-powered precision for smarter lead engagement and conversion
           </h2>
           <p className="text-[15px] sm:text-[17px] leading-[1.6] text-[#666666] max-w-[700px] mx-auto px-2">
-            Powered by AIVI Data — one of the largest, most accurate business data networks on the planet.
+            Powered by AIVI data so that every outreach is tested and proven before any of your campaigns launch to guarantee results.
           </p>
         </div>
 
@@ -162,8 +162,8 @@ export default function AIVIFeatureTabs() {
                   className="group flex gap-3 items-start animate-[fadeInLeft_0.5s_ease-out] hover:translate-x-2 transition-transform duration-300"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="w-5 h-5 mt-0.5 flex-shrink-0 bg-[#E5FF00] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-3 h-3 text-[#000000]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <div className="w-5 h-5 mt-0.5 flex-shrink-0 bg-[#f84608] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -188,15 +188,15 @@ export default function AIVIFeatureTabs() {
                 <div className="h-3 sm:h-4 bg-white/30 rounded w-full animate-pulse" style={{ animationDelay: '0.1s' }}></div>
                 <div className="h-3 sm:h-4 bg-white/30 rounded w-5/6 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
                 <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3">
-                  <div className="h-10 sm:h-12 bg-[#E5FF00] rounded-lg flex items-center justify-center hover:scale-105 transition-transform duration-300 cursor-pointer shadow-lg">
-                    <span className="text-[12px] sm:text-[14px] font-semibold text-[#000000]">{activeFeature.title} Dashboard</span>
+                  <div className="h-10 sm:h-12 bg-[#f84608] rounded-lg flex items-center justify-center hover:scale-105 transition-transform duration-300 cursor-pointer shadow-lg">
+                    <span className="text-[12px] sm:text-[14px] font-semibold text-white">{activeFeature.title} Dashboard</span>
                   </div>
                   <div className="h-8 sm:h-10 bg-white/30 rounded-lg hover:bg-white/40 transition-colors duration-300 cursor-pointer"></div>
                   <div className="h-8 sm:h-10 bg-white/30 rounded-lg hover:bg-white/40 transition-colors duration-300 cursor-pointer"></div>
                 </div>
 
                 {/* Corner accent */}
-                <div className="absolute top-2 right-2 w-2 h-2 bg-[#E5FF00] rounded-full opacity-50 group-hover:opacity-100 group-hover:scale-150 transition-all duration-300" />
+                <div className="absolute top-2 right-2 w-2 h-2 bg-[#f84608] rounded-full opacity-50 group-hover:opacity-100 group-hover:scale-150 transition-all duration-300" />
               </div>
             </div>
           </div>

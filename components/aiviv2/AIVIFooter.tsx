@@ -69,8 +69,8 @@ export default function AIVIFooter() {
       </div>
 
       {/* Gradient overlay effects */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[#E5FF00]/5 to-transparent blur-3xl rounded-full" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-[#E5FF00]/3 to-transparent blur-3xl rounded-full" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[#321ca3]/5 to-transparent blur-3xl rounded-full" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-[#321ca3]/3 to-transparent blur-3xl rounded-full" />
 
       <div className="relative max-w-[1600px] mx-auto px-8 lg:px-16 py-20">
         {/* Main Footer Content */}
@@ -88,7 +88,7 @@ export default function AIVIFooter() {
                   style={{ filter: 'brightness(0) invert(1)' }}
                 />
                 {/* Glow effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#E5FF00]/0 via-[#E5FF00]/10 to-[#E5FF00]/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#321ca3]/0 via-[#321ca3]/10 to-[#321ca3]/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
               </div>
             </div>
 
@@ -97,19 +97,19 @@ export default function AIVIFooter() {
               <div className="flex flex-col gap-2 text-xs">
                 <a
                   href="#"
-                  className="inline-block hover:text-[#E5FF00] transition-colors duration-300 hover:translate-x-1 transform w-fit"
+                  className="inline-block hover:text-[#321ca3] transition-colors duration-300 hover:translate-x-1 transform w-fit"
                 >
                   Privacy Policy
                 </a>
                 <a
                   href="#"
-                  className="inline-block hover:text-[#E5FF00] transition-colors duration-300 hover:translate-x-1 transform w-fit"
+                  className="inline-block hover:text-[#321ca3] transition-colors duration-300 hover:translate-x-1 transform w-fit"
                 >
                   Terms of Service
                 </a>
                 <a
                   href="#"
-                  className="inline-block hover:text-[#E5FF00] transition-colors duration-300 hover:translate-x-1 transform w-fit"
+                  className="inline-block hover:text-[#321ca3] transition-colors duration-300 hover:translate-x-1 transform w-fit"
                 >
                   Don&apos;t Sell My Info
                 </a>
@@ -141,7 +141,7 @@ export default function AIVIFooter() {
                           <span className="relative">
                             {link}
                             <span
-                              className={`absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-[#E5FF00] to-transparent transition-all duration-300 ${
+                              className={`absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-[#321ca3] to-transparent transition-all duration-300 ${
                                 hoveredLink === `${index}-${linkIndex}` ? 'w-full' : 'w-0'
                               }`}
                             />
@@ -179,14 +179,14 @@ export default function AIVIFooter() {
             <p className="text-xs text-white/70 leading-relaxed max-w-md">
               Get verified emails and phone numbers and instantly reach out while working in your favorite tools.
             </p>
-            <button className="group relative px-6 py-3 bg-transparent border border-white/30 text-white text-xs font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:border-[#E5FF00] hover:shadow-[0_0_20px_rgba(229,255,0,0.3)]">
+            <button className="group relative px-6 py-3 bg-transparent border border-white/30 text-white text-xs font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:border-[#321ca3] hover:shadow-[0_0_20px_rgba(229,255,0,0.3)]">
               <span className="relative z-10 flex items-center gap-2">
                 AIVI Chrome Extension
                 <svg className="w-3 h-3 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#E5FF00]/0 via-[#E5FF00]/10 to-[#E5FF00]/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#321ca3]/0 via-[#321ca3]/10 to-[#321ca3]/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </button>
           </div>
 
@@ -205,13 +205,13 @@ export default function AIVIFooter() {
                   key={social.name}
                   href="#"
                   aria-label={social.name}
-                  className="group relative w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-[#E5FF00] transition-all duration-300 hover:shadow-[0_0_15px_rgba(229,255,0,0.3)] hover:-translate-y-1"
+                  className="group relative w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-[#321ca3] transition-all duration-300 hover:shadow-[0_0_15px_rgba(229,255,0,0.3)] hover:-translate-y-1"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <svg className="w-4 h-4 text-white/60 group-hover:text-[#E5FF00] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-white/60 group-hover:text-[#321ca3] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
                     <path d={social.path} />
                   </svg>
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#E5FF00]/0 to-[#E5FF00]/20 opacity-0 group-hover:opacity-100 blur transition-opacity duration-300" />
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#321ca3]/0 to-[#321ca3]/20 opacity-0 group-hover:opacity-100 blur transition-opacity duration-300" />
                 </a>
               ))}
             </div>
@@ -230,7 +230,7 @@ export default function AIVIFooter() {
           </div>
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#E5FF00] animate-pulse" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#321ca3] animate-pulse" />
               All systems operational
             </span>
           </div>

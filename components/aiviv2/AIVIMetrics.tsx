@@ -65,10 +65,10 @@ export default function AIVIMetrics() {
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12 animate-[fadeInUp_0.6s_ease-out]">
           <h2 className="text-[28px] sm:text-[36px] md:text-[48px] leading-[1.2] font-normal text-[#000000] mb-3 sm:mb-4 px-2">
-            Lead Generation Performance
+            Lead Engagement Performance
           </h2>
           <p className="text-[15px] sm:text-[17px] leading-[1.6] text-[#666666] max-w-[700px] mx-auto px-2">
-            Track your lead generation success with real-time metrics and insights
+            Track your lead performance success with real-time metrics and insights
           </p>
         </div>
 
@@ -115,7 +115,7 @@ export default function AIVIMetrics() {
           {/* Performance Chart */}
           <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl sm:rounded-2xl p-6 sm:p-8 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-xl">
             <h3 className="text-[20px] sm:text-[24px] font-semibold text-[#000000] mb-4 sm:mb-6">
-              Lead Generation Trend
+              Lead Performance Trend
             </h3>
             <div className="h-64 mb-8">
               <div className="flex items-end justify-between gap-4 h-full">
@@ -123,7 +123,7 @@ export default function AIVIMetrics() {
                   <div key={data.month} className="flex-1 flex flex-col items-center justify-end gap-3 h-full group">
                     <div className="relative w-full flex items-end justify-center" style={{ height: `${(data.value / maxValue) * 100}%` }}>
                       <div
-                        className="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg transition-all duration-500 hover:from-purple-500 hover:to-purple-400 cursor-pointer relative overflow-hidden group-hover:shadow-lg h-full"
+                        className="w-full bg-gradient-to-t from-[#321ca3] to-[#5a3fd6] rounded-t-lg transition-all duration-500 hover:from-[#f84608] hover:to-[#ff6b35] cursor-pointer relative overflow-hidden group-hover:shadow-lg h-full"
                       >
                         {/* Animated shimmer effect */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />

@@ -5,6 +5,7 @@ import AIVIHero from '@/components/aiviv2/AIVIHero';
 import AIVISocialProof from '@/components/aiviv2/AIVISocialProof';
 import AIVIFeatureTabs from '@/components/aiviv2/AIVIFeatureTabs';
 import AIVIMetrics from '@/components/aiviv2/AIVIMetrics';
+import AIVICTASection from '@/components/aiviv2/AIVICTASection';
 import AIVIFAQ from '@/components/aiviv2/AIVIFAQ';
 import AIVIFooter from '@/components/aiviv2/AIVIFooter';
 
@@ -17,6 +18,7 @@ export default function AIVIv2Page() {
         <AIVISocialProof />
         <AIVIFeatureTabs />
         <AIVIMetrics />
+        <AIVICTASection />
         <AIVIFAQ />
         <AIVIFooter />
       </div>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Agent Master Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1A1A1A", // Primary Text as per prompt
+                        "background-light": "#E8E5E0",
+                        "background-dark": "#121212",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "text-primary-light": "#1A1A1A",
+                        "text-primary-dark": "#F5F5F5",
+                        "text-secondary-light": "#444444",
+                        "text-secondary-dark": "#BDBDBD",
+                        "text-tertiary-light": "#6F6F6F",
+                        "text-tertiary-dark": "#9E9E9E",
+                        "border-light": "#E0E0E0",
+                        "border-dark": "#333333",
+                        "aivi-orange": "#FF8C00",
+                        "aivi-purple": "#8A2BE2",
+                    },
+                    fontFamily: {
+                        display: ["Manrope", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                        lg: "16px",
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 10px rgba(0,0,0,0.06)',
+                        'glow': '0 0 15px 0px rgba(255, 140, 0, 0.4), 0 0 15px 0px rgba(138, 43, 226, 0.4)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        .gradient-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.1), rgba(255, 255, 255, 0) 40%),
+            radial-gradient(circle at 20% 70%, rgba(138, 43, 226, 0.08), rgba(255, 255, 255, 0) 50%),
+            radial-gradient(circle at 80% 30%, rgba(138, 43, 226, 0.08), rgba(255, 255, 255, 0) 50%);
+        }
+        .dark .gradient-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.15), rgba(18, 18, 18, 0) 40%),
+            radial-gradient(circle at 20% 70%, rgba(138, 43, 226, 0.12), rgba(18, 18, 18, 0) 50%),
+            radial-gradient(circle at 80% 30%, rgba(138, 43, 226, 0.12), rgba(18, 18, 18, 0) 50%);
+        }
+        .flow-line {
+            background: linear-gradient(to right, #E0E0E0 50%, transparent 50%);
+            background-size: 20px 1px;
+            background-repeat: repeat-x;
+        }
+        .dark .flow-line {
+            background: linear-gradient(to right, #333333 50%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark min-h-screen flex flex-col">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+<header class="py-6 flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<svg class="h-8 w-auto text-primary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6"></path>
+</svg>
+<span class="font-bold text-2xl">AIVI</span>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark transition" href="#">Pricing</a>
+<a class="text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark transition" href="#">Features</a>
+<a class="text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark transition" href="#">Solutions</a>
+<a class="text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark transition" href="#">Dev Docs</a>
+<a class="text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark transition" href="#">Contact Us</a>
+</nav>
+<div>
+<button class="bg-primary text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition">
+                Sign Up
+            </button>
+</div>
+</header>
+</div>
+<main class="flex flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 pb-20 md:pb-16">
+<aside class="w-64 flex-shrink-0 mr-8 bg-surface-light dark:bg-surface-dark p-6 rounded-lg shadow-soft border border-border-light dark:border-border-dark hidden lg:block h-fit sticky top-6">
+<h3 class="text-xl font-bold mb-6">Use Cases</h3>
+<div class="space-y-3">
+<button class="w-full text-left p-3 rounded-lg bg-gradient-to-r from-aivi-orange/10 to-aivi-purple/10 text-text-primary-light dark:text-text-primary-dark font-medium hover:from-aivi-orange/20 hover:to-aivi-purple/20 transition-all">
+                Lead Qualification Analytics
+            </button>
+<button class="w-full text-left p-3 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors">
+                Customer Support Efficiency
+            </button>
+<button class="w-full text-left p-3 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors">
+                Sales Funnel Optimization
+            </button>
+<button class="w-full text-left p-3 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors">
+                Appointment Scheduling Metrics
+            </button>
+<button class="w-full text-left p-3 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors">
+                Operational Workflow Automation
+            </button>
+</div>
+<div class="mt-8 pt-6 border-t border-border-light dark:border-border-dark">
+<h4 class="text-lg font-semibold mb-3">Quick Links</h4>
+<ul class="space-y-2 text-text-secondary-light dark:text-text-secondary-dark text-sm">
+<li><a class="hover:text-text-primary-light dark:hover:text-text-primary-dark" href="#">View all
+                    integrations</a></li>
+<li><a class="hover:text-text-primary-light dark:hover:text-text-primary-dark" href="#">Developer API
+                    documentation</a></li>
+</ul>
+</div>
+</aside>
+<section class="flex-1">
+<div class="relative mb-8 text-center lg:text-left">
+<div class="absolute inset-0 -top-20 gradient-bg -z-10"></div>
+<h1 class="text-4xl md:text-5xl font-extrabold text-text-primary-light dark:text-text-primary-dark tracking-tight">
+                AI Agent Performance Dashboard
+            </h1>
+<p class="mt-4 max-w-2xl mx-auto lg:mx-0 text-lg text-text-secondary-light dark:text-text-secondary-dark">
+                Deep-dive into the analytics that drive efficiency and empower your team. Visualize real-time impact.
+            </p>
+<div class="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4">
+<button class="w-full sm:w-auto bg-gradient-to-r from-aivi-orange to-aivi-purple text-white px-6 py-3 rounded-lg font-semibold shadow-soft hover:shadow-glow transition-all duration-300">
+                    Create Agent
+                </button>
+<button class="w-full sm:w-auto bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors">
+                    Book a Demo
+                </button>
+</div>
+</div>
+<section class="mb-16">
+<h2 class="text-2xl md:text-3xl font-bold text-center lg:text-left mb-6">Impact Summary</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg shadow-soft border border-border-light dark:border-border-dark flex flex-col items-center justify-center">
+<span class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-aivi-orange to-aivi-purple">25-40%</span>
+<p class="mt-2 text-text-secondary-light dark:text-text-secondary-dark text-md font-semibold">
+                        Operational Cost Reduction
+                    </p>
+<p class="mt-1 text-text-tertiary-light dark:text-text-tertiary-dark text-sm">
+                        Automate routine tasks, optimize resource allocation.
+                    </p>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg shadow-soft border border-border-light dark:border-border-dark flex flex-col items-center justify-center">
+<span class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-aivi-orange to-aivi-purple">98%<span class="text-xl pl-1">%</span></span>
+<p class="mt-2 text-text-secondary-light dark:text-text-secondary-dark text-md font-semibold">
+                        First Call Resolution Rate
+                    </p>
+<p class="mt-1 text-text-tertiary-light dark:text-text-tertiary-dark text-sm">
+                        AI ensures most customer inquiries are resolved on first interaction.
+                    </p>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg shadow-soft border border-border-light dark:border-border-dark flex flex-col items-center justify-center">
+<span class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-aivi-orange to-aivi-purple">1200+</span>
+<p class="mt-2 text-text-secondary-light dark:text-text-secondary-dark text-md font-semibold">
+                        Agent Interactions Per Hour
+                    </p>
+<p class="mt-1 text-text-tertiary-light dark:text-text-tertiary-dark text-sm">
+                        Scale customer engagement with AI agents handling massive volume.
+                    </p>
+</div>
+</div>
+</section>
+<section class="mb-16 bg-surface-light dark:bg-surface-dark p-8 rounded-lg shadow-soft border border-border-light dark:border-border-dark">
+<h3 class="text-2xl font-bold">Real-time Lead Qualification Dashboard</h3>
+<p class="mt-3 text-text-secondary-light dark:text-text-secondary-dark">
+                Visualize live lead engagement, qualification rates, and conversion pipelines. Identify bottlenecks and
+                opportunities with granular data.
+            </p>
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-md border border-border-light dark:border-border-dark flex flex-col justify-between">
+<div>
+<h4 class="font-semibold text-lg">Lead Source Performance</h4>
+<p class="text-sm text-text-tertiary-light dark:text-text-tertiary-dark mt-1">Breakdown of
+                            leads by origin channel and their qualification status.</p>
+</div>
+<img alt="Data visualization showing lead source performance" class="mt-4 rounded-md w-full h-40 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzGDVj9_e9QM3Um0wajE795bsb0p1hL6LRSGF4Q67lv6Zz3eU4MSZN5u-XYn28EMjKq4hwDH1CSjHrJGwcRGoTSacPH-ZqcQN7MXNJzmQ_sWGoC6WwO9_4H1b1Oj3gMysugDmpnoJ1T872fbj_Y2hI_TJVbhbzkBtIV9gD10SlHQBSZ-F_vANut3SGi3Phr8wwAwroQhIb8xytKbYN7fAFpwS2c3k2bZpULBQJkRyk3LewRgxAEEhtfxFV3dn5pL4OHq7f080OuHBV"/>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-md border border-border-light dark:border-border-dark flex flex-col justify-between">
+<div>
+<h4 class="font-semibold text-lg">AI-driven Sentiment Analysis</h4>
+<p class="text-sm text-text-tertiary-light dark:text-text-tertiary-dark mt-1">Monitor lead
+                            sentiment during interactions, highlighting high-intent prospects.</p>
+</div>
+<img alt="Abstract chart showing sentiment analysis of conversations" class="mt-4 rounded-md w-full h-40 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmIge0boDKC6dgl7Hb3HaN6mg-DdgoNZXtgpyQ2XfYlsKnezfGOJCxh0g6MNI1qX-7K0fONVecyyifdL9cFu78vko2uUNJ7kdhZ7e4Kn6ABFI0gBH_p1UHEZd6iUAdRx-HB0VCyQOlbnJj__dkA1z28QYDr-tHz6MkslQWvoebO74IKF6Oj_PNG7dkRjlCkRXKIZ_DxxC018cEkUw-us5oOesIorPweJjGsui0mieMVV6pdecWZD8vttj3Gcax_EUebyTNnNnmG6dr"/>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-md border border-border-light dark:border-border-dark flex flex-col justify-between">
+<div>
+<h4 class="font-semibold text-lg">Conversion Rate by Funnel Stage</h4>
+<p class="text-sm text-text-tertiary-light dark:text-text-tertiary-dark mt-1">Track lead
+                            progression through the sales funnel and identify drop-off points.</p>
+</div>
+<img alt="Sales funnel conversion rates visualization" class="mt-4 rounded-md w-full h-40 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7BcI8dYm4SrstVqhyfO8DahNp7ugqPptUXRlad01O4k4ynYgVbuouACbTwfqHffMRfjC6EAZkZRpNHZ3-LPsWw7C8jb_mPTC89Um2GCiu8xbFT1VFWc9CxpHCKOUP8rw-QioA_lTLf1Ih1YI1V8zc3dYam4nVyVNcaOsWPFu-Ru8c8GrXTC6vkf04WLt4s3rz_t26_SN3r6z0pE3VkzxWWc0-heBP1mensFV_EDputX53wH_f71_2Z879ivUg4RbMX_kw7Ys_49V1"/>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-md border border-border-light dark:border-border-dark flex flex-col justify-between">
+<div>
+<h4 class="font-semibold text-lg">Agent Efficiency &amp; Response Times</h4>
+<p class="text-sm text-text-tertiary-light dark:text-text-tertiary-dark mt-1">Metrics on AI
+                            agent performance, response speed, and resolution times.</p>
+</div>
+<img alt="Graph showing agent efficiency metrics" class="mt-4 rounded-md w-full h-40 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVz6FhxrmjvQhnKIxwpl8PnDpgIMZ01vF6vAamzIbSln6A7cT8CBF6x-PeWB0oe2Lu5wEw6sJC2n7iD-lHUW5nT-2qzcq11WHngDs-kMtA7K1fvj9P23unoxnphGmj0c4SxW-OyGLOMYqMN-u4VWcc6CZQhdr5YHqEoO3YXQsNnqPHatqGXJmYKVnhHgkzXDavJL0KWN0WjJfiNAH9P02QPJEqji8A1oW_xiHylaN6-V1q-5ST0MUJsScPsXI4q42DoBvMceQZayBh"/>
+</div>
+</div>
+<div class="mt-8">
+<button class="w-full bg-gradient-to-r from-aivi-orange to-aivi-purple text-white px-6 py-3 rounded-lg font-semibold shadow-soft hover:shadow-glow transition-all duration-300">
+                    Explore Live Demo Dashboard
+                </button>
+</div>
+</section>
+<section class="mb-16">
+<h2 class="text-2xl md:text-3xl font-bold text-center lg:text-left">Our AI Workflow: A Seamless Process</h2>
+<p class="mt-4 max-w-2xl mx-auto lg:mx-0 text-text-secondary-light dark:text-text-secondary-dark">
+                From initial setup to continuous optimization, our streamlined process ensures your AI agents are always
+                performing at their peak efficiency.
+            </p>
+<div class="mt-12 relative flex justify-between items-start max-w-5xl mx-auto flex-wrap sm:flex-nowrap">
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-px flow-line hidden sm:block"></div>
+<div class="relative flex flex-col items-center w-full sm:w-1/4 px-4 py-8 sm:py-0">
+<div class="w-12 h-12 rounded-full bg-gradient-to-r from-aivi-orange to-aivi-purple text-white flex items-center justify-center font-bold text-xl flex-shrink-0 z-10">
+<span class="material-symbols-outlined">how_to_reg</span>
+</div>
+<h3 class="font-bold text-lg mt-4 text-center">Configure &amp; Integrate</h3>
+<p class="mt-1 text-sm text-text-secondary-light dark:text-text-secondary-dark text-center">
+                        Seamlessly connect AIVI with your existing CRM and communication platforms.
+                    </p>
+</div>
+<div class="relative flex flex-col items-center w-full sm:w-1/4 px-4 py-8 sm:py-0 mt-8 sm:mt-0">
+<div class="w-12 h-12 rounded-full bg-gradient-to-r from-aivi-orange to-aivi-purple text-white flex items-center justify-center font-bold text-xl flex-shrink-0 z-10">
+<span class="material-symbols-outlined">tune</span>
+</div>
+<h3 class="font-bold text-lg mt-4 text-center">Train &amp; Customize</h3>
+<p class="mt-1 text-sm text-text-secondary-light dark:text-text-secondary-dark text-center">
+                        Tailor AI agent scripts and knowledge base to precisely match your brand voice.
+                    </p>
+</div>
+<div class="relative flex flex-col items-center w-full sm:w-1/4 px-4 py-8 sm:py-0 mt-8 sm:mt-0">
+<div class="w-12 h-12 rounded-full bg-gradient-to-r from-aivi-orange to-aivi-purple text-white flex items-center justify-center font-bold text-xl flex-shrink-0 z-10">
+<span class="material-symbols-outlined">deployed_code</span>
+</div>
+<h3 class="font-bold text-lg mt-4 text-center">Deploy &amp; Monitor</h3>
+<p class="mt-1 text-sm text-text-secondary-light dark:text-text-secondary-dark text-center">
+                        Launch agents and observe their real-time performance through a dedicated dashboard.
+                    </p>
+</div>
+<div class="relative flex flex-col items-center w-full sm:w-1/4 px-4 py-8 sm:py-0 mt-8 sm:mt-0">
+<div class="w-12 h-12 rounded-full bg-gradient-to-r from-aivi-orange to-aivi-purple text-white flex items-center justify-center font-bold text-xl flex-shrink-0 z-10">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<h3 class="font-bold text-lg mt-4 text-center">Analyze &amp; Optimize</h3>
+<p class="mt-1 text-sm text-text-secondary-light dark:text-text-secondary-dark text-center">
+                        Leverage data insights to continuously refine agent responses and improve efficiency.
+                    </p>
+</div>
+</div>
+</section>
+<section class="max-w-3xl mx-auto mb-16" x-data="{ open: null }">
+<h2 class="text-2xl md:text-3xl font-bold text-center">FAQ</h2>
+<p class="mt-4 text-center text-text-secondary-light dark:text-text-secondary-dark">If you have questions
+                we haven't answered, please feel free to reach out to us. We're here to help.</p>
+<div class="mt-12 space-y-4">
+<div class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg">
+<button @click="open = open === 1 ? null : 1" class="w-full flex justify-between items-center text-left p-6">
+<span class="font-semibold text-text-primary-light dark:text-text-primary-dark">What capabilities does the AI dashboard offer?</span>
+<span :class="{'rotate-45': open === 1}" class="material-icons text-text-tertiary-light dark:text-text-tertiary-dark transition-transform">add</span>
+</button>
+<div x-collapse="" x-show="open === 1">
+<div class="px-6 pb-6 text-text-secondary-light dark:text-text-secondary-dark">
+<p>Our AI dashboard provides a comprehensive overview of agent performance, including lead
+                                qualification rates, sentiment analysis, customer satisfaction scores, and operational
+                                efficiency metrics. It allows power users to drill down into specific data points and
+                                customize reports.</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg">
+<button @click="open = open === 2 ? null : 2" class="w-full flex justify-between items-center text-left p-6">
+<span class="font-semibold text-text-primary-light dark:text-text-primary-dark">Can I integrate AIVI analytics with my existing BI tools?</span>
+<span :class="{'rotate-45': open === 2}" class="material-icons text-text-tertiary-light dark:text-text-tertiary-dark transition-transform">add</span>
+</button>
+<div x-collapse="" x-show="open === 2">
+<div class="px-6 pb-6 text-text-secondary-light dark:text-text-secondary-dark">
+<p>Yes, AIVI is designed for seamless integration. We offer robust API documentation and
+                                connectors that allow you to export detailed performance data to popular business
+                                intelligence tools, ensuring you can combine AIVI insights with your broader
+                                organizational data.</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg">
+<button @click="open = open === 3 ? null : 3" class="w-full flex justify-between items-center text-left p-6">
+<span class="font-semibold text-text-primary-light dark:text-text-primary-dark">How secure is the data processed by AIVI agents?</span>
+<span :class="{'rotate-45': open === 3}" class="material-icons text-text-tertiary-light dark:text-text-tertiary-dark transition-transform">add</span>
+</button>
+<div x-collapse="" x-show="open === 3">
+<div class="px-6 pb-6 text-text-secondary-light dark:text-text-secondary-dark">
+<p>Data security is paramount. AIVI employs industry-leading encryption protocols, adherence
+                                to compliance standards (e.g., GDPR, CCPA), and regular security audits to protect all
+                                processed data. Your client data remains confidential and secure within our
+                                infrastructure.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="text-center py-10">
+<h2 class="text-3xl md:text-4xl font-bold">Ready to Elevate Your Data-Driven Strategy?</h2>
+<div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+<button class="w-full sm:w-auto bg-gradient-to-r from-aivi-orange to-aivi-purple text-white px-6 py-3 rounded-lg font-semibold shadow-soft hover:shadow-glow transition-all duration-300">
+                    Create Agent
+                </button>
+</div>
+</section>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</body></html>

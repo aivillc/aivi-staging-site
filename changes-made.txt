@@ -1,75 +1,8 @@
 AIVI STAGING - CHANGELOG
 ========================
 
-Current Version: v1.0.11
-Date: November 10, 2025
-
-================================================================================
-TESTIMONIALS UPDATE WITH REAL REVIEWS (November 10, 2025) - Post v1.0.11
-================================================================================
-
-PROMPT: "Scrape the reviews from this site https://aivi.io/ And use it in our site. Also, generate a new one if there's not enough"
-
-CHANGES MADE:
-
-1. Integrated Real Reviews from AIVI.io
-   - Andy Mackensen (LeadRoller): "AIVI knows what they're doing when it comes to AI SMS bots and AI lead gen..."
-   - Danny Hobbs (My Financial Broker): "AIVI successfully grew our lead remarketing campaigns. From 1 in 5 to almost 1 in 2... 120% conversion increase"
-   - Added testimonials highlighting 250% conversion increase, 105% revenue growth, 80% contact rate
-
-2. Expanded Testimonials for All Industries
-   - Financial: Expanded from 3 to 6 testimonials
-   - Healthcare: Expanded from 3 to 6 testimonials  
-   - Law Firms: Expanded from 3 to 6 testimonials
-   - Real Estate: Expanded from 3 to 6 testimonials
-   - Logistics: Expanded from 3 to 6 testimonials
-   - General: Updated to 6 testimonials with real AIVI.io reviews
-
-3. Enhanced Testimonial Quality
-   - Specific metrics and results (ROI, time saved, conversion rates)
-   - Real company names and detailed use cases
-   - Authentic quotes from actual AIVI.io website
-   - Diverse roles: CEOs, Directors, VPs, Managing Partners, Team Leaders
-   - Balanced purple/orange color distribution
-
-REAL REVIEWS INTEGRATED:
-- Andy Mackensen, LeadRoller (Database Reactivation)
-- Danny Hobbs, My Financial Broker (SMS Lead Remarketing, 120% conversion increase)
-- 250% increase in conversion rate (lead qualification case study)
-- 105% revenue growth (database reactivation case study)
-- 80% contact rate (speed to lead case study)
-
-GENERATED TESTIMONIALS ADDED:
-- Financial: 3 new testimonials (AI voice agents, proactive retention, cold lead reactivation)
-- Healthcare: 3 new testimonials (24/7 AI voice, post-op follow-ups, patient feedback)
-- Law Firms: 3 new testimonials (billable hours recovery, intake team efficiency, client satisfaction)
-- Real Estate: 3 new testimonials (database reactivation, open house RSVPs, days-on-market reduction)
-- Logistics: 3 new testimonials (delivery exceptions, POD confirmations, missed delivery reduction)
-
-FILES MODIFIED: 1
-- components/Testimonials.tsx (testimonials expanded and updated with real reviews)
-
-DEPLOYMENT: Successfully deployed to production
-- All industry pages now show 6 compelling testimonials
-- Homepage shows real AIVI.io customer reviews
-- Improved social proof and credibility
-
-================================================================================
-HERO STATCARD BORDER FIX (November 10, 2025) - Post v1.0.11
-================================================================================
-
-PROMPT: "For these tiles (Conversion Increase, Dead Leads Revived, Response Time) the top border which is colored, is not aligned properly with the rest of the tab borders, fix it"
-
-CHANGES MADE:
-
-1. Fixed StatCard Top Gradient Border Alignment (components/Hero.tsx)
-   - Added "overflow-hidden" to card container
-   - Removed "rounded-t-2xl" from gradient line (was causing overflow)
-   - Gradient bar now properly aligns with card borders
-   - Consistent with Dashboard component fix
-
-FILES MODIFIED: 1
-- components/Hero.tsx (StatCard component border fix)
+Current Version: v1.0.12
+Date: December 7, 2025
 
 ================================================================================
 MAJOR UI/UX IMPROVEMENTS & LEGAL PAGES (November 10, 2025) - Post v1.0.11
@@ -465,6 +398,69 @@ TECHNICAL NOTES:
 ================================================================================
 COMPREHENSIVE INDUSTRY-SPECIFIC COMPONENT REFACTORING (November 10, 2025) - Post v1.0.11
 ================================================================================
+
+================================================================================
+AIVIv2 NAV A11Y + SCROLL SPY (December 7, 2025) - Post v1.0.11
+================================================================================
+
+PROMPT: "Improve AIVIv2 navigation accessibility and add a scroll spy to highlight active sections. Keep styles/feel intact."
+
+CHANGES MADE:
+
+1. Mobile Menu Accessibility
+  - components/aiviv2/AIVINavigation.tsx:
+    * Added `aria-expanded` and `aria-controls` to the mobile menu button
+    * Implemented Escape-to-close behavior
+    * Added a simple focus trap within the opened mobile menu for keyboard users
+    * Restores focus to the toggle button when closing with Esc
+
+2. Scroll Spy for Active Section Highlighting
+  - components/aiviv2/AIVINavigation.tsx:
+    * Added IntersectionObserver to track sections: `#solutions`, `#roles`, `#resources`, `#pricing`
+    * Maintains `activeId` state based on most visible section
+    * Applies `aria-current="true"` to active link
+    * Uses subtle brand gradient underline (`brand-gradient-underline`) for the active nav item
+
+3. Bugfix
+  - Fixed missing `useRef` import that caused a compile error after adding focus management
+
+FILES MODIFIED:
+- components/aiviv2/AIVINavigation.tsx
+
+RESULT:
+- Mobile menu is keyboard and screen-reader friendly (Esc closes, focus trapped)
+- Desktop nav highlights current section while scrolling with subtle gradient underline
+- Visual feel preserved; aligns with TRON gradient accents and a11y goals
+
+================================================================================
+AIVIv2 FEATURE TABS KEYBOARD A11Y (December 7, 2025) - Post v1.0.11
+================================================================================
+
+PROMPT: "Add keyboard navigation to Apollo-style tabs in AIVIv2. Support ArrowLeft/ArrowRight and Home/End with correct ARIA roles and roving tabIndex."
+
+CHANGES MADE:
+
+1. Roving TabIndex + Keyboard Support
+  - components/aiviv2/AIVIFeatureTabs.tsx:
+    * Implemented ArrowLeft/ArrowRight, Home/End key handling to move between tabs
+    * Roving tabIndex: only active tab is focusable (tabIndex=0)
+    * Focus moves to the newly active tab via ref
+
+2. ARIA Semantics
+  - Added `role="tablist"` to the tab container
+  - Each tab has `role="tab"`, `aria-selected`, and `aria-controls`
+  - Added a single `role="tabpanel"` with stable id `feature-panel`
+
+3. Focus Styling
+  - Applied `focus-brand-ring` class for accessible focus indication
+
+FILES MODIFIED:
+- components/aiviv2/AIVIFeatureTabs.tsx
+
+RESULT:
+- Tabs fully accessible via keyboard with correct semantics
+- Visual style preserved; subtle gradient focus ring aligns with TRON theme
+
 
 PROMPT: "apply option 2, each page should be its own content depending on the industry"
 

@@ -9,7 +9,7 @@ const features = [
     title: 'Accelerate Conversions',
     activeColor: 'bg-[#F5F5F5]',
     icon: (
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
         <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
       </svg>
     ),
@@ -31,7 +31,7 @@ const features = [
     title: 'Maximize LTV',
     activeColor: 'bg-[#D4E8F5]',
     icon: (
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
         <path
           fillRule="evenodd"
           d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
@@ -55,7 +55,7 @@ const features = [
     title: 'Optimize Performance',
     activeColor: 'bg-[#E8E5F5]',
     icon: (
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
         <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z" />
       </svg>
     ),
@@ -77,7 +77,7 @@ const features = [
     title: 'Data Intelligence',
     activeColor: 'bg-[#5DD5D5]',
     icon: (
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
         <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
         <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
         <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
@@ -110,9 +110,9 @@ export default function AIVIFeatureTabs() {
   const accumulatedDelta = useRef(0);
   const isProcessing = useRef(false);
   const hasCompletedForward = useRef(false);
-  const hasCompletedBackward = useRef(true); // Start true to allow initial lock
-  const exitCooldown = useRef(false); // Prevent immediate re-lock after exit
-  const initialLoadComplete = useRef(false); // Prevent auto-lock on page refresh
+  const hasCompletedBackward = useRef(true);
+  const exitCooldown = useRef(false);
+  const initialLoadComplete = useRef(false);
 
   const activeFeature = features[activeIndex];
 
@@ -154,13 +154,11 @@ export default function AIVIFeatureTabs() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (exitCooldown.current) return;
-        // Skip if initial load not complete (prevents auto-lock on page refresh)
         if (!initialLoadComplete.current) return;
 
-        // Header just left viewport (scrolling down) - engage lock
         if (!entry.isIntersecting && !isLocked && hasCompletedBackward.current) {
           setIsLocked(true);
-          setActiveIndex(0); // Always start at first tab when scrolling down
+          setActiveIndex(0);
           hasCompletedBackward.current = false;
           accumulatedDelta.current = 0;
           isProcessing.current = false;
@@ -187,11 +185,10 @@ export default function AIVIFeatureTabs() {
           return;
         }
 
-        // Container entering from bottom (scrolling up)
         const rect = entry.boundingClientRect;
         if (rect.top > 0 && !isLocked && hasCompletedForward.current) {
           setIsLocked(true);
-          setActiveIndex(3); // Start at last tab when scrolling up
+          setActiveIndex(3);
           hasCompletedForward.current = false;
           accumulatedDelta.current = 0;
           isProcessing.current = false;
@@ -215,10 +212,8 @@ export default function AIVIFeatureTabs() {
 
       if (isProcessing.current) return;
 
-      // Accumulate scroll delta
       accumulatedDelta.current += e.deltaY;
 
-      // Threshold for tab switch (adjust for sensitivity)
       const threshold = 80;
 
       if (Math.abs(accumulatedDelta.current) >= threshold) {
@@ -227,9 +222,7 @@ export default function AIVIFeatureTabs() {
         accumulatedDelta.current = 0;
 
         setActiveIndex(prev => {
-          // Immediate exit at boundaries - no extra scroll needed
           if (prev === 3 && direction > 0) {
-            // Already at last tab, scrolling down - exit immediately
             exitCooldown.current = true;
             hasCompletedForward.current = true;
             hasCompletedBackward.current = false;
@@ -241,7 +234,6 @@ export default function AIVIFeatureTabs() {
           }
 
           if (prev === 0 && direction < 0) {
-            // Already at first tab, scrolling up - exit immediately
             exitCooldown.current = true;
             hasCompletedBackward.current = true;
             hasCompletedForward.current = false;
@@ -252,32 +244,36 @@ export default function AIVIFeatureTabs() {
             return 0;
           }
 
-          // Normal tab switching within bounds
           return prev + direction;
         });
 
-        // Debounce
         setTimeout(() => {
           isProcessing.current = false;
         }, 200);
       }
     };
 
-    // Add listener to document to ensure capture
     document.addEventListener('wheel', handleWheel, { passive: false });
     return () => document.removeEventListener('wheel', handleWheel);
   }, [isLocked, isMobile]);
 
   return (
-    <section ref={sectionRef} className="w-full bg-white px-6 sm:px-12 md:px-16 lg:px-24 py-16 sm:py-20 md:py-24">
+    <section
+      ref={sectionRef}
+      className="w-full bg-white px-6 sm:px-12 md:px-16 lg:px-24 py-16 sm:py-20 md:py-24"
+      aria-labelledby="features-heading"
+    >
       <div className="w-full">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-8 sm:mb-12">
-          <h2 className="text-[28px] sm:text-[36px] md:text-[48px] leading-[1.2] font-normal text-[#000000] mb-3 sm:mb-4 max-w-[800px] mx-auto px-2">
-            AI-powered precision for smarter lead engagement and conversion
+          <h2
+            id="features-heading"
+            className="text-[28px] sm:text-[36px] md:text-[48px] leading-[1.2] font-normal text-[#000000] mb-3 sm:mb-4 max-w-[800px] mx-auto px-2"
+          >
+            AI-powered precision for smarter lead engagement
           </h2>
           <p className="text-[15px] sm:text-[17px] leading-[1.6] text-[#666666] max-w-[700px] mx-auto px-2">
-            Powered by AIVI data so that every outreach is tested and proven before any of your campaigns launch to guarantee results.
+            Every outreach is tested and proven before campaigns launch, guaranteeing results backed by AIVI data.
           </p>
         </div>
 
@@ -285,17 +281,19 @@ export default function AIVIFeatureTabs() {
         <div ref={containerRef} className="space-y-8">
           {/* Progress Indicator */}
           {!isMobile && (
-            <div className="flex justify-center gap-3 mb-6">
-              {features.map((_, i) => (
+            <div className="flex justify-center gap-3 mb-6" role="group" aria-label="Feature progress">
+              {features.map((feature, i) => (
                 <motion.button
                   key={i}
                   onClick={() => setActiveIndex(i)}
-                  className="h-2 rounded-full"
+                  className="h-2 rounded-full focus-brand-ring"
                   animate={{
                     width: i === activeIndex ? 40 : 24,
                     backgroundColor: i <= activeIndex ? '#f84608' : '#d1d5db',
                   }}
                   transition={{ duration: 0.3, ease: 'easeOut' }}
+                  aria-label={`Go to ${feature.title}`}
+                  aria-current={i === activeIndex ? 'true' : undefined}
                 />
               ))}
             </div>
@@ -310,18 +308,21 @@ export default function AIVIFeatureTabs() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
                 className="flex justify-center mb-4"
+                role="status"
+                aria-live="polite"
               >
-                <div className="flex items-center gap-2 px-4 py-2 bg-[#f84608]/10 rounded-full">
+                <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#f84608]/10 to-[#321ca3]/10 rounded-full">
                   <motion.span
                     animate={{ y: [0, -3, 0] }}
                     transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
                     className="text-[#f84608]"
+                    aria-hidden="true"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
                   </motion.span>
-                  <span className="text-sm text-[#f84608] font-medium">
+                  <span className="text-sm font-medium aivi-gradient-text">
                     Scroll to explore all features
                   </span>
                 </div>
@@ -351,7 +352,6 @@ export default function AIVIFeatureTabs() {
                   if (key === 'Home') next = 0;
                   if (key === 'End') next = features.length - 1;
                   setActiveIndex(next);
-                  // Focus the newly active tab for roving tabIndex pattern
                   requestAnimationFrame(() => tabRefs.current[next]?.focus());
                 }}
                 role="tab"
@@ -360,12 +360,12 @@ export default function AIVIFeatureTabs() {
                 tabIndex={activeIndex === index ? 0 : -1}
                 className={`relative flex items-center gap-3 p-4 rounded-xl border-2 transition-all duration-300 focus:outline-none focus-brand-ring ${
                   activeIndex === index
-                    ? 'border-[#000000]/30 bg-[#FAFAFA] shadow-md'
+                    ? 'border-[#f84608]/30 bg-[#FAFAFA] shadow-md'
                     : 'border-[#E5E5E5] bg-white hover:border-[#CCCCCC] hover:bg-[#FAFAFA]'
                 }`}
               >
                 <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                  activeIndex === index ? 'bg-[#000000] text-white' : 'bg-[#F5F5F5] text-[#000000]'
+                  activeIndex === index ? 'bg-gradient-to-br from-[#f84608] to-[#321ca3] text-white' : 'bg-[#F5F5F5] text-[#000000]'
                 }`}>
                   {feature.icon}
                 </div>
@@ -373,14 +373,14 @@ export default function AIVIFeatureTabs() {
                   {feature.title}
                 </span>
                 <motion.div
-                  className="absolute bottom-0 left-2 right-2 h-1 rounded-full"
+                  className="absolute bottom-0 left-2 right-2 h-1 rounded-full bg-gradient-to-r from-[#f84608] to-[#321ca3]"
                   initial={false}
                   animate={{
                     opacity: activeIndex === index ? 1 : 0,
                     scaleX: activeIndex === index ? 1 : 0,
-                    backgroundColor: activeIndex === index ? '#f84608' : '#f84608'
                   }}
                   transition={{ duration: 0.2, ease: 'easeOut' }}
+                  aria-hidden="true"
                 />
               </button>
             ))}
@@ -409,33 +409,34 @@ export default function AIVIFeatureTabs() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <button className="w-full sm:w-auto px-6 py-3 bg-[#000000] text-white text-[15px] font-semibold rounded-md hover:bg-[#222222] transition-colors">
-                    Get started for free
+                  <button className="group relative w-full sm:w-auto px-6 py-3 text-white text-[15px] font-semibold rounded-md hover:-translate-y-1 hover:shadow-xl transition-all duration-300 overflow-hidden bg-gradient-to-r from-[#f84608] to-[#321ca3] focus-brand-ring">
+                    <span className="relative z-10">Start Free Trial</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#321ca3] to-[#f84608] opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
                   </button>
-                  <button className="w-full sm:w-auto px-6 py-3 bg-white border-2 border-[#000000] text-[#000000] text-[15px] font-semibold rounded-md hover:bg-[#000000] hover:text-white transition-colors">
+                  <button className="w-full sm:w-auto px-6 py-3 bg-white border-2 border-[#000000] text-[#000000] text-[15px] font-semibold rounded-md hover:bg-[#000000] hover:text-white transition-colors focus-brand-ring">
                     Learn more
                   </button>
                 </div>
 
                 {/* Feature List */}
-                <div className="space-y-3">
+                <ul className="space-y-3" aria-label={`${activeFeature.title} features`}>
                   {activeFeature.features.map((item, index) => (
-                    <motion.div
+                    <motion.li
                       key={`${activeIndex}-${index}`}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.2, delay: index * 0.05 }}
                       className="flex gap-3 items-start"
                     >
-                      <div className="w-5 h-5 mt-0.5 flex-shrink-0 bg-[#f84608] rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 mt-0.5 flex-shrink-0 bg-gradient-to-br from-[#f84608] to-[#321ca3] rounded-full flex items-center justify-center" aria-hidden="true">
                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
                       <span className="text-[15px] leading-[1.5] text-[#333333]">{item}</span>
-                    </motion.div>
+                    </motion.li>
                   ))}
-                </div>
+                </ul>
               </motion.div>
             </AnimatePresence>
 
@@ -451,15 +452,15 @@ export default function AIVIFeatureTabs() {
               >
                 <div className="aspect-[16/10] p-6 md:p-8 flex items-center justify-center">
                   <div className="w-full bg-white/25 backdrop-blur-sm rounded-xl p-6 space-y-4">
-                    <div className="h-4 bg-white/40 rounded w-3/4"></div>
-                    <div className="h-4 bg-white/40 rounded w-full"></div>
-                    <div className="h-4 bg-white/40 rounded w-5/6"></div>
+                    <div className="h-4 bg-white/40 rounded w-3/4" aria-hidden="true"></div>
+                    <div className="h-4 bg-white/40 rounded w-full" aria-hidden="true"></div>
+                    <div className="h-4 bg-white/40 rounded w-5/6" aria-hidden="true"></div>
                     <div className="mt-6 space-y-3">
-                      <div className="h-12 bg-[#f84608] rounded-lg flex items-center justify-center shadow-md">
+                      <div className="h-12 bg-gradient-to-r from-[#f84608] to-[#321ca3] rounded-lg flex items-center justify-center shadow-md">
                         <span className="text-[14px] font-semibold text-white">{activeFeature.title} Dashboard</span>
                       </div>
-                      <div className="h-10 bg-white/40 rounded-lg"></div>
-                      <div className="h-10 bg-white/40 rounded-lg"></div>
+                      <div className="h-10 bg-white/40 rounded-lg" aria-hidden="true"></div>
+                      <div className="h-10 bg-white/40 rounded-lg" aria-hidden="true"></div>
                     </div>
                   </div>
                 </div>

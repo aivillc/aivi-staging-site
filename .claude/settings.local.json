@@ -20,7 +20,16 @@
       "Bash(gh auth status:*)",
       "Bash(gh auth login:*)",
       "Bash(git config:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(if exist \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\.next\" rmdir //s //q \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\.next\")",
+      "Bash(timeout:*)",
+      "Bash(rm:*)",
+      "Bash(git checkout:*)",
+      "Bash(dir:*)",
+      "Bash(mkdir:*)",
+      "Bash(tree:*)",
+      "Bash(if not exist \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\app\\aiviv3\\use-cases\" mkdir \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\app\\aiviv3\\use-cases\")",
+      "Bash(if exist \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\.next\" rmdir /s /q \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\.next\")"
     ],
     "deny": [],
     "ask": []

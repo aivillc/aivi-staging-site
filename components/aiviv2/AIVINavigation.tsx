@@ -1,11 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 export default function AIVINavigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeId, setActiveId] = useState<string>('');
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +24,65 @@ export default function AIVINavigation() {
     { label: 'Resources', href: '#resources' },
     { label: 'Pricing', href: '#pricing' },
   ];
+
+  // Scroll spy for highlighting active section
+  useEffect(() => {
+    const ids = navItems
+      .map((n) => n.href.replace('#', ''))
+      .filter((id) => !!document.getElementById(id));
+    if (ids.length === 0) return;
+
+    const elements = ids.map((id) => document.getElementById(id)!)
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the entry with greatest intersection ratio that's intersecting
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      {
+        root: null,
+        // Trigger a bit before full center to feel responsive
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: [0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+        buttonRef.current?.focus();
+      }
+      if (!mobileMenuOpen) return;
+      if (e.key === 'Tab' && menuRef.current) {
+        const focusables = menuRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          (last as HTMLElement).focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          (first as HTMLElement).focus();
+        }
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
 
   return (
     <nav
@@ -54,10 +116,21 @@ export default function AIVINavigation() {
                 <a
                   key={index}
                   href={item.href}
-                  className="relative text-[15px] font-normal text-[#000000] hover:text-[#333333] transition-colors group whitespace-nowrap"
+                  className={`relative text-[15px] font-normal transition-colors group whitespace-nowrap ${
+                    activeId === item.href.replace('#', '')
+                      ? 'text-[#000000]'
+                      : 'text-[#000000] hover:text-[#333333]'
+                  }`}
+                  aria-current={activeId === item.href.replace('#', '') ? 'true' : undefined}
                 >
                   {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#f84608] group-hover:w-full transition-all duration-300" />
+                  <span
+                    className={`absolute bottom-0 left-0 h-[2px] transition-all duration-300 ${
+                      activeId === item.href.replace('#', '')
+                        ? 'w-full brand-gradient-underline'
+                        : 'w-0 bg-[#f84608] group-hover:w-full'
+                    }`}
+                  />
                 </a>
               ))}
             </div>
@@ -91,6 +164,9 @@ export default function AIVINavigation() {
           <button
             className="lg:hidden w-7 h-7 flex flex-col justify-center items-center gap-1.5 group"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            ref={buttonRef}
             aria-label="Toggle mobile menu"
           >
             <span className={`w-full h-0.5 bg-[#000000] transform transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
@@ -102,9 +178,11 @@ export default function AIVINavigation() {
 
       {/* Mobile Menu */}
       <div
+        id="mobile-menu"
         className={`lg:hidden absolute top-full left-0 w-full bg-[#E8E5E0]/98 backdrop-blur-md border-t border-[#DDDDDD] shadow-xl overflow-hidden transition-all duration-300 ${
           mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}
+        ref={menuRef}
       >
         <div className="px-6 py-4 flex flex-col gap-1">
           {navItems.map((item, index) => (

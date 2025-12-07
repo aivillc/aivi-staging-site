@@ -1,7 +1,5 @@
-
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
@@ -99,30 +97,6 @@ const testimonialsContent = {
         company: "Family Care Associates",
         industry: "Healthcare",
         color: 'purple' as const
-      },
-      {
-        quote: "AIVI's AI voice agent handles prescription refill requests 24/7. Our staff can focus on in-person patient care instead of answering routine phone calls.",
-        author: "Dr. James Patterson",
-        role: "Medical Director",
-        company: "Riverside Health Group",
-        industry: "Healthcare",
-        color: 'orange' as const
-      },
-      {
-        quote: "Post-operative follow-up calls went from 40% completion to 98% with AIVI. Patients love the personalized check-ins and our outcomes have improved significantly.",
-        author: "Linda Morrison",
-        role: "Chief Nursing Officer",
-        company: "Summit Surgical Center",
-        industry: "Healthcare",
-        color: 'purple' as const
-      },
-      {
-        quote: "We collected 3x more patient feedback after visits using AIVI's automated text surveys. The insights helped us identify and fix service gaps quickly.",
-        author: "Carlos Ramirez",
-        role: "Patient Experience Director",
-        company: "Community Health Network",
-        industry: "Healthcare",
-        color: 'orange' as const
       }
     ],
     stats: [
@@ -160,30 +134,6 @@ const testimonialsContent = {
         company: "Metropolitan Law Partners",
         industry: "Law Firms",
         color: 'purple' as const
-      },
-      {
-        quote: "We recovered $180K in billable hours lost to missed callbacks. AIVI contacts new leads instantly and schedules consultations when we're available.",
-        author: "Robert Davidson",
-        role: "Partner",
-        company: "Davidson & Sharp Law Offices",
-        industry: "Law Firms",
-        color: 'orange' as const
-      },
-      {
-        quote: "Our intake team went from 12 paralegals to 4. AIVI pre-qualifies leads, gathers initial information, and only escalates viable cases to our attorneys.",
-        author: "Angela Martinez",
-        role: "Director of Intake",
-        company: "Justice Legal Group",
-        industry: "Law Firms",
-        color: 'purple' as const
-      },
-      {
-        quote: "Client satisfaction scores increased 42% after implementing AIVI's automated communication. Clients feel informed and valued throughout their case.",
-        author: "Steven Park",
-        role: "Managing Attorney",
-        company: "Park & Associates",
-        industry: "Law Firms",
-        color: 'orange' as const
       }
     ],
     stats: [
@@ -221,30 +171,6 @@ const testimonialsContent = {
         company: "Premier Shipping Co.",
         industry: "Logistics",
         color: 'purple' as const
-      },
-      {
-        quote: "AIVI's AI handles delivery exceptions automatically. Customers get instant notifications about delays with rescheduling options. Our CSAT scores jumped 38%.",
-        author: "Michelle Chang",
-        role: "COO",
-        company: "Swift Delivery Network",
-        industry: "Logistics",
-        color: 'orange' as const
-      },
-      {
-        quote: "Proof of delivery confirmations went from 60% to 98%. AIVI texts customers immediately after drop-off to confirm receipt and gather feedback.",
-        author: "Kevin Roberts",
-        role: "Director of Last Mile",
-        company: "Urban Transport Solutions",
-        industry: "Logistics",
-        color: 'purple' as const
-      },
-      {
-        quote: "We reduced missed delivery attempts by 72%. AIVI confirms delivery windows with customers an hour before arrival and adjusts routes in real-time.",
-        author: "Amanda Foster",
-        role: "VP of Logistics",
-        company: "National Freight Express",
-        industry: "Logistics",
-        color: 'orange' as const
       }
     ],
     stats: [
@@ -282,30 +208,6 @@ const testimonialsContent = {
         company: "Prestige Real Estate",
         industry: "Real Estate",
         color: 'purple' as const
-      },
-      {
-        quote: "AIVI re-engaged 300+ old leads from my database. We closed 14 deals worth $7.2M that I thought were completely dead. Absolute game-changer.",
-        author: "Jason Miller",
-        role: "Real Estate Investor",
-        company: "Miller Property Group",
-        industry: "Real Estate",
-        color: 'orange' as const
-      },
-      {
-        quote: "Open house RSVPs increased 156% with AIVI's automated text invitations. The AI sends personalized invites based on buyer preferences and follows up.",
-        author: "Nicole Anderson",
-        role: "Luxury Agent",
-        company: "Elite Real Estate Partners",
-        industry: "Real Estate",
-        color: 'purple' as const
-      },
-      {
-        quote: "My average days-on-market dropped from 42 to 18 days. AIVI nurtures interested buyers with property updates and price changes automatically.",
-        author: "Christopher Lee",
-        role: "Team Leader",
-        company: "Prime Realty Associates",
-        industry: "Real Estate",
-        color: 'orange' as const
       }
     ],
     stats: [
@@ -318,95 +220,34 @@ const testimonialsContent = {
 };
 
 export default function Testimonials({ industry }: TestimonialsProps = {}) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollContainerRef.current) return;
-    setIsDragging(true);
-    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
-    setScrollLeft(scrollContainerRef.current.scrollLeft);
-    scrollContainerRef.current.style.cursor = 'grabbing';
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.style.cursor = 'grab';
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !scrollContainerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleMouseLeave = () => {
-    if (isDragging) {
-      setIsDragging(false);
-      if (scrollContainerRef.current) {
-        scrollContainerRef.current.style.cursor = 'grab';
-      }
-    }
-  };
-
   const content = industry ? testimonialsContent[industry] : {
     title: 'Trusted by Industry Leaders',
     subtitle: 'Industry Leaders',
     description: 'See how AIVI transforms customer engagement across industries',
     testimonials: [
       {
-        quote: "AIVI knows what they're doing when it comes to AI SMS bots and AI lead gen. Great communication, quality product, and a pleasure to work with. Highly recommend!",
-        author: "Andy Mackensen",
-        role: "Founder",
-        company: "LeadRoller",
+        quote: "AIVI successfully grew our lead remarketing campaigns. From 1 in 5 using email to almost 1 in 2 using their AI SMS. Increasing our conversion rate by 120%.",
+        author: "Marketing Director",
+        role: "Lead Generation Manager",
+        company: "AIVI Client",
         industry: "Lead Generation",
         color: 'purple' as const
       },
       {
-        quote: "AIVI successfully grew our lead remarketing campaigns. From 1 in 5 using email to almost 1 in 2 using their AI SMS. Increasing our conversion rate by 120%.",
-        author: "Danny Hobbs",
-        role: "Marketing Director",
-        company: "My Financial Broker",
+        quote: "The document intelligence feature alone saved us 20 hours per week. OCR + LLM automatically processes invoices and updates our CRM.",
+        author: "Michael Chen",
+        role: "Director of Finance",
+        company: "Capital Solutions Group",
         industry: "Financial Services",
         color: 'orange' as const
       },
       {
-        quote: "The 13-second response time at any time of day completely transformed our lead conversion. We saw a 391% increase in qualified appointments booked.",
-        author: "Michael Stevens",
-        role: "VP of Sales",
-        company: "Apex Insurance Group",
+        quote: "Their managed service team had us up and running in 48 hours. The ROI was immediate—we saw 35% increase in policy renewals.",
+        author: "Jennifer Adams",
+        role: "Chief Marketing Officer",
+        company: "Shield Insurance Partners",
         industry: "Insurance",
         color: 'purple' as const
-      },
-      {
-        quote: "AIVI's AI voice agent prequalified leads and live transferred qualified prospects to our team. We saw a 250% increase in conversion rate within 8 weeks.",
-        author: "Rachel Martinez",
-        role: "Director of Operations",
-        company: "Prime Lending Solutions",
-        industry: "Financial Services",
-        color: 'orange' as const
-      },
-      {
-        quote: "We reactivated our dormant database with AIVI's text campaigns. 105% revenue growth from customers we thought were lost forever. Absolutely incredible ROI.",
-        author: "Jonathan Park",
-        role: "Chief Revenue Officer",
-        company: "Capital Direct",
-        industry: "Financial Services",
-        color: 'purple' as const
-      },
-      {
-        quote: "80% contact rate using a mix of text and voice. AIVI handles after-hours inquiries and schedules appointments automatically. Our sales team focuses only on closing.",
-        author: "Sarah Thompson",
-        role: "Sales Manager",
-        company: "Metro Realty Partners",
-        industry: "Real Estate",
-        color: 'orange' as const
       }
     ],
     stats: [
@@ -420,67 +261,36 @@ export default function Testimonials({ industry }: TestimonialsProps = {}) {
   return (
     <section className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-black">
       {/* Subtle grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.02)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-14 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4" style={{ color: '#e0f2fe' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
             Trusted by{' '}
-            <span className="text-transparent bg-clip-text" style={{
-              backgroundImage: 'linear-gradient(90deg, #0ea5e9 0%, #14b8a6 100%)'
-            }}>
+            <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
               {content.subtitle}
             </span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto" style={{ color: 'rgba(224, 251, 252, 0.6)' }}>
+          <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
             {content.description}
           </p>
         </div>
 
-        {/* Testimonials Carousel */}
-        <div className="relative mb-16">
-          {/* Carousel Container with overflow hidden */}
-          <div className="relative overflow-hidden py-8">
-            {/* Fading Gradient Overlays - Enhanced visibility */}
-            <div className="absolute left-0 top-0 bottom-0 w-48 md:w-64 bg-gradient-to-r from-black via-black/80 to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-48 md:w-64 bg-gradient-to-l from-black via-black/80 to-transparent z-10 pointer-events-none" />
-
-            {/* Scrolling Track - Auto-scrolling with hover pause and drag */}
-            <div
-              ref={scrollContainerRef}
-              className="flex gap-6 animate-scroll overflow-x-auto scroll-smooth scrollbar-hide cursor-grab active:cursor-grabbing"
-              onMouseDown={handleMouseDown}
-              onMouseUp={handleMouseUp}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none'
-              }}
-            >
-              {/* Duplicate testimonials for seamless loop (need exactly 2 sets for -50% transform) */}
-              {[...content.testimonials, ...content.testimonials].map((testimonial, index) => (
-                <div key={index} className="flex-shrink-0 w-[280px] sm:w-[340px] md:w-[380px] lg:w-[420px]">
-                  <TestimonialCard
-                    quote={testimonial.quote}
-                    author={testimonial.author}
-                    role={testimonial.role}
-                    company={testimonial.company}
-                    industry={testimonial.industry}
-                    color={testimonial.color}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {content.testimonials.map((testimonial, index) => (
+            <TestimonialCard
+              key={index}
+              quote={testimonial.quote}
+              author={testimonial.author}
+              role={testimonial.role}
+              company={testimonial.company}
+              industry={testimonial.industry}
+              color={testimonial.color}
+            />
+          ))}
         </div>
-
-        <style jsx>{`
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-14 md:mb-16">
@@ -522,42 +332,32 @@ interface TestimonialCardProps {
 }
 
 function TestimonialCard({ quote, author, role, company, industry, color }: TestimonialCardProps) {
-  const gradientStyle = color === 'purple'
-    ? 'linear-gradient(90deg, #0ea5e9 0%, #0284c7 100%)'
-    : 'linear-gradient(90deg, #14b8a6 0%, #0d9488 100%)';
-  const borderColor = color === 'purple' ? 'rgba(61, 90, 128, 0.3)' : 'rgba(0, 204, 153, 0.3)';
-  const hoverBorderColor = color === 'purple' ? 'rgba(61, 90, 128, 0.5)' : 'rgba(0, 204, 153, 0.5)';
-  const badgeColor = color === 'purple' ? '#0ea5e9' : '#14b8a6';
-  const avatarBg = color === 'purple'
-    ? 'linear-gradient(135deg, rgba(61, 90, 128, 0.2) 0%, rgba(61, 90, 128, 0.3) 100%)'
-    : 'linear-gradient(135deg, rgba(0, 204, 153, 0.2) 0%, rgba(0, 204, 153, 0.3) 100%)';
-  const avatarBorder = color === 'purple' ? 'rgba(61, 90, 128, 0.3)' : 'rgba(0, 204, 153, 0.3)';
-  const avatarHoverBorder = color === 'purple' ? '#0ea5e9' : '#14b8a6';
+  const gradient = color === 'purple'
+    ? 'from-purple-500 to-purple-700'
+    : 'from-orange-500 to-orange-700';
+  const borderColor = color === 'purple' ? 'border-purple-500/30' : 'border-orange-500/30';
+  const hoverBorder = color === 'purple' ? 'hover:border-purple-500/70' : 'hover:border-orange-500/70';
+  const badgeBg = color === 'purple' ? 'bg-purple-500/10' : 'bg-orange-500/10';
+  const badgeBorder = color === 'purple' ? 'border-purple-500/30' : 'border-orange-500/30';
+  const badgeText = color === 'purple' ? 'text-purple-400' : 'text-orange-400';
+  const glowColor = color === 'purple' ? 'rgba(139, 92, 246, 0.2)' : 'rgba(255, 107, 53, 0.2)';
 
   return (
-    <div
-      className="group relative p-5 sm:p-6 md:p-7 lg:p-8 bg-white/5 hover:bg-white/10 backdrop-blur-md border-2 rounded-xl transition-all duration-300 hover:scale-105 overflow-hidden h-full"
-      style={{ borderColor }}
-      onMouseEnter={(e) => e.currentTarget.style.borderColor = hoverBorderColor}
-      onMouseLeave={(e) => e.currentTarget.style.borderColor = borderColor}
-    >
-      {/* Gradient accent bar at top */}
-      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: gradientStyle }} />
-
-      <div className="relative">
-        <div className="text-5xl font-bold mb-4 leading-none opacity-30" style={{ color: badgeColor }}>"</div>
-        <p className="mb-6 leading-relaxed text-base font-light" style={{ color: 'rgba(224, 251, 252, 0.9)' }}>{quote}</p>
+    <div className={`group relative p-8 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md border-2 ${borderColor} ${hoverBorder} rounded-2xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-1`}
+         style={{ boxShadow: `0 0 0 0 ${glowColor}`, transition: 'all 0.5s ease' }}
+         onMouseEnter={(e) => e.currentTarget.style.boxShadow = `0 20px 60px ${glowColor}`}
+         onMouseLeave={(e) => e.currentTarget.style.boxShadow = `0 0 0 0 ${glowColor}`}>
+      {/* Gradient accent bar */}
+      <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${gradient} rounded-l-2xl opacity-80 group-hover:w-2 transition-all duration-300`} />
+      
+      {/* Corner accent */}
+      <div className={`absolute top-4 right-4 w-12 h-12 bg-gradient-to-br ${gradient} opacity-10 rounded-full blur-xl group-hover:opacity-20 transition-opacity duration-300`} />
+      
+      <div className="relative pl-4">
+        <div className={`${color === 'purple' ? 'text-purple-400' : 'text-orange-400'} text-6xl font-bold mb-4 leading-none opacity-40`}>"</div>
+        <p className="text-white/90 mb-6 leading-relaxed text-base font-light">{quote}</p>
         <div className="flex items-center gap-4 mb-4">
-          <div
-            className="w-14 h-14 border-2 rounded-full flex items-center justify-center font-black text-xl shadow-lg transition-all"
-            style={{
-              background: avatarBg,
-              borderColor: avatarBorder,
-              color: '#e0f2fe'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = avatarHoverBorder}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = avatarBorder}
-          >
+          <div className={`w-14 h-14 bg-gradient-to-br ${gradient} rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg`}>
             {author.charAt(0)}
           </div>
           <div>
@@ -566,7 +366,7 @@ function TestimonialCard({ quote, author, role, company, industry, color }: Test
             <div className="text-sm text-white/50">{company}</div>
           </div>
         </div>
-        <div className="inline-block px-3 py-1 bg-white/5 border border-white/20 rounded text-xs font-semibold tracking-wide uppercase" style={{ color: badgeColor }}>
+        <div className={`inline-block px-4 py-1.5 ${badgeBg} border ${badgeBorder} rounded-full text-xs ${badgeText} font-semibold tracking-wide backdrop-blur-sm`}>
           {industry}
         </div>
       </div>
@@ -582,8 +382,8 @@ interface StatCardProps {
 
 function StatCard({ number, label, color }: StatCardProps) {
   const gradientStyle = color === 'purple'
-    ? 'linear-gradient(90deg, #0ea5e9 0%, #0284c7 100%)'
-    : 'linear-gradient(90deg, #14b8a6 0%, #0d9488 100%)';
+    ? 'linear-gradient(90deg, #3d5a80 0%, #2d4560 100%)'
+    : 'linear-gradient(90deg, #00cc99 0%, #00b388 100%)';
 
   return (
     <div

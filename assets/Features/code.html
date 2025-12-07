@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Features - AIVI</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#FF5F37", 
+              "background-light": "#E8E5E0",
+              "background-dark": "#1A1A1A",
+              "surface-light": "#FFFFFF",
+              "surface-dark": "#2C2C2C",
+              "text-primary-light": "#1A1A1A",
+              "text-primary-dark": "#FFFFFF",
+              "text-secondary-light": "#444444",
+              "text-secondary-dark": "#B8B8B8",
+              "text-tertiary-light": "#6F6F6F",
+              "text-tertiary-dark": "#888888",
+              "border-light": "#E0E0E0",
+              "border-dark": "#444444",
+              "aivi-orange": "#FF5F37",
+              "aivi-purple": "#8A3FFC"
+            },
+            fontFamily: {
+              display: ["Sora", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "16px",
+            },
+            boxShadow: {
+              'soft': '0 2px 10px rgba(0,0,0,0.06)',
+              'soft-dark': '0 2px 10px rgba(0,0,0,0.2)',
+              'glow': '0 0 15px 0 rgba(255, 95, 55, 0.4)'
+            }
+          },
+        },
+      };
+    </script>
+<style>
+      .bg-soft-gradient {
+        background-image: radial-gradient(circle at 50% 50%, rgba(255, 95, 55, 0.1), transparent 50%), radial-gradient(circle at 30% 70%, rgba(138, 63, 252, 0.08), transparent 60%), radial-gradient(circle at 70% 30%, rgba(138, 63, 252, 0.08), transparent 60%);
+      }
+      .dark .bg-soft-gradient {
+        background-image: radial-gradient(circle at 50% 50%, rgba(255, 95, 55, 0.15), transparent 50%), radial-gradient(circle at 30% 70%, rgba(138, 63, 252, 0.12), transparent 60%), radial-gradient(circle at 70% 30%, rgba(138, 63, 252, 0.12), transparent 60%);
+      }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<header class="flex justify-between items-center py-6">
+<div class="flex items-center space-x-2">
+<svg class="text-text-primary-light dark:text-text-primary-dark" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M2 7L12 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M22 7L12 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M12 22V12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M17 4.5L7 9.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="font-bold text-xl">AIVI</span>
+</div>
+<nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">
+<a class="hover:text-text-primary-light dark:hover:text-text-primary-dark transition-colors" href="#">Pricing</a>
+<a class="text-text-primary-light dark:text-text-primary-dark font-semibold" href="#">Features</a>
+<a class="hover:text-text-primary-light dark:hover:text-text-primary-dark transition-colors" href="#">Solutions</a>
+<a class="hover:text-text-primary-light dark:hover:text-text-primary-dark transition-colors" href="#">Dev Docs</a>
+<a class="hover:text-text-primary-light dark:hover:text-text-primary-dark transition-colors" href="#">Contact Us</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    Sign Up
+                </button>
+</div>
+</header>
+<main class="py-20 md:py-32 text-center relative overflow-hidden rounded-lg">
+<div class="absolute inset-0 bg-soft-gradient z-0"></div>
+<div class="relative z-10 px-4">
+<h1 class="text-4xl md:text-6xl font-bold text-text-primary-light dark:text-text-primary-dark tracking-tight">Every Feature Your AI Workflow Needs</h1>
+<p class="mt-6 max-w-2xl mx-auto text-lg text-text-secondary-light dark:text-text-secondary-dark">
+                    AIVI unifies voice, data, and automation, so nothing breaks in between.
+                </p>
+<div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+<button class="w-full sm:w-auto px-6 py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-aivi-orange to-aivi-purple hover:shadow-glow transition-all duration-300 transform hover:-translate-y-0.5">
+                        Create Agent
+                    </button>
+<button class="w-full sm:w-auto px-6 py-3 font-semibold rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        Book a Demo
+                    </button>
+</div>
+</div>
+</main>
+<section class="mt-16">
+<div class="relative max-w-2xl mx-auto">
+<span class="material-icons-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-tertiary-light dark:text-text-tertiary-dark">search</span>
+<input class="w-full pl-12 pr-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark placeholder:text-text-tertiary-light dark:placeholder:text-text-tertiary-dark focus:ring-primary focus:border-primary" placeholder="Search features..." type="text"/>
+</div>
+<div class="mt-8 flex flex-wrap justify-center gap-2">
+<button class="px-4 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-aivi-orange to-aivi-purple text-white">All</button>
+<button class="px-4 py-2 text-sm font-medium rounded-lg bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Analytics</button>
+<button class="px-4 py-2 text-sm font-medium rounded-lg bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Call Centre Automation</button>
+<button class="px-4 py-2 text-sm font-medium rounded-lg bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Intelligence Layer</button>
+<button class="px-4 py-2 text-sm font-medium rounded-lg bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Infrastructure and Efficiency</button>
+</div>
+</section>
+<section class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">code</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">SDK-Style Dev Kit</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">dashboard</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">Observability Dashboard</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">edit_note</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">Prompt and Flow Editor</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">summarize</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">Call Transcription and Summaries</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">sentiment_satisfied</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">Customer Sentiment Analysis</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">tune</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">Auto QA and Compliance Checks</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">support_agent</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">Agent and AI Performance Dashboard</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">track_changes</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">Custom KPI Tracking</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg p-6 shadow-soft dark:shadow-soft-dark transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl hover:-translate-y-1">
+<div class="flex items-start space-x-4">
+<span class="material-icons-outlined text-primary mt-1">phone_in_talk</span>
+<div>
+<h3 class="font-semibold text-text-primary-light dark:text-text-primary-dark">Inbound Automation</h3>
+<p class="mt-2 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
+<a class="mt-4 inline-block text-sm font-medium text-primary hover:underline" href="#">View More</a>
+</div>
+</div>
+</div>
+</section>
+<section class="text-center py-20 md:py-32">
+<h2 class="text-3xl md:text-4xl font-bold text-text-primary-light dark:text-text-primary-dark">Your AI Call Center, Simplified</h2>
+<p class="mt-4 max-w-xl mx-auto text-text-secondary-light dark:text-text-secondary-dark">
+                Automate calls, handle customer queries, and scale your support with superb AIVI.
+            </p>
+<div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+<button class="w-full sm:w-auto px-6 py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-aivi-orange to-aivi-purple hover:shadow-glow transition-all duration-300 transform hover:-translate-y-0.5">
+                    Create Agent
+                </button>
+<button class="w-full sm:w-auto px-6 py-3 font-semibold rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    Book a Demo
+                </button>
+</div>
+</section>
+</div>
+<footer class="bg-surface-light dark:bg-surface-dark py-16">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-6 gap-8">
+<div class="col-span-2 md:col-span-2">
+<div class="flex items-center space-x-2">
+<svg class="text-text-primary-light dark:text-text-primary-dark" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M2 7L12 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M22 7L12 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M12 22V12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M17 4.5L7 9.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="font-bold text-xl text-text-primary-light dark:text-text-primary-dark">AIVI</span>
+</div>
+<p class="mt-4 text-sm text-text-tertiary-light dark:text-text-tertiary-dark">Connect with us</p>
+</div>
+<div>
+<h4 class="font-semibold text-text-secondary-light dark:text-text-secondary-dark">Industries</h4>
+<ul class="mt-4 space-y-3 text-sm">
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Real Estate</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">E-commerce</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Health and Wellness</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Financial Services</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Law Firms</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold text-text-secondary-light dark:text-text-secondary-dark">Case Studies</h4>
+<ul class="mt-4 space-y-3 text-sm">
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Retail</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">SaaS</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Healthcare</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Read More</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold text-text-secondary-light dark:text-text-secondary-dark">Resources</h4>
+<ul class="mt-4 space-y-3 text-sm">
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Blog</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Integrations</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">FAQ</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">How it works</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold text-text-secondary-light dark:text-text-secondary-dark">Products</h4>
+<ul class="mt-4 space-y-3 text-sm">
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Voice Agent</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Tools</a></li>
+<li><a class="text-text-tertiary-light dark:text-text-tertiary-dark hover:text-primary" href="#">Audio Translation</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 border-t border-border-light dark:border-border-dark pt-8 text-center">
+<p class="text-sm text-text-tertiary-light dark:text-text-tertiary-dark">© 2023 AIVI. All rights reserved.</p>
+</div>
+</footer>
+
+</body></html>

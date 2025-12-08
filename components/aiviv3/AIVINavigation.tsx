@@ -362,36 +362,40 @@ export default function AIVINavigation() {
                         <h4 className="text-[11px] font-semibold text-[#999999] uppercase tracking-wider px-4 mb-2">
                           Industries
                         </h4>
-                        {item.megaMenu.industries.map((industry) => (
-                          <Link
-                            key={industry.href}
-                            href={industry.href}
-                            role="menuitem"
-                            className="block text-[14px] text-[#333333] py-2 px-4 rounded-md hover:bg-white/50 transition-all duration-200"
-                            onClick={() => setMobileMenuOpen(false)}
-                            tabIndex={mobileMenuOpen && mobileSubmenuOpen ? 0 : -1}
-                          >
-                            {industry.label}
-                          </Link>
-                        ))}
+                        <div className="space-y-1">
+                          {item.megaMenu.industries.map((industry) => (
+                            <Link
+                              key={industry.href}
+                              href={industry.href}
+                              role="menuitem"
+                              className="block text-[14px] text-[#333333] py-2 px-4 rounded-md hover:bg-white/50 transition-all duration-200"
+                              onClick={() => setMobileMenuOpen(false)}
+                              tabIndex={mobileMenuOpen && mobileSubmenuOpen ? 0 : -1}
+                            >
+                              {industry.label}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                       {/* Integrations */}
                       <div>
                         <h4 className="text-[11px] font-semibold text-[#999999] uppercase tracking-wider px-4 mb-2">
                           Integrations
                         </h4>
-                        {item.megaMenu.integrations.map((integration) => (
-                          <Link
-                            key={integration.href}
-                            href={integration.href}
-                            role="menuitem"
-                            className="block text-[14px] text-[#333333] py-2 px-4 rounded-md hover:bg-white/50 transition-all duration-200"
-                            onClick={() => setMobileMenuOpen(false)}
-                            tabIndex={mobileMenuOpen && mobileSubmenuOpen ? 0 : -1}
-                          >
-                            {integration.label}
-                          </Link>
-                        ))}
+                        <div className="space-y-1">
+                          {item.megaMenu.integrations.map((integration) => (
+                            <Link
+                              key={integration.href}
+                              href={integration.href}
+                              role="menuitem"
+                              className="block text-[14px] text-[#333333] py-2 px-4 rounded-md hover:bg-white/50 transition-all duration-200"
+                              onClick={() => setMobileMenuOpen(false)}
+                              tabIndex={mobileMenuOpen && mobileSubmenuOpen ? 0 : -1}
+                            >
+                              {integration.label}
+                            </Link>
+                          ))}
+                        </div>
                         <Link
                           href={item.megaMenu.seeAllIntegrations.href}
                           role="menuitem"

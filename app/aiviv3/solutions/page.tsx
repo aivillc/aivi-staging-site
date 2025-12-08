@@ -1,12 +1,9 @@
-import { Metadata } from 'next';
+'use client';
+
 import Link from 'next/link';
 import AIVINavigation from '@/components/aiviv3/AIVINavigation';
 import AIVIFooter from '@/components/aiviv3/AIVIFooter';
-
-export const metadata: Metadata = {
-  title: 'Solutions | AIVI - AI Voice Agents for Every Industry',
-  description: 'Discover how AIVI AI voice agents transform lead engagement across retail, real estate, hospitality, healthcare, financial services, and legal industries.',
-};
+import { useDemoPopup } from '@/components/aiviv3/DemoPopupContext';
 
 const industries = [
   {
@@ -87,6 +84,8 @@ const iconMap: Record<string, React.JSX.Element> = {
 };
 
 export default function SolutionsPage() {
+  const { openDemoPopup } = useDemoPopup();
+
   return (
     <>
       <AIVINavigation />
@@ -189,12 +188,12 @@ export default function SolutionsPage() {
             <p className="text-[16px] sm:text-[18px] leading-[1.6] text-white/80 mb-8 max-w-[600px] mx-auto">
               AIVI adapts to any business. Let's discuss how voice AI can transform your specific use case.
             </p>
-            <Link
-              href="/aiviv3/demo"
+            <button
+              onClick={openDemoPopup}
               className="inline-flex items-center justify-center h-12 px-8 bg-white text-[#f84608] text-[15px] font-semibold rounded-md hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
             >
               Book a Demo
-              </Link>
+            </button>
             </div>
           </section>
         </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { DemoPopupProvider } from '@/components/aiviv3/DemoPopupContext';
 
 export const metadata: Metadata = {
   title: {
@@ -35,7 +36,7 @@ export default function AIVIv3Layout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <DemoPopupProvider>
       {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
@@ -44,6 +45,6 @@ export default function AIVIv3Layout({
         Skip to main content
       </a>
       {children}
-    </>
+    </DemoPopupProvider>
   );
 }

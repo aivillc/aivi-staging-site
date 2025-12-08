@@ -6,6 +6,7 @@ import { useState } from 'react';
 import AIVINavigation from '@/components/aiviv3/AIVINavigation';
 import AIVIFooter from '@/components/aiviv3/AIVIFooter';
 import { FaCode, FaChartLine, FaEdit, FaFileAlt, FaSmile, FaCheckCircle, FaUsersCog, FaChartBar, FaPhoneAlt } from 'react-icons/fa';
+import { useDemoPopup } from '@/components/aiviv3/DemoPopupContext';
 
 const features = [
   {
@@ -84,6 +85,7 @@ const filterCategories = [
 export default function FeaturesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
+  const { openDemoPopup } = useDemoPopup();
 
   const filteredFeatures = features.filter((feature) => {
     const matchesSearch =
@@ -118,12 +120,12 @@ export default function FeaturesPage() {
                     <span className="relative z-10">Create Agent</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-[#8A3FFC] to-[#FF5F37] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </Link>
-                  <Link
-                    href="/aiviv3/demo"
+                  <button
+                    onClick={openDemoPopup}
                     className="inline-flex items-center justify-center h-12 px-8 bg-transparent border-2 border-black text-black text-[15px] font-semibold rounded-md hover:bg-black hover:text-white transition-all duration-300"
                   >
                     Book a Demo
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -238,12 +240,12 @@ export default function FeaturesPage() {
                 >
                   Create Agent
                 </Link>
-                <Link
-                  href="/aiviv3/demo"
+                <button
+                  onClick={openDemoPopup}
                   className="inline-flex items-center justify-center h-12 px-8 bg-transparent border-2 border-white text-white text-[15px] font-semibold rounded-md hover:bg-white/10 transition-all duration-300"
                 >
                   Book a Demo
-                </Link>
+                </button>
               </div>
             </div>
           </section>

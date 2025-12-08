@@ -13,72 +13,76 @@ import {
 
 export const metadata: Metadata = {
   title: 'AI Voice Agents for Hospitality | AIVI',
-  description: 'Welcome guests, manage bookings, and deliver always-on concierge service with AIVI voice AI. Handle 85-97% of non-reservation calls from day one.',
+  description: 'Deliver 5-star service at every touchpoint. AIVI AI voice agents handle reservations, guest inquiries, and concierge requests 24/7—so your staff can focus on creating unforgettable experiences.',
 };
 
 const useCases = [
   {
-    title: 'Manage Reservations Effortlessly',
-    description: 'Handle bookings, reschedules, cancellations, and confirmations automatically. Help guests secure their plans while freeing staff for exceptional service.',
+    title: 'Never Miss a Reservation',
+    description: 'Every booking inquiry gets answered instantly. AIVI checks real-time availability, processes reservations, handles modifications, and sends confirmations—even at 2 AM when the front desk is busy.',
     icon: 'reservation' as const,
   },
   {
-    title: 'Answer Guest FAQs Instantly',
-    description: 'Respond to questions about parking, WiFi, breakfast hours, late checkout, and amenities immediately. Reduce repeated calls with accurate, consistent information.',
+    title: 'Instant Answers, Happy Guests',
+    description: 'Check-in times, pool hours, restaurant menus, local recommendations—AIVI answers in seconds. Guests get the information they need without waiting on hold, improving satisfaction before they even arrive.',
     icon: 'faq' as const,
   },
   {
-    title: 'After-Hours Concierge Support',
-    description: 'Fulfill guest requests anytime - extra pillows, airport transfers, restaurant recommendations. Maintain seamless service when staff are offline.',
+    title: '24/7 Concierge Excellence',
+    description: 'Late-night room service, airport shuttle requests, spa appointments, local dining reservations—AIVI handles it all. Deliver luxury-level service without the luxury-level staffing costs.',
     icon: 'concierge' as const,
   },
 ];
 
 const steps = [
   {
-    title: 'Sign Up & Connect',
-    description: 'Start with our hospitality template. Connect your hotel or restaurant line in minutes.',
+    title: 'Connect Your Property',
+    description: 'Integrate with your PMS, booking engine, and phone system. AIVI syncs availability and rates in real-time.',
   },
   {
-    title: 'Customize & Test',
-    description: 'Add availability rules, amenities, policies, menus, FAQs, and your brand tone.',
+    title: 'Customize the Experience',
+    description: 'Train AIVI on your amenities, policies, local recommendations, and brand voice. Sound exactly like your best concierge.',
   },
   {
-    title: 'Integrate & Deploy',
-    description: 'Sync your CRM and booking tools. Go live for reservations, FAQs, and guest requests.',
+    title: 'Launch Across Channels',
+    description: 'Answer phone calls, web inquiries, and SMS. Handle multiple languages for international guests seamlessly.',
   },
   {
-    title: 'Analyze & Optimize',
-    description: 'Track real-time calls, outcomes, guest sentiment, and service KPIs to improve experiences.',
+    title: 'Elevate Guest Satisfaction',
+    description: 'Monitor real-time feedback, track resolution rates, and continuously improve. Watch your reviews climb.',
   },
 ];
 
 const stats = [
-  { value: '85-97%', label: 'Non-reservation calls handled day-1' },
-  { value: '80%+', label: 'Guest calls fully resolved' },
-  { value: '<200ms', label: 'Median voice response latency' },
+  { value: '97%', label: 'Calls resolved without staff' },
+  { value: '4.8★', label: 'Average post-call rating' },
+  { value: '0', label: 'Missed reservation calls' },
 ];
 
 const faqs = [
   {
-    question: 'Will AI voice replace front desk staff?',
-    answer: 'No. AIVI supports your team by handling repetitive inquiries and after-hours requests. This frees staff to deliver exceptional in-person guest experiences that build loyalty.',
+    question: 'How does AIVI handle complex booking requests?',
+    answer: 'AIVI manages multi-room bookings, special requests (cribs, accessible rooms, anniversary setups), package upgrades, and group reservations. For truly complex situations, it seamlessly transfers to staff with full context.',
   },
   {
-    question: 'Can AIVI handle multi-property chains?',
-    answer: 'Yes. AIVI scales seamlessly from boutique hotels to nationwide chains without adding headcount. Each property can have customized responses while sharing a unified platform.',
+    question: 'Can AIVI upsell rooms and amenities?',
+    answer: 'Yes. AIVI intelligently suggests upgrades, spa packages, dining reservations, and experiences based on guest profiles and booking patterns. Properties report 15-20% lift in ancillary revenue from AI-powered recommendations.',
   },
   {
-    question: 'Which languages are supported?',
-    answer: 'Over 100 languages and dialects, making AIVI ideal for international travelers and diverse guest bases. The AI adapts pronunciation and cultural context automatically.',
+    question: 'How do you handle VIP and loyalty guests differently?',
+    answer: 'AIVI recognizes returning guests and loyalty members instantly. VIPs receive personalized greetings, priority handling, and immediate escalation paths to management. Their preferences are remembered across stays.',
   },
   {
-    question: 'How do I measure ROI in hospitality?',
-    answer: 'Track higher booking conversion rates, fewer missed calls, reduced front desk workload, and improved guest satisfaction scores. Most properties see ROI within the first month.',
+    question: 'What PMS systems does AIVI integrate with?',
+    answer: 'AIVI connects natively with Opera, Cloudbeds, Mews, RoomRaccoon, Little Hotelier, and 30+ property management systems. Real-time two-way sync ensures availability and rates are always current.',
   },
   {
-    question: 'Does AIVI work 24/7?',
-    answer: 'Yes. AIVI handles late-night inquiries, early morning check-in questions, and urgent guest requests around the clock without staffing concerns.',
+    question: 'Can one AIVI handle multiple properties?',
+    answer: 'Absolutely. Multi-property chains use a single AIVI deployment with customized responses per location. Callers are routed correctly, and each property maintains its unique brand voice while sharing centralized management.',
+  },
+  {
+    question: 'How do international guests experience AIVI?',
+    answer: 'AIVI speaks 100+ languages with natural accents. A Japanese guest calling your Miami hotel speaks Japanese; a Brazilian guest speaks Portuguese. The AI detects language automatically and responds accordingly.',
   },
 ];
 
@@ -86,17 +90,17 @@ export default function HospitalitySolutionPage() {
   return (
     <>
       <AIVINavigation />
-      <main className="min-h-screen bg-[#E8E5E0]">
+      <main className="min-h-screen bg-[#E8E5E0]" style={{ fontFamily: 'Manrope, sans-serif' }}>
         <div className="mx-4 sm:mx-6 lg:mx-12">
           <IndustryHero
-            headline="AI Voice Agents for Hospitality"
-            subheadline="Welcome guests, manage bookings, and deliver always-on concierge service with voice AI that never sleeps. Create memorable experiences from the first call."
-            audioLabel="Listen to AIVI help a guest book their stay"
+            headline="5-Star Service, Zero Hold Time"
+            subheadline="Your guests expect instant, exceptional service—at 3 PM and 3 AM. AIVI delivers concierge-level assistance for every caller, handling reservations, requests, and inquiries while your team creates unforgettable in-person experiences."
+            audioLabel="Hear AIVI assist a guest with a special request"
           />
-          <UseCaseCards useCases={useCases} />
-          <HowItWorks steps={steps} />
           <StatsBar stats={stats} />
+          <UseCaseCards useCases={useCases} />
           <IntegrationLogos />
+          <HowItWorks steps={steps} />
           <IndustryFAQ faqs={faqs} />
           <IndustryCTA />
         </div>

@@ -19,63 +19,51 @@ const integrations = [
 
 export default function IntegrationLogos() {
   return (
-    <section className="w-full bg-[#E8E5E0] px-3 sm:px-6 py-12 sm:py-16">
-      <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] mx-auto bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12">
-        {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-[24px] sm:text-[28px] md:text-[32px] font-normal text-black mb-3">
-            Seamless Integration With 50+ Tools
-          </h2>
-          <p className="text-[15px] sm:text-[17px] leading-[1.6] text-[#666666] max-w-[600px] mx-auto">
-            Connect instantly with your favorite apps. Need something custom? We'll add new integrations on request.
-          </p>
-        </div>
+    <section className="w-full bg-[#E8E5E0] px-[5%] sm:px-[7%] lg:px-[10%] py-12 sm:py-16" style={{ fontFamily: 'Manrope, sans-serif' }}>
+      <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] mx-auto">
+        {/* White Card Container - Use Cases Style */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-soft">
+          {/* Section Header */}
+          <div className="mb-8">
+            <h2 className="text-[24px] sm:text-[32px] font-normal text-[#1A1A1A] mb-3">
+              Seamless Integrations
+            </h2>
+            <p className="text-[15px] sm:text-[16px] text-[#666666]">
+              Connect with your existing tools and workflows
+            </p>
+          </div>
 
-        {/* Integration Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {integrations.map((integration, index) => (
-            <div
-              key={integration.name}
-              className="group bg-[#FAFAFA] rounded-xl p-4 sm:p-5 text-center border border-[#E8E5E0] hover:border-[#f84608]/30 hover:-translate-y-1 hover:shadow-md transition-all duration-300"
-            >
-              {/* Placeholder logo */}
+          {/* Integration Grid */}
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 sm:gap-6 mb-8">
+            {integrations.map((integration, index) => (
               <div
-                className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 rounded-lg flex items-center justify-center text-white font-bold text-[14px] ${
-                  index % 3 === 0
-                    ? 'bg-[#f84608]'
-                    : index % 3 === 1
-                    ? 'bg-[#321ca3]'
-                    : 'bg-gradient-to-br from-[#f84608] to-[#321ca3]'
-                }`}
+                key={integration.name}
+                className="bg-[#F5F5F5] rounded-xl p-4 border border-[#E8E5E0] text-center hover:border-[#FF8C00]/30 transition-all duration-300"
               >
-                {integration.name.charAt(0)}
+                {/* Placeholder logo */}
+                <div
+                  className={`w-10 h-10 mx-auto rounded-lg flex items-center justify-center text-white font-bold text-[14px] ${
+                    index % 2 === 0
+                      ? 'bg-[#FF8C00]'
+                      : 'bg-[#8A2BE2]'
+                  }`}
+                >
+                  {integration.name.charAt(0)}
+                </div>
+                <p className="text-[11px] text-[#666666] mt-2 truncate">{integration.name}</p>
               </div>
-              <div className="text-[13px] sm:text-[14px] font-medium text-black group-hover:text-[#f84608] transition-colors">
-                {integration.name}
-              </div>
-              <div className="text-[11px] text-[#999999] mt-1">
-                {integration.category}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* CTA */}
-        <div className="text-center mt-8 sm:mt-10">
-          <Link
-            href="/aiviv3/integrations"
-            className="inline-flex items-center gap-2 text-[15px] font-semibold text-[#f84608] hover:gap-3 transition-all duration-300"
-          >
-            Explore All Integrations
-            <svg
-              className="w-5 h-5 transition-transform group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {/* CTA Button */}
+          <div className="text-center">
+            <Link
+              href="/aiviv3/integrations"
+              className="inline-flex items-center justify-center h-12 px-8 bg-gradient-to-r from-[#FF8C00] to-[#8A2BE2] text-white text-[15px] font-semibold rounded-md hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+              View All Integrations
+            </Link>
+          </div>
         </div>
       </div>
     </section>

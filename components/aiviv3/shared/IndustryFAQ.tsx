@@ -19,63 +19,51 @@ export default function IndustryFAQ({ faqs }: IndustryFAQProps) {
   };
 
   return (
-    <section className="w-full bg-white px-3 sm:px-6 py-12 sm:py-16">
-      <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] max-w-[800px] mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-[28px] sm:text-[36px] md:text-[42px] leading-[1.2] font-normal text-black mb-3">
-            Questions?
+    <section className="w-full bg-[#E8E5E0] px-[5%] sm:px-[7%] lg:px-[10%] py-12 sm:py-16" style={{ fontFamily: 'Manrope, sans-serif' }}>
+      <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] mx-auto">
+        {/* White Card Container - Use Cases Style */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-soft">
+          {/* Section Header */}
+          <h2 className="text-[24px] sm:text-[32px] font-normal text-[#1A1A1A] mb-8">
+            Frequently Asked Questions
           </h2>
-          <p className="text-[15px] sm:text-[17px] leading-[1.6] text-[#666666]">
-            Find answers to common questions about AIVI
-          </p>
-        </div>
 
-        {/* FAQ Accordion */}
-        <div className="space-y-3">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="bg-[#FAFAFA] rounded-xl border border-[#E8E5E0] overflow-hidden transition-all duration-300 hover:border-[#f84608]/30"
-            >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between p-5 sm:p-6 text-left focus-brand-ring"
-                aria-expanded={openIndex === index}
+          {/* FAQ Accordion */}
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="border border-[#E8E5E0] rounded-xl overflow-hidden"
               >
-                <span className="text-[15px] sm:text-[16px] font-medium text-black pr-4">
-                  {faq.question}
-                </span>
-                <span
-                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    openIndex === index
-                      ? 'bg-gradient-to-r from-[#f84608] to-[#321ca3] text-white rotate-180'
-                      : 'bg-[#E8E5E0] text-[#666666]'
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full flex items-center justify-between p-5 text-left hover:bg-[#F5F5F5] transition-colors"
+                  aria-expanded={openIndex === index}
+                >
+                  <span className="text-[16px] font-semibold text-[#1A1A1A]">
+                    {faq.question}
+                  </span>
+                  <span
+                    className="text-[24px] text-[#FF8C00] transition-transform duration-300 flex-shrink-0 ml-4"
+                    style={{
+                      transform: openIndex === index ? 'rotate(45deg)' : 'rotate(0deg)',
+                    }}
+                  >
+                    +
+                  </span>
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </button>
-              <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  openIndex === index ? 'max-h-[500px]' : 'max-h-0'
-                }`}
-              >
-                <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-                  <p className="text-[14px] sm:text-[15px] leading-[1.7] text-[#666666]">
+                  <div className={`p-5 text-[14px] text-[#666666] leading-[1.6] ${openIndex === index ? 'pt-2.5' : 'pt-0'}`}>
                     {faq.answer}
-                  </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

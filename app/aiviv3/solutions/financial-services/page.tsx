@@ -13,72 +13,76 @@ import {
 
 export const metadata: Metadata = {
   title: 'AI Voice Agents for Financial Services | AIVI',
-  description: 'Make banking faster, safer, and always available with compliant AI voice agents. Complete KYC 35% faster and reduce cost per contact by 95%.',
+  description: 'Compliant AI voice agents for banks, lenders, and financial institutions. Automate KYC, accelerate loan processing, and deliver 24/7 customer service while maintaining regulatory compliance.',
 };
 
 const useCases = [
   {
-    title: 'Handle Customer Calls Instantly',
-    description: 'Answer loan inquiries, banking questions, and account queries via live calls. Provide real-time assistance and resolve routine requests without wait times.',
+    title: 'Zero-Wait Customer Service',
+    description: 'Account balances, transaction disputes, card activations, payment schedules—customers get instant answers without navigating phone trees or waiting on hold. AIVI resolves 85% of calls completely, routing only complex cases to advisors.',
     icon: 'calls' as const,
   },
   {
-    title: 'Pre-Qualify Leads at Scale',
-    description: 'Engage prospects over calls, verify eligibility, collect required information, and route qualified leads to your human representatives for closing.',
+    title: 'Accelerate Loan Origination',
+    description: 'Pre-qualify applicants in minutes, not days. AIVI collects required documentation, verifies eligibility, explains terms, and moves qualified borrowers straight to underwriting—dramatically shortening your time-to-fund.',
     icon: 'prequalify' as const,
   },
   {
-    title: 'End-to-End Loan Support',
-    description: 'Guide borrowers through application questions, payment details, and loan status inquiries. Reduce human workload while maintaining service quality.',
+    title: 'Streamline Collections with Empathy',
+    description: 'Handle payment reminders and arrangements with consistent, compliant, and compassionate conversations. AIVI negotiates payment plans, documents agreements, and maintains relationships that traditional collections methods destroy.',
     icon: 'loan' as const,
   },
 ];
 
 const steps = [
   {
-    title: 'Sign Up & Connect',
-    description: 'Start with our financial services template. Connect your lines in minutes with secure integration.',
+    title: 'Secure Integration',
+    description: 'Connect to your core banking system, CRM, and phone infrastructure with bank-grade encryption and compliance from day one.',
   },
   {
-    title: 'Customize & Test',
-    description: 'Add policies, compliance prompts, product details, and brand tone. Test for regulatory accuracy.',
+    title: 'Compliance Configuration',
+    description: 'Build in required disclosures, fair lending language, and regulatory scripts. Every conversation follows your compliance requirements.',
   },
   {
-    title: 'Integrate & Deploy',
-    description: 'Sync with your CRM and core banking systems. Go live for inquiries, pre-qualification, and support.',
+    title: 'Controlled Rollout',
+    description: 'Start with specific call types, measure performance, and expand gradually. Your compliance team reviews everything before full deployment.',
   },
   {
-    title: 'Analyze & Optimize',
-    description: 'Track calls, conversion rates, compliance metrics, and KPIs to continuously improve performance.',
+    title: 'Continuous Improvement',
+    description: 'Monitor call quality, compliance adherence, and customer satisfaction. AIVI improves with every interaction.',
   },
 ];
 
 const stats = [
-  { value: '35-36%', label: 'Faster KYC completion' },
-  { value: '95%', label: 'Reduction in cost per contact' },
-  { value: '<200ms', label: 'Median voice response latency' },
+  { value: '85%', label: 'First-call resolution rate' },
+  { value: '40%', label: 'Faster loan processing' },
+  { value: '$0.15', label: 'Average cost per call' },
 ];
 
 const faqs = [
   {
-    question: 'Will AI replace financial advisors?',
-    answer: 'No. AIVI handles routine inquiries, pre-qualification, and status updates. This frees your advisors to focus on complex financial planning and relationship building.',
+    question: 'How does AIVI handle regulatory compliance?',
+    answer: 'AIVI is built for financial services compliance. Required disclosures are never skipped. Fair lending language is consistent. TCPA rules are followed. Every call is recorded, transcribed, and auditable. Your compliance team configures the rules; AIVI follows them perfectly, every time.',
   },
   {
-    question: 'Is financial data secure?',
-    answer: 'Absolutely. AIVI is ISO 27001 and SOC 2 Type II certified. All data is encrypted, and we follow strict financial services security protocols.',
+    question: 'Can AIVI integrate with our core banking system?',
+    answer: 'Yes. AIVI connects with FIS, Fiserv, Jack Henry, Temenos, and 30+ core banking platforms. Real-time account data enables personalized conversations—AIVI knows balances, recent transactions, and account status without customers repeating information.',
   },
   {
-    question: 'Can AIVI support regulatory compliance?',
-    answer: 'Yes. AIVI can be configured with compliance scripts, required disclosures, and regulatory language. All calls are recorded and transcribed for audit purposes.',
+    question: 'How do you handle sensitive financial data?',
+    answer: 'AIVI maintains SOC 2 Type II certification, uses end-to-end encryption, and follows PCI DSS guidelines. We never store full account numbers or SSNs in plain text. Detailed audit logs track every data access for your compliance records.',
   },
   {
-    question: 'Which languages are supported?',
-    answer: 'Over 100 languages, enabling you to serve diverse customer bases and expand into new markets without language barriers.',
+    question: 'What about fraud detection and authentication?',
+    answer: 'AIVI performs voice biometric authentication and knowledge-based verification. Suspicious patterns trigger immediate escalation. We integrate with your existing fraud prevention systems to add another layer of protection.',
   },
   {
-    question: 'How do I measure ROI?',
-    answer: 'Track metrics like pre-qualification rates, cost per contact, average handling time, and conversion rates. Most financial institutions see ROI within the first month.',
+    question: 'Can AIVI help with loan modifications and hardship programs?',
+    answer: 'Absolutely. AIVI explains options, collects financial documentation, and guides borrowers through modification applications with patience and consistency. Loan officers receive complete packages ready for review, dramatically reducing processing time.',
+  },
+  {
+    question: 'What ROI do financial institutions typically see?',
+    answer: 'Banks report 85% reduction in cost per contact, 40% faster loan origination, and significant improvement in collections recovery rates. With call volumes in the thousands, AIVI typically delivers 10x ROI within 90 days.',
   },
 ];
 
@@ -86,17 +90,17 @@ export default function FinancialServicesSolutionPage() {
   return (
     <>
       <AIVINavigation />
-      <main className="min-h-screen bg-[#E8E5E0]">
+      <main className="min-h-screen bg-[#E8E5E0]" style={{ fontFamily: 'Manrope, sans-serif' }}>
         <div className="mx-4 sm:mx-6 lg:mx-12">
           <IndustryHero
-            headline="AI Voice Agents for Financial Services"
-            subheadline="Make banking faster, safer, and always available with compliant voice AI. Pre-qualify leads at scale and reduce operational costs by 95%."
-            audioLabel="Listen to AIVI help with a loan inquiry"
+            headline="Compliant AI That Your Customers Will Love"
+            subheadline="Financial services demands perfection—in compliance, security, and customer experience. AIVI delivers all three. Handle account inquiries, accelerate loan origination, and manage collections while maintaining regulatory compliance at every interaction."
+            audioLabel="Hear AIVI process a loan pre-qualification"
           />
-          <UseCaseCards useCases={useCases} />
-          <HowItWorks steps={steps} />
           <StatsBar stats={stats} />
+          <UseCaseCards useCases={useCases} />
           <IntegrationLogos />
+          <HowItWorks steps={steps} />
           <IndustryFAQ faqs={faqs} />
           <IndustryCTA />
         </div>

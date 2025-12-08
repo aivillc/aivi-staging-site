@@ -1,3 +1,4 @@
+import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import AIVINavigation from '@/components/aiviv3/AIVINavigation';
@@ -320,8 +321,8 @@ export default function PricingPage() {
                 </thead>
                 <tbody>
                   {comparisonFeatures.map((category) => (
-                    <>
-                      <tr key={category.category} className="bg-[#FAFAFA]">
+                    <React.Fragment key={category.category}>
+                      <tr className="bg-[#FAFAFA]">
                         <td
                           colSpan={5}
                           className="py-3 px-4 text-[13px] font-semibold text-[#666666] uppercase tracking-wider"
@@ -394,7 +395,7 @@ export default function PricingPage() {
                           </td>
                         </tr>
                       ))}
-                    </>
+                    </React.Fragment>
                   ))}
                 </tbody>
               </table>

@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import AIVINavigation from '@/components/aiviv3/AIVINavigation';
 import AIVIFooter from '@/components/aiviv3/AIVIFooter';
 import Script from 'next/script';
 import { FaExclamationTriangle, FaChartLine, FaDollarSign, FaUsers, FaCog, FaCode, FaRocket, FaChartBar } from 'react-icons/fa';
+import { useDemoPopup } from '@/components/aiviv3/DemoPopupContext';
 
 const caseStudiesData = {
   agency: {
@@ -406,8 +407,52 @@ export default function UseCasesPage() {
   const [activeCaseStudy, setActiveCaseStudy] = useState('agency');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [sidebarStyle, setSidebarStyle] = useState<{ position: 'fixed' | 'absolute'; top: string }>({ position: 'fixed', top: '140px' });
+  
+  const mainRef = useRef<HTMLElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const { openDemoPopup } = useDemoPopup();
 
   const currentCaseStudy = caseStudiesData[activeCaseStudy as keyof typeof caseStudiesData];
+
+  // Consistent left position for sidebar (48px from edge = mx-12 equivalent)
+  const sidebarLeftPosition = 48;
+
+  // Handle sidebar scroll behavior - stop 50px before footer
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!mainRef.current || !sidebarRef.current) return;
+      
+      const mainBottom = mainRef.current.offsetTop + mainRef.current.offsetHeight;
+      const sidebarHeight = sidebarRef.current.offsetHeight;
+      const sidebarFixedTop = 140; // Fixed top position
+      const footerGap = 75; // Gap from footer
+      
+      // Calculate the stopping point (main content bottom - sidebar height - gap)
+      const stopPoint = mainBottom - sidebarHeight - footerGap;
+      
+      // Current scroll position
+      const scrollY = window.scrollY;
+      
+      // Calculate when sidebar bottom would go past the stopping point
+      if (scrollY + sidebarFixedTop + sidebarHeight >= mainBottom - footerGap) {
+        // Switch to absolute positioning
+        setSidebarStyle({ position: 'absolute', top: `${stopPoint}px` });
+      } else {
+        // Keep fixed positioning
+        setSidebarStyle({ position: 'fixed', top: '140px' });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    handleScroll(); // Initial check
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
 
   const handleCaseStudyChange = (id: string) => {
     if (id !== activeCaseStudy) {
@@ -423,65 +468,73 @@ export default function UseCasesPage() {
     <>
       <Script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer />
       <AIVINavigation />
-      <main className="min-h-screen bg-[#E8E5E0]" style={{ fontFamily: 'Manrope, sans-serif' }}>
+      <main ref={mainRef} className="min-h-screen bg-[#E8E5E0] relative" style={{ fontFamily: 'Manrope, sans-serif' }}>
+        {/* Fixed Sidebar Navigation - Desktop Only */}
+        <aside 
+          ref={sidebarRef}
+          className="hidden lg:block w-64 z-40"
+          style={{ 
+            position: sidebarStyle.position, 
+            top: sidebarStyle.top,
+            left: `${sidebarLeftPosition}px`
+          }}
+        >
+          <div className="bg-white rounded-2xl p-6 shadow-soft overflow-y-auto" style={{ maxHeight: 'calc(100vh - 156px)' }}>
+            <h3
+              className="text-[18px] font-semibold text-[#1A1A1A] mb-6"
+              style={{ fontFamily: 'Manrope, sans-serif' }}
+            >
+              Case Studies
+            </h3>
+            <nav className="space-y-2 mb-8">
+              {caseStudies.map((caseStudy) => (
+                <button
+                  key={caseStudy.id}
+                  onClick={() => handleCaseStudyChange(caseStudy.id)}
+                  className={`block w-full text-left px-4 py-3 rounded-xl text-[14px] font-medium transition-all duration-300 ${
+                    activeCaseStudy === caseStudy.id
+                      ? 'bg-gradient-to-r from-[#FF8C00]/10 to-[#8A2BE2]/10 text-[#FF8C00] border border-[#FF8C00]/20'
+                      : 'text-[#666666] hover:bg-[#F5F5F5]'
+                  }`}
+                  style={{ fontFamily: 'Manrope, sans-serif' }}
+                >
+                  {caseStudy.title}
+                </button>
+              ))}
+            </nav>
+
+            <div className="pt-6 border-t border-[#E8E5E0]">
+              <p className="text-[12px] font-semibold text-[#999999] uppercase tracking-wider mb-3">
+                Quick Links
+              </p>
+              <Link
+                href="/aiviv3/integrations"
+                className="block text-[14px] text-[#FF8C00] hover:underline mb-2"
+              >
+                View all integrations
+              </Link>
+              <Link
+                href="#"
+                className="block text-[14px] text-[#8A2BE2] hover:underline"
+              >
+                Developer API documentation
+              </Link>
+            </div>
+          </div>
+        </aside>
+
         <div className="mx-4 sm:mx-6 lg:mx-12">
-          {/* Hero Section */}
-          <section className="w-full pt-[72px] relative overflow-hidden">
-            <div className="gradient-bg absolute inset-0"></div>
+          {/* Main Layout - with left margin for sidebar on desktop */}
+          <div className="pt-[72px] lg:ml-[280px]">
+            {/* Main Content Area */}
+            <div>
+              {/* Hero Section */}
+              <section className="w-full relative overflow-hidden mb-12">
+                <div className="gradient-bg absolute inset-0 rounded-2xl"></div>
 
-            <div className="w-full px-3 sm:px-6 py-16 sm:py-20 relative z-10">
-              <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] mx-auto">
-                <div className="lg:flex lg:gap-12">
-                  {/* Sidebar Navigation - Desktop Only */}
-                  <aside className="hidden lg:block lg:w-64 flex-shrink-0">
-                    <div className="sticky top-24 bg-white rounded-2xl p-6 shadow-soft">
-                      <h3
-                        className="text-[18px] font-semibold text-[#1A1A1A] mb-6"
-                        style={{ fontFamily: 'Manrope, sans-serif' }}
-                      >
-                        Case Studies
-                      </h3>
-                      <nav className="space-y-2 mb-8">
-                        {caseStudies.map((caseStudy) => (
-                          <button
-                            key={caseStudy.id}
-                            onClick={() => handleCaseStudyChange(caseStudy.id)}
-                            className={`block w-full text-left px-4 py-3 rounded-xl text-[14px] font-medium transition-all duration-300 ${
-                              activeCaseStudy === caseStudy.id
-                                ? 'bg-gradient-to-r from-[#FF8C00]/10 to-[#8A2BE2]/10 text-[#FF8C00] border border-[#FF8C00]/20'
-                                : 'text-[#666666] hover:bg-[#F5F5F5]'
-                            }`}
-                            style={{ fontFamily: 'Manrope, sans-serif' }}
-                          >
-                            {caseStudy.title}
-                          </button>
-                        ))}
-                      </nav>
-
-                      <div className="pt-6 border-t border-[#E8E5E0]">
-                        <p className="text-[12px] font-semibold text-[#999999] uppercase tracking-wider mb-3">
-                          Quick Links
-                        </p>
-                        <Link
-                          href="/aiviv3/integrations"
-                          className="block text-[14px] text-[#FF8C00] hover:underline mb-2"
-                        >
-                          View all integrations
-                        </Link>
-                        <Link
-                          href="#"
-                          className="block text-[14px] text-[#8A2BE2] hover:underline"
-                        >
-                          Developer API documentation
-                        </Link>
-                      </div>
-                    </div>
-                  </aside>
-
-                  {/* Main Content */}
-                  <div className="flex-1">
-                    {/* Content wrapper with animation */}
-                    <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+                <div className="w-full px-3 sm:px-6 py-16 sm:py-20 relative z-10">
+                  {/* Content wrapper with animation */}
+                  <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
                     {/* Hero Text */}
                     <div className="text-center lg:text-left mb-12">
                       <h1
@@ -501,12 +554,12 @@ export default function UseCasesPage() {
                           <span className="relative z-10">View Live Dashboard</span>
                           <div className="absolute inset-0 bg-gradient-to-r from-[#8A2BE2] to-[#FF8C00] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </Link>
-                        <Link
-                          href="/aiviv3/demo"
+                        <button
+                          onClick={openDemoPopup}
                           className="inline-flex items-center justify-center h-12 px-8 bg-transparent border-2 border-[#1A1A1A] text-[#1A1A1A] text-[15px] font-semibold rounded-md hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
                         >
                           Book a Demo
-                        </Link>
+                        </button>
                       </div>
                     </div>
 
@@ -792,12 +845,14 @@ export default function UseCasesPage() {
                       </Link>
                     </div>
                     {/* End of animation wrapper */}
-                    </div>
                   </div>
                 </div>
-              </div>
+              </section>
+              {/* End of Hero Section */}
             </div>
-          </section>
+            {/* End of Main Content Area */}
+          </div>
+          {/* End of Main Layout with Sidebar */}
         </div>
       </main>
       <AIVIFooter />

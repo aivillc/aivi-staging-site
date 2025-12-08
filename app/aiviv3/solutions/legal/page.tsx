@@ -13,76 +13,76 @@ import {
 
 export const metadata: Metadata = {
   title: 'AI Voice Agents for Law Firms | AIVI',
-  description: 'Make client intake faster, compliant, and always available with AIVI voice AI. Book 2.5-3.5x more qualified consultations with 24/7 coverage.',
+  description: 'Never miss another potential client. AIVI AI voice agents handle legal intake 24/7, qualify cases, schedule consultations, and keep existing clients informed—all while maintaining attorney-client confidentiality.',
 };
 
 const useCases = [
   {
-    title: 'Capture Intake Instantly',
-    description: 'Collect case details, perform conflict checks, and schedule consultations automatically. Enable faster client onboarding and efficient attorney routing.',
+    title: 'Capture Every Case, Day or Night',
+    description: 'Legal emergencies don\'t wait for business hours. AIVI answers every call instantly, collects case details, runs conflict checks, and schedules consultations—converting after-hours inquiries into signed retainers.',
     icon: 'intake' as const,
   },
   {
-    title: 'Case Status & Documents',
-    description: 'Let clients access case updates, submit documents, and receive next steps without repeated calls. Reduce follow-ups while maintaining matter visibility.',
+    title: 'Keep Clients Informed Automatically',
+    description: 'Reduce "what\'s my case status?" calls by 70%. AIVI provides real-time updates on filings, court dates, document requests, and next steps—keeping clients satisfied without interrupting your attorneys.',
     icon: 'status' as const,
   },
   {
-    title: 'Qualify Leads Faster',
-    description: 'Ensure all inquiries receive immediate attention with intent scoring and KYC-ready information. Route warm prospects to appropriate attorneys instantly.',
+    title: 'Focus on Cases That Matter',
+    description: 'Not every caller is a qualified client. AIVI screens for case merit, jurisdiction fit, and budget—routing only viable matters to your attorneys while politely declining or referring mismatches.',
     icon: 'qualify-leads' as const,
   },
 ];
 
 const steps = [
   {
-    title: 'Sign Up & Connect',
-    description: 'Start with our law firm template. Connect your phone lines in minutes with secure integration.',
+    title: 'Configure Your Practice Areas',
+    description: 'Define intake questions for each practice area—PI, family law, criminal defense, estate planning. AIVI learns your qualification criteria and conflict parameters.',
   },
   {
-    title: 'Customize & Test',
-    description: 'Add practice areas, intake questions, conflict prompts, and brand tone. Test for accuracy and compliance.',
+    title: 'Integrate Your Systems',
+    description: 'Connect with Clio, MyCase, PracticePanther, or your practice management platform. Calendar availability and client data sync automatically.',
   },
   {
-    title: 'Integrate & Deploy',
-    description: 'Sync with your CRM and practice management tools. Go live for intake, updates, and scheduling.',
+    title: 'Train on Your Voice',
+    description: 'Customize greetings, firm values, and communication style. AIVI represents your firm professionally while you\'re in court or with clients.',
   },
   {
-    title: 'Analyze & Optimize',
-    description: 'Track calls, outcomes, sentiment, and operational KPIs to continuously improve client acquisition.',
+    title: 'Grow Your Practice',
+    description: 'Monitor intake metrics, conversion rates, and call quality. Watch your consultation calendar fill while your cost per acquisition drops.',
   },
 ];
 
 const stats = [
-  { value: '2.5-3.5x', label: 'More qualified consultations booked' },
-  { value: '18pt', label: 'Increase in client satisfaction' },
-  { value: '100%', label: 'Calls answered, 24/7/365' },
+  { value: '3x', label: 'More consultations booked' },
+  { value: '70%', label: 'Reduction in status calls' },
+  { value: '24/7', label: 'Intake coverage' },
 ];
 
 const faqs = [
   {
-    question: 'Will AI replace attorneys?',
-    answer: 'Absolutely not. AIVI handles administrative intake tasks, allowing attorneys to focus on practicing law. The AI captures information and schedules consultations but never provides legal advice.',
+    question: 'How does AIVI handle attorney-client confidentiality?',
+    answer: 'AIVI treats all communications as privileged from first contact. Data is encrypted end-to-end, access is strictly controlled, and we maintain SOC 2 Type II certification. AIVI never stores call content beyond what\'s needed for your case management system integration.',
   },
   {
-    question: 'Is client data secure?',
-    answer: 'Yes. AIVI is SOC 2 Type II certified and follows attorney-client privilege protocols. All data is encrypted and access is strictly controlled.',
+    question: 'Will AIVI accidentally give legal advice?',
+    answer: 'Never. AIVI is explicitly trained to collect information, not dispense guidance. When callers ask legal questions, AIVI responds: "I can\'t provide legal advice, but I can schedule you with an attorney who can help." This boundary is absolute.',
   },
   {
-    question: 'Can AIVI support compliance and confidentiality?',
-    answer: 'Yes. AIVI can be configured with required disclosures, conflict check protocols, and confidentiality scripts appropriate for legal intake.',
+    question: 'How does conflict checking work?',
+    answer: 'AIVI collects party names, opposing counsel, and relevant entities, then cross-references your conflict database in real-time. Potential conflicts are flagged immediately for attorney review before any consultation is scheduled.',
   },
   {
-    question: 'Does AIVI avoid giving legal advice?',
-    answer: 'Absolutely. AIVI is specifically trained to capture information and schedule consultations. It explicitly directs clients to speak with an attorney for any legal questions.',
+    question: 'Can AIVI qualify personal injury cases?',
+    answer: 'Yes. AIVI collects incident details, injury severity, treatment status, liability indicators, and statute of limitations information. Cases are scored and prioritized so your best opportunities get immediate attorney attention.',
   },
   {
-    question: 'Which languages are supported?',
-    answer: 'Over 100 languages and dialects, enabling your firm to serve diverse client populations without language barriers.',
+    question: 'What practice management systems does AIVI integrate with?',
+    answer: 'AIVI connects with Clio, MyCase, PracticePanther, Smokeball, Filevine, and 25+ legal practice management platforms. New intakes flow directly into your system with complete case details and scheduled consultation times.',
   },
   {
-    question: 'How do I measure ROI?',
-    answer: 'Track consultations booked, cost per intake, response time, and conversion rates. Most firms see positive ROI within weeks through increased qualified consultations.',
+    question: 'What ROI do law firms typically see?',
+    answer: 'Firms report 3x more consultations from the same marketing spend by capturing after-hours leads. With average case values of $5,000-50,000+ and AIVI\'s monthly cost equivalent to a few billable hours, most firms see significant ROI from their first signed case.',
   },
 ];
 
@@ -90,17 +90,17 @@ export default function LegalSolutionPage() {
   return (
     <>
       <AIVINavigation />
-      <main className="min-h-screen bg-[#E8E5E0]">
+      <main className="min-h-screen bg-[#E8E5E0]" style={{ fontFamily: 'Manrope, sans-serif' }}>
         <div className="mx-4 sm:mx-6 lg:mx-12">
           <IndustryHero
-            headline="AI Voice Agents for Law Firms"
-            subheadline="Make client intake faster, compliant, and always available with intelligent voice automation. Never miss a potential client, even at 3 AM."
-            audioLabel="Listen to AIVI capture a legal inquiry"
+            headline="Turn Every Call Into a Consultation"
+            subheadline="That potential million-dollar case called at 11 PM. Your receptionist wasn't there. A competitor answered. AIVI ensures this never happens—handling intake, qualifying cases, and scheduling consultations 24/7 while you focus on practicing law."
+            audioLabel="Hear AIVI qualify a legal intake"
           />
-          <UseCaseCards useCases={useCases} />
-          <HowItWorks steps={steps} />
           <StatsBar stats={stats} />
+          <UseCaseCards useCases={useCases} />
           <IntegrationLogos />
+          <HowItWorks steps={steps} />
           <IndustryFAQ faqs={faqs} />
           <IndustryCTA />
         </div>

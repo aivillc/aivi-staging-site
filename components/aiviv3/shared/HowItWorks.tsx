@@ -1,5 +1,7 @@
 'use client';
 
+import { FaCog, FaCode, FaRocket, FaChartBar } from 'react-icons/fa';
+
 interface Step {
   title: string;
   description: string;
@@ -9,56 +11,48 @@ interface HowItWorksProps {
   steps: Step[];
 }
 
+const stepIcons = [FaCog, FaCode, FaRocket, FaChartBar];
+
 export default function HowItWorks({ steps }: HowItWorksProps) {
   return (
-    <section className="w-full bg-[#E8E5E0] px-3 sm:px-6 py-12 sm:py-16">
-      <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] mx-auto bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12">
+    <section className="w-full bg-[#E8E5E0] px-[5%] sm:px-[7%] lg:px-[10%] py-12 sm:py-16" style={{ fontFamily: 'Manrope, sans-serif' }}>
+      <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-12">
-          <h2 className="text-[28px] sm:text-[36px] md:text-[42px] leading-[1.2] font-normal text-black mb-3">
-            How It Works
-          </h2>
-          <p className="text-[15px] sm:text-[17px] leading-[1.6] text-[#666666] max-w-[600px] mx-auto">
-            Get started in minutes with our simple 4-step process
-          </p>
-        </div>
+        <h2 className="text-[24px] sm:text-[32px] font-normal text-[#1A1A1A] mb-12 text-center">
+          How It Works
+        </h2>
 
-        {/* Steps Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {steps.map((step, index) => (
-            <div key={index} className="relative">
-              {/* Connector line (hidden on mobile, visible on lg) */}
-              {index < steps.length - 1 && (
-                <div
-                  className="hidden lg:block absolute top-8 left-[calc(50%+40px)] w-[calc(100%-80px)] h-[2px] bg-gradient-to-r from-[#f84608] to-[#321ca3]"
-                  aria-hidden="true"
-                />
-              )}
+        {/* Steps Grid with Flow Line */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          {/* Flow line - desktop only */}
+          <div className="hidden lg:block absolute top-12 left-0 right-0 h-px flow-line"></div>
 
-              <div className="flex flex-col items-center text-center">
-                {/* Step Number */}
-                <div
-                  className={`w-16 h-16 rounded-full flex items-center justify-center text-white text-[20px] font-bold mb-4 ${
-                    index % 2 === 0
-                      ? 'bg-gradient-to-br from-[#f84608] to-[#f84608]/80'
-                      : 'bg-gradient-to-br from-[#321ca3] to-[#321ca3]/80'
-                  }`}
-                >
-                  {index + 1}
+          {steps.map((step, index) => {
+            const Icon = stepIcons[index % stepIcons.length];
+            return (
+              <div key={index} className="relative">
+                <div className="text-center">
+                  {/* Icon with gradient background */}
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FF8C00]/20 to-[#8A2BE2]/20 flex items-center justify-center relative z-10">
+                    <Icon
+                      className="text-[36px]"
+                      style={{ color: index % 2 === 0 ? '#FF8C00' : '#8A2BE2' }}
+                    />
+                  </div>
+
+                  {/* Step Title */}
+                  <h3 className="text-[16px] font-semibold text-[#1A1A1A] mb-2">
+                    {step.title}
+                  </h3>
+
+                  {/* Step Description */}
+                  <p className="text-[13px] text-[#666666]">
+                    {step.description}
+                  </p>
                 </div>
-
-                {/* Step Title */}
-                <h3 className="text-[16px] sm:text-[18px] font-semibold text-black mb-2">
-                  {step.title}
-                </h3>
-
-                {/* Step Description */}
-                <p className="text-[13px] sm:text-[14px] leading-[1.6] text-[#666666]">
-                  {step.description}
-                </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

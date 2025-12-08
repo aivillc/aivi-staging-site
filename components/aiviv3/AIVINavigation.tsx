@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useDemoPopup } from './DemoPopupContext';
 
 // Navigation structure with mega menu for Solutions
 const navItems = [
@@ -44,6 +45,7 @@ export default function AIVINavigation() {
   const megaMenuRef = useRef<HTMLDivElement | null>(null);
   const megaMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
+  const { openDemoPopup } = useDemoPopup();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -284,13 +286,13 @@ export default function AIVINavigation() {
             >
               Log in
             </Link>
-            <Link
-              href="/aiviv3/demo"
+            <button
+              onClick={openDemoPopup}
               className="group relative text-[15px] font-semibold text-white px-5 py-2.5 rounded-md overflow-hidden hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 focus-brand-ring bg-gradient-to-r from-[#f84608] to-[#321ca3]"
             >
               <span className="relative z-10">Book a Demo</span>
               <div className="absolute inset-0 bg-gradient-to-r from-[#321ca3] to-[#f84608] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </Link>
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -330,7 +332,7 @@ export default function AIVINavigation() {
       >
         <div className="px-6 py-4 flex flex-col gap-1">
           {navItems.map((item) => (
-            <div key={item.href}>
+            <div key={item.label}>
               {item.megaMenu ? (
                 <>
                   <button
@@ -441,15 +443,17 @@ export default function AIVINavigation() {
           >
             Log in
           </Link>
-          <Link
-            href="/aiviv3/demo"
+          <button
             role="menuitem"
-            className="block text-[15px] font-semibold text-white py-3 px-4 rounded-md bg-gradient-to-r from-[#f84608] to-[#321ca3] hover:opacity-90 transition-all duration-200 focus-brand-ring text-center"
-            onClick={() => setMobileMenuOpen(false)}
+            className="block w-full text-[15px] font-semibold text-white py-3 px-4 rounded-md bg-gradient-to-r from-[#f84608] to-[#321ca3] hover:opacity-90 transition-all duration-200 focus-brand-ring text-center"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              openDemoPopup();
+            }}
             tabIndex={mobileMenuOpen ? 0 : -1}
           >
             Book a Demo
-          </Link>
+          </button>
         </div>
       </div>
     </nav>

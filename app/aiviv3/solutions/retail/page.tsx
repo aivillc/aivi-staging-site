@@ -13,72 +13,76 @@ import {
 
 export const metadata: Metadata = {
   title: 'AI Voice Agents for Retail & E-Commerce | AIVI',
-  description: 'Automate sales, support, and order inquiries with AIVI intelligent voice agents. Reduce cart abandonment by 25-35% and increase CSAT by 18 points.',
+  description: 'Transform your retail customer experience with AIVI AI voice agents. Recover abandoned carts, automate order support, and drive sales 24/7 with human-like conversations.',
 };
 
 const useCases = [
   {
-    title: 'Never Miss a Lead',
-    description: 'Answer calls 24/7, qualify prospects in real-time, book appointments, and capture every sales opportunity before competitors even respond.',
+    title: 'Recover Lost Revenue Automatically',
+    description: 'Turn abandoned carts into completed sales. AIVI proactively reaches out to hesitant shoppers, answers product questions, and guides them to checkout—recovering up to 35% of lost revenue.',
     icon: 'leads' as const,
   },
   {
-    title: 'Reduce Support Costs',
-    description: 'Handle thousands of simultaneous calls at a fraction of traditional contact center costs. One AI agent replaces an entire phone queue.',
+    title: 'Slash Support Costs by 60%',
+    description: 'Handle unlimited concurrent calls without expanding headcount. AIVI resolves order tracking, returns, and product inquiries instantly—at a fraction of traditional call center costs.',
     icon: 'cost' as const,
   },
   {
-    title: 'On-Brand Customer Experience',
-    description: 'Deliver natural, human-like conversations that match your brand voice and style. Customers get instant help that feels personal.',
+    title: 'Deliver White-Glove Service at Scale',
+    description: 'Every customer gets VIP treatment. AIVI remembers purchase history, anticipates needs, and speaks in your brand voice—creating memorable experiences that drive loyalty and repeat purchases.',
     icon: 'brand' as const,
   },
 ];
 
 const steps = [
   {
-    title: 'Sign Up & Connect',
-    description: 'Start with our retail template and connect your phone line in minutes. No technical expertise required.',
+    title: 'Launch in Minutes',
+    description: 'Connect your phone system instantly with our retail-optimized templates. No coding, no IT tickets, no waiting.',
   },
   {
-    title: 'Customize & Test',
-    description: 'Add your products, inventory, policies, FAQs, and brand tone. Test until it sounds exactly like your team.',
+    title: 'Train Your AI',
+    description: 'Upload your product catalog, policies, and brand guidelines. AIVI learns your business and sounds like your best sales associate.',
   },
   {
-    title: 'Integrate & Deploy',
-    description: 'Sync with your CRM and tools. Go live for order tracking, returns, product questions, and voicemail capture.',
+    title: 'Go Live Everywhere',
+    description: 'Deploy across inbound calls, outbound campaigns, and web chat. Sync seamlessly with Shopify, Salesforce, and your existing stack.',
   },
   {
-    title: 'Analyze & Optimize',
-    description: 'Track real-time analytics, sentiment analysis, and operational KPIs. Continuously improve performance.',
+    title: 'Scale & Optimize',
+    description: 'Monitor real-time dashboards, A/B test conversation flows, and watch your metrics climb. AIVI gets smarter with every interaction.',
   },
 ];
 
 const stats = [
-  { value: '25-35%', label: 'Reduction in cart abandonment' },
-  { value: '18pt', label: 'Increase in customer satisfaction' },
-  { value: '100%', label: 'Calls answered, 24/7/365' },
+  { value: '35%', label: 'Cart recovery rate increase' },
+  { value: '60%', label: 'Reduction in support costs' },
+  { value: '<3sec', label: 'Average response time' },
 ];
 
 const faqs = [
   {
-    question: 'Will AI voice agents replace my support team?',
-    answer: 'No. AIVI enhances your team by handling routine inquiries like order status, return policies, and FAQs. This frees your human agents to focus on complex issues and high-value customer relationships that require a personal touch.',
+    question: 'How quickly can we go live with AIVI?',
+    answer: 'Most retail brands are live within 48 hours. Our retail-specific templates include pre-built flows for order tracking, returns, product recommendations, and cart recovery. Simply connect your systems and customize to your brand.',
   },
   {
-    question: 'Is customer data secure with AIVI?',
-    answer: 'Absolutely. AIVI is SOC 2 Type II certified and follows enterprise-grade security protocols. All data is encrypted in transit and at rest, and we never store sensitive payment information.',
+    question: 'Will customers know they\'re talking to AI?',
+    answer: 'AIVI\'s voice technology is indistinguishable from human agents. Our retail clients report that customers frequently compliment the "helpful representative" without realizing it\'s AI. We recommend transparency, but the experience feels completely natural.',
   },
   {
-    question: 'Which languages does AIVI support?',
-    answer: 'AIVI supports over 100 languages and dialects, making it ideal for global retail operations. The AI adapts its accent and speaking style to match your customer base.',
+    question: 'How does AIVI handle complex returns or escalations?',
+    answer: 'AIVI seamlessly transfers complex cases to human agents with full context—purchase history, conversation summary, and recommended resolution. Your team picks up right where AIVI left off, no repetition needed.',
   },
   {
-    question: 'How do I measure ROI with AIVI?',
-    answer: 'Track metrics like cart recovery rate, response times, customer satisfaction scores, and cost per contact. Most retailers see positive ROI within the first month through reduced abandonment and increased conversions.',
+    question: 'What integrations are available for e-commerce?',
+    answer: 'AIVI connects natively with Shopify, WooCommerce, Magento, BigCommerce, Salesforce Commerce Cloud, and 50+ other platforms. Real-time inventory, order status, and customer data sync automatically.',
   },
   {
-    question: 'Can AIVI handle seasonal call spikes?',
-    answer: 'Yes. Unlike human teams, AIVI scales instantly during Black Friday, holiday seasons, or flash sales. Handle 10x normal volume without hiring temporary staff or dropping calls.',
+    question: 'Can AIVI upsell and cross-sell products?',
+    answer: 'Absolutely. AIVI analyzes purchase patterns and browsing behavior to make intelligent recommendations. Retailers see 15-25% lift in average order value from AI-powered product suggestions during calls.',
+  },
+  {
+    question: 'How does pricing work for high call volumes?',
+    answer: 'AIVI pricing scales with your business. Unlike per-seat licensing, you pay based on usage—making it cost-effective during slow periods and infinitely scalable during peak seasons like Black Friday.',
   },
 ];
 
@@ -86,17 +90,17 @@ export default function RetailSolutionPage() {
   return (
     <>
       <AIVINavigation />
-      <main className="min-h-screen bg-[#E8E5E0]">
+      <main className="min-h-screen bg-[#E8E5E0]" style={{ fontFamily: 'Manrope, sans-serif' }}>
         <div className="mx-4 sm:mx-6 lg:mx-12">
           <IndustryHero
-            headline="AI Voice Agents for Retail & E-Commerce"
-            subheadline="Automate sales, support, and order inquiries with AIVI's intelligent voice agents. Never miss a lead, reduce support costs, and deliver on-brand experiences 24/7."
-            audioLabel="Listen to AIVI help a customer with their order"
+            headline="Turn Every Customer Call Into Revenue"
+            subheadline="AIVI's AI voice agents handle sales inquiries, recover abandoned carts, and resolve support tickets—all while delivering the premium experience your customers expect. Available 24/7, scales infinitely, costs 60% less."
+            audioLabel="Hear AIVI recover an abandoned cart"
           />
-          <UseCaseCards useCases={useCases} />
-          <HowItWorks steps={steps} />
           <StatsBar stats={stats} />
+          <UseCaseCards useCases={useCases} />
           <IntegrationLogos />
+          <HowItWorks steps={steps} />
           <IndustryFAQ faqs={faqs} />
           <IndustryCTA />
         </div>

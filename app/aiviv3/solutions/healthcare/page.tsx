@@ -13,72 +13,76 @@ import {
 
 export const metadata: Metadata = {
   title: 'AI Voice Agents for Healthcare | AIVI',
-  description: 'Keep patients cared for with HIPAA-ready AI voice agents. Reduce no-shows by 35-50% and resolve 80%+ of patient calls automatically.',
+  description: 'HIPAA-compliant AI voice agents that transform patient access. Reduce no-shows by 50%, automate scheduling, and let your clinical staff focus on what matters—patient care.',
 };
 
 const useCases = [
   {
-    title: 'Manage Appointments Effortlessly',
-    description: 'Automate scheduling, rescheduling, and reminders to reduce no-shows. Keep calendars optimized and free staff to focus on patient care.',
+    title: 'Eliminate No-Shows Forever',
+    description: 'AIVI sends smart reminders, handles reschedules on the spot, and fills cancellations from your waitlist automatically. Practices report 50% fewer no-shows and optimized provider schedules.',
     icon: 'appointment' as const,
   },
   {
-    title: 'Educate Patients Instantly',
-    description: 'Provide clear, real-time answers about treatments, wellness programs, medications, and procedures. Build patient trust and understanding without staff intervention.',
+    title: 'Empower Patients with Instant Answers',
+    description: 'Pre-visit instructions, medication questions, insurance verification, lab result availability—patients get accurate information immediately, reducing anxiety and building trust in your practice.',
     icon: 'educate' as const,
   },
   {
-    title: 'After-Hours Patient Support',
-    description: 'Ensure patients receive timely assistance any time of day. Address urgent needs promptly and prevent important calls from being missed.',
+    title: 'Compassionate Care, Around the Clock',
+    description: 'After-hours calls don\'t go to voicemail. AIVI triages urgency, schedules next-day appointments, answers common questions, and escalates true emergencies—so patients always feel cared for.',
     icon: 'support' as const,
   },
 ];
 
 const steps = [
   {
-    title: 'Sign Up & Connect',
-    description: 'Start with our healthcare template. Connect your clinic, spa, or fitness line in minutes.',
+    title: 'HIPAA-Compliant Setup',
+    description: 'Connect securely with your EHR and practice management system. AIVI meets all compliance requirements from day one.',
   },
   {
-    title: 'Customize & Test',
-    description: 'Add services, schedules, FAQs, and brand tone. Test your agent to ensure HIPAA-compliant responses.',
+    title: 'Configure Clinical Workflows',
+    description: 'Define appointment types, triage protocols, and escalation rules. Train AIVI on your services, insurance, and patient communication standards.',
   },
   {
-    title: 'Integrate & Deploy',
-    description: 'Connect your CRM and EHR tools. Go live for appointments, rescheduling, and reminders.',
+    title: 'Deploy Across Access Points',
+    description: 'Handle phone calls, patient portal messages, and appointment requests. Integrate with Epic, Cerner, athenahealth, and 40+ platforms.',
   },
   {
-    title: 'Analyze & Optimize',
-    description: 'Track calls, outcomes, sentiment analysis, and patient engagement KPIs to improve care access.',
+    title: 'Improve Patient Outcomes',
+    description: 'Track access metrics, patient satisfaction, and operational efficiency. AIVI helps you deliver better care to more patients.',
   },
 ];
 
 const stats = [
-  { value: '35-50%', label: 'Reduction in patient no-shows' },
-  { value: '100+', label: 'Languages supported' },
-  { value: '80%+', label: 'Patient calls fully resolved' },
+  { value: '50%', label: 'Reduction in no-shows' },
+  { value: '89%', label: 'Patient satisfaction rate' },
+  { value: '3x', label: 'More calls handled' },
 ];
 
 const faqs = [
   {
-    question: 'Can AI improve patient engagement?',
-    answer: 'Yes. From automated wellness reminders to personalized follow-ups, AIVI keeps patients actively engaged in their care journey between visits.',
+    question: 'Is AIVI truly HIPAA compliant?',
+    answer: 'Yes. AIVI maintains a signed BAA, encrypts all PHI in transit and at rest, maintains detailed audit logs, and undergoes regular third-party security assessments. We\'re built for healthcare from the ground up.',
   },
   {
-    question: 'Can AIVI help doctors and nurses?',
-    answer: 'Absolutely. AIVI supports healthcare teams by handling repetitive calls like scheduling, reminders, and FAQs. This lets clinical staff focus entirely on patient care.',
+    question: 'How does AIVI handle urgent medical situations?',
+    answer: 'AIVI is trained to recognize urgency indicators and follows your defined triage protocols. True emergencies are immediately escalated—transferred to on-call staff, directed to emergency services, or routed per your guidelines. Non-urgent after-hours calls are handled appropriately.',
   },
   {
-    question: 'Which languages can patients use?',
-    answer: 'Over 100 languages and dialects, making care accessible for diverse communities. Whether English, Spanish, Mandarin, or regional dialects, AIVI adapts.',
+    question: 'Can AIVI access patient records?',
+    answer: 'AIVI integrates with your EHR to provide relevant information within HIPAA guidelines. It can confirm upcoming appointments, provide pre-visit instructions, and verify basic information—always following your access control policies.',
   },
   {
-    question: 'How do I measure ROI in healthcare?',
-    answer: 'Track reduced no-shows, faster scheduling, increased patient satisfaction (CSAT), and cost savings from fewer manual calls. Most practices see ROI within weeks.',
+    question: 'What EHR systems does AIVI work with?',
+    answer: 'AIVI integrates with Epic, Cerner, athenahealth, eClinicalWorks, NextGen, Allscripts, and 40+ healthcare platforms. Our healthcare integration team ensures smooth deployment with your existing systems.',
   },
   {
-    question: 'Is patient data secure with AIVI?',
-    answer: 'Yes. AIVI is HIPAA-ready and compliant with ISO 27001 and SOC 2 standards, ensuring sensitive health data remains fully protected.',
+    question: 'How do you handle non-English speaking patients?',
+    answer: 'AIVI speaks 100+ languages with medically-appropriate vocabulary. Patients can communicate in their preferred language, improving access to care and health literacy for diverse communities.',
+  },
+  {
+    question: 'What\'s the ROI for a typical practice?',
+    answer: 'A practice with 20% no-show rates loses $150,000+ annually. AIVI cuts that in half while handling 3x the call volume with existing staff. Most practices achieve positive ROI within 30 days through reduced no-shows and improved operational efficiency.',
   },
 ];
 
@@ -86,17 +90,17 @@ export default function HealthcareSolutionPage() {
   return (
     <>
       <AIVINavigation />
-      <main className="min-h-screen bg-[#E8E5E0]">
+      <main className="min-h-screen bg-[#E8E5E0]" style={{ fontFamily: 'Manrope, sans-serif' }}>
         <div className="mx-4 sm:mx-6 lg:mx-12">
           <IndustryHero
-            headline="AI Voice Agents for Healthcare"
-            subheadline="Keep patients cared for, engaged, and your operations stress-free with HIPAA-ready voice AI. Reduce no-shows and improve access to care 24/7."
-            audioLabel="Listen to AIVI help a patient schedule their appointment"
+            headline="Better Patient Access, Without More Staff"
+            subheadline="Your front desk is overwhelmed. Patients wait on hold. No-shows drain revenue. AIVI changes everything—handling scheduling, reminders, and patient inquiries 24/7 while maintaining full HIPAA compliance. Let your team focus on care."
+            audioLabel="Hear AIVI schedule a patient appointment"
           />
-          <UseCaseCards useCases={useCases} />
-          <HowItWorks steps={steps} />
           <StatsBar stats={stats} />
+          <UseCaseCards useCases={useCases} />
           <IntegrationLogos />
+          <HowItWorks steps={steps} />
           <IndustryFAQ faqs={faqs} />
           <IndustryCTA />
         </div>

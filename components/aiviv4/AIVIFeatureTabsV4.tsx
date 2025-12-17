@@ -4,48 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BsLightning, BsPersonCheck, BsGraphUp } from 'react-icons/bs';
 import { BiTargetLock } from 'react-icons/bi';
-
-interface Particle {
-  x: number;
-  y: number;
-  baseX: number;
-  baseY: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  density: number;
-}
-
-// Chat message component for conversation display
-const ChatMessage = ({ sender, message, isAI = false }: { sender: string; message: string; isAI?: boolean }) => (
-  <div className={`flex gap-4 ${isAI ? '' : 'flex-row-reverse'}`}>
-    <div className={`w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-[13px] font-bold font-manrope ${
-      isAI
-        ? 'bg-gradient-to-br from-[#f84608] to-[#8b00ff] text-white'
-        : 'bg-[#e5e7eb] text-[#555]'
-    }`}>
-      {isAI ? 'AI' : sender.charAt(0).toUpperCase()}
-    </div>
-    <div className={`max-w-[85%] ${isAI ? '' : 'text-right'}`}>
-      <div className={`inline-block px-5 py-3.5 rounded-2xl ${
-        isAI
-          ? 'bg-white border border-[#e5e7eb] rounded-tl-md'
-          : 'bg-gradient-to-r from-[#f84608] to-[#8b00ff] text-white rounded-tr-md'
-      }`}>
-        <p className={`text-[16px] leading-[1.6] font-manrope font-normal ${isAI ? 'text-[#1a1a1a]' : 'text-white'}`}>
-          {message}
-        </p>
-      </div>
-    </div>
-  </div>
-);
-
-// Chat container component
-const ChatContainer = ({ children }: { children: React.ReactNode }) => (
-  <div className="bg-[#f8f9fa] rounded-2xl p-5 space-y-4 border border-[#e5e7eb]">
-    {children}
-  </div>
-);
+import { useNeuralCanvas } from './hooks/useNeuralCanvas';
 
 const features = [
   {
@@ -296,185 +255,13 @@ export default function AIVIFeatureTabsV4() {
   const exitCooldown = useRef(false);
   const initialLoadComplete = useRef(false);
 
-  // Canvas refs for constellation animation
+  // Canvas ref for constellation animation
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef<{ x: number | null; y: number | null; radius: number }>({ x: null, y: null, radius: 150 });
-  const animationIdRef = useRef<number | undefined>(undefined);
 
   const activeFeature = features[activeIndex];
 
-  // Initialize particles
-  const initParticles = useCallback((canvas: HTMLCanvasElement) => {
-    const particles: Particle[] = [];
-    const count = 120;
-    for (let i = 0; i < count; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      particles.push({
-        x,
-        y,
-        baseX: x,
-        baseY: y,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 2 + 1,
-        density: Math.random() * 30 + 1,
-      });
-    }
-    particlesRef.current = particles;
-  }, []);
-
-  // Neural canvas animation
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const resize = () => {
-      const section = canvas.parentElement;
-      if (section) {
-        canvas.width = section.offsetWidth;
-        canvas.height = section.offsetHeight;
-        initParticles(canvas);
-      }
-    };
-
-    resize();
-    window.addEventListener('resize', resize);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-        mouseRef.current.x = x;
-        mouseRef.current.y = y;
-      } else {
-        mouseRef.current.x = null;
-        mouseRef.current.y = null;
-      }
-    };
-
-    const handleMouseOut = () => {
-      mouseRef.current.x = null;
-      mouseRef.current.y = null;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseout', handleMouseOut);
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const mouse = mouseRef.current;
-      const particles = particlesRef.current;
-
-      // Draw mouse glow
-      if (mouse.x !== null && mouse.y !== null) {
-        const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, mouse.radius);
-        gradient.addColorStop(0, 'rgba(248, 70, 8, 0.12)');
-        gradient.addColorStop(0.5, 'rgba(139, 0, 255, 0.06)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-      }
-
-      // Update and draw particles
-      particles.forEach((p) => {
-        // Mouse interaction
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            const forceX = dx / dist;
-            const forceY = dy / dist;
-            const force = (mouse.radius - dist) / mouse.radius;
-            p.x -= forceX * force * p.density * 0.5;
-            p.y -= forceY * force * p.density * 0.5;
-          }
-        }
-
-        // Normal movement
-        p.x += p.vx;
-        p.y += p.vy;
-        p.x += (p.baseX - p.x) * 0.01;
-        p.y += (p.baseY - p.y) * 0.01;
-
-        // Bounce off edges
-        if (p.x < 0 || p.x > canvas.width) {
-          p.vx *= -1;
-          p.baseX = p.x;
-        }
-        if (p.y < 0 || p.y > canvas.height) {
-          p.vy *= -1;
-          p.baseY = p.y;
-        }
-
-        // Draw particle
-        let brightness = 0.6;
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            brightness = 1 - (dist / mouse.radius) * 0.4;
-          }
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(139, 0, 255, ${0.3 * brightness})`;
-        ctx.fill();
-      });
-
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 140) {
-            let opacity = 0.12 * (1 - dist / 140);
-
-            if (mouse.x !== null && mouse.y !== null) {
-              const midX = (particles[i].x + particles[j].x) / 2;
-              const midY = (particles[i].y + particles[j].y) / 2;
-              const mouseDist = Math.sqrt((mouse.x - midX) ** 2 + (mouse.y - midY) ** 2);
-              if (mouseDist < mouse.radius) {
-                opacity *= 1 + (1 - mouseDist / mouse.radius) * 2;
-              }
-            }
-
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(139, 0, 255, ${opacity})`;
-            ctx.lineWidth = 0.6;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      animationIdRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseout', handleMouseOut);
-      if (animationIdRef.current) {
-        cancelAnimationFrame(animationIdRef.current);
-      }
-    };
-  }, [initParticles]);
+  // Use the shared neural canvas hook
+  useNeuralCanvas(canvasRef);
 
   // Check for mobile
   useEffect(() => {
@@ -725,7 +512,7 @@ export default function AIVIFeatureTabsV4() {
 
           {/* Premium Tab Buttons */}
           <div
-            className="grid grid-cols-2 lg:grid-cols-4 gap-5"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
             role="tablist"
             aria-label="AIVI Orchestration Steps"
           >
@@ -751,7 +538,7 @@ export default function AIVIFeatureTabsV4() {
                 aria-selected={activeIndex === index}
                 aria-controls="feature-panel"
                 tabIndex={activeIndex === index ? 0 : -1}
-                className={`relative flex flex-col items-start gap-4 p-6 lg:p-7 rounded-2xl transition-all duration-400 ease-out focus:outline-none focus-brand-ring ${
+                className={`relative flex flex-col items-start gap-3 sm:gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl transition-all duration-400 ease-out focus:outline-none focus-brand-ring ${
                   activeIndex === index
                     ? 'bg-white shadow-xl shadow-black/5 border border-[#f84608]/20'
                     : 'bg-white/60 border border-[#e5e7eb] hover:bg-white hover:shadow-lg hover:shadow-black/5'
@@ -798,7 +585,7 @@ export default function AIVIFeatureTabsV4() {
 
           {/* Premium Content Panel */}
           <div
-            className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start min-h-[560px]"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start min-h-[400px] md:min-h-[480px] lg:min-h-[560px]"
             role="tabpanel"
             id="feature-panel"
             aria-labelledby={features[activeIndex].id}

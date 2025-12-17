@@ -5,8 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useDemoPopup } from '../aiviv3/DemoPopupContext';
-import { useROIButtonStyle, ROIButtonStyle } from './ROIButtonStyleContext';
-import { useRevenueLiftStyleSafe, RevenueLiftStyle } from './RevenueLiftStyleContext';
 
 // Navigation structure with mega menu for Solutions
 const navItems = [
@@ -47,18 +45,6 @@ export default function AIVINavigationV4() {
   const megaMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
   const { openDemoPopup } = useDemoPopup();
-
-  // ROI Button Style switcher - only show on homepage
-  const isHomepage = pathname === '/';
-  let roiStyleContext: { style: ROIButtonStyle; setStyle: (style: ROIButtonStyle) => void } | null = null;
-  try {
-    roiStyleContext = useROIButtonStyle();
-  } catch {
-    // Context not available, that's fine
-  }
-
-  // Revenue Lift Style switcher - only show on /aiviv4 homepage
-  const revenueLiftContext = useRevenueLiftStyleSafe();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -323,50 +309,6 @@ export default function AIVINavigationV4() {
 
           {/* Right Actions - Desktop only */}
           <div className="hidden lg:flex items-center gap-3">
-            {/* ROI Button Style Switcher - only on homepage */}
-            {isHomepage && roiStyleContext && (
-              <div className="flex items-center gap-1 mr-2 px-2 py-1 rounded-lg bg-white/5 border border-white/10">
-                <span className="text-[11px] text-white/50 mr-1 uppercase tracking-wide">ROI:</span>
-                {(['A', 'B', 'C', 'D'] as ROIButtonStyle[]).map((styleOption) => (
-                  <button
-                    key={styleOption}
-                    onClick={() => roiStyleContext?.setStyle(styleOption)}
-                    className={`w-6 h-6 rounded-md text-[11px] font-semibold transition-all duration-200 ${
-                      roiStyleContext?.style === styleOption
-                        ? 'bg-gradient-to-r from-[#8b00ff] to-[#f84608] text-white'
-                        : 'text-white/60 hover:text-white hover:bg-white/10'
-                    }`}
-                    aria-label={`ROI Button Style ${styleOption}`}
-                    aria-pressed={roiStyleContext?.style === styleOption}
-                  >
-                    {styleOption}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Revenue Lift Style Switcher - only on homepage */}
-            {isHomepage && revenueLiftContext && (
-              <div className="flex items-center gap-1 mr-2 px-2 py-1 rounded-lg bg-white/5 border border-white/10">
-                <span className="text-[11px] text-white/50 mr-1 uppercase tracking-wide">Lift:</span>
-                {(['1', '2', '3'] as RevenueLiftStyle[]).map((styleOption) => (
-                  <button
-                    key={styleOption}
-                    onClick={() => revenueLiftContext?.setStyle(styleOption)}
-                    className={`w-6 h-6 rounded-md text-[11px] font-semibold transition-all duration-200 ${
-                      revenueLiftContext?.style === styleOption
-                        ? 'bg-gradient-to-r from-[#f84608] to-[#321ca3] text-white'
-                        : 'text-white/60 hover:text-white hover:bg-white/10'
-                    }`}
-                    aria-label={`Revenue Lift Style ${styleOption}`}
-                    aria-pressed={revenueLiftContext?.style === styleOption}
-                  >
-                    {styleOption}
-                  </button>
-                ))}
-              </div>
-            )}
-
             <a
               href="https://www.app.aivi.io"
               className="text-[15px] font-medium text-white/80 px-5 py-2.5 rounded-md hover:text-white hover:bg-white/5 transition-all duration-300 focus-brand-ring"
@@ -377,7 +319,7 @@ export default function AIVINavigationV4() {
               onClick={openDemoPopup}
               className="group relative text-[15px] font-semibold text-white px-5 py-2.5 rounded-md overflow-hidden hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 focus-brand-ring bg-gradient-to-r from-[#f84608] to-[#321ca3]"
             >
-              <span className="relative z-10">Book a Demo</span>
+              <span className="relative z-10">Try AIVI</span>
               <div className="absolute inset-0 bg-gradient-to-r from-[#321ca3] to-[#f84608] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
           </div>
@@ -411,20 +353,21 @@ export default function AIVINavigationV4() {
       <div
         id="mobile-menu"
         role="menu"
-        className={`lg:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-md border-t border-white/10 shadow-xl overflow-hidden transition-all duration-300 ${
-          mobileMenuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+        className={`lg:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-md border-t border-white/10 shadow-xl overflow-hidden transition-all duration-300 safe-area-bottom ${
+          mobileMenuOpen ? 'max-h-[calc(100vh-72px)] opacity-100' : 'max-h-0 opacity-0'
         }`}
         ref={menuRef}
         aria-hidden={!mobileMenuOpen}
+        style={{ overflowY: mobileMenuOpen ? 'auto' : 'hidden', WebkitOverflowScrolling: 'touch' }}
       >
-        <div className="px-6 py-4 flex flex-col gap-1">
+        <div className="px-4 sm:px-6 py-4 flex flex-col gap-1">
           {navItems.map((item) => (
             <div key={item.label}>
               {item.megaMenu ? (
                 <>
                   <button
                     role="menuitem"
-                    className="w-full flex items-center justify-between text-[15px] font-normal text-white/80 py-3 px-4 rounded-md hover:bg-white/5 transition-all duration-200 focus-brand-ring"
+                    className="w-full flex items-center justify-between text-[15px] font-normal text-white/80 py-3.5 px-4 rounded-md hover:bg-white/5 transition-all duration-200 focus-brand-ring min-h-[48px]"
                     onClick={() => setMobileSubmenuOpen(!mobileSubmenuOpen)}
                     tabIndex={mobileMenuOpen ? 0 : -1}
                     aria-expanded={mobileSubmenuOpen}
@@ -511,7 +454,7 @@ export default function AIVINavigationV4() {
                 <Link
                   href={item.href}
                   role="menuitem"
-                  className="block text-[15px] font-normal text-white/80 py-3 px-4 rounded-md hover:bg-white/5 transition-all duration-200 focus-brand-ring"
+                  className="flex items-center text-[15px] font-normal text-white/80 py-3.5 px-4 rounded-md hover:bg-white/5 transition-all duration-200 focus-brand-ring min-h-[48px]"
                   onClick={() => setMobileMenuOpen(false)}
                   tabIndex={mobileMenuOpen ? 0 : -1}
                 >
@@ -524,7 +467,7 @@ export default function AIVINavigationV4() {
           <a
             href="https://www.app.aivi.io"
             role="menuitem"
-            className="block text-[15px] font-medium text-white/80 py-3 px-4 rounded-md hover:bg-white/5 transition-all duration-200 focus-brand-ring"
+            className="flex items-center text-[15px] font-medium text-white/80 py-3.5 px-4 rounded-md hover:bg-white/5 transition-all duration-200 focus-brand-ring min-h-[48px]"
             onClick={() => setMobileMenuOpen(false)}
             tabIndex={mobileMenuOpen ? 0 : -1}
           >
@@ -532,14 +475,14 @@ export default function AIVINavigationV4() {
           </a>
           <button
             role="menuitem"
-            className="block w-full text-[15px] font-semibold text-white py-3 px-4 rounded-md bg-gradient-to-r from-[#f84608] to-[#321ca3] hover:opacity-90 transition-all duration-200 focus-brand-ring text-center"
+            className="flex items-center justify-center w-full text-[15px] font-semibold text-white py-3.5 px-4 rounded-md bg-gradient-to-r from-[#f84608] to-[#321ca3] hover:opacity-90 transition-all duration-200 focus-brand-ring min-h-[48px]"
             onClick={() => {
               setMobileMenuOpen(false);
               openDemoPopup();
             }}
             tabIndex={mobileMenuOpen ? 0 : -1}
           >
-            Book a Demo
+            Try AIVI
           </button>
         </div>
       </div>

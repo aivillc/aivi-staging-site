@@ -189,6 +189,31 @@ function ROIFloatingButton({ isVisible, onScrollToCalculator, roiTabRef }: ROIFl
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
           }
+
+          /* Responsive positioning for mobile */
+          @media (max-width: 768px) {
+            .floating-roi-glass-container {
+              bottom: 16px;
+              right: 16px;
+            }
+            .roi-side {
+              padding: 12px 12px 12px 16px;
+              gap: 8px;
+            }
+            .roi-text {
+              font-size: 12px;
+            }
+            .chat-side {
+              padding: 12px 14px;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .floating-roi-glass-container {
+              bottom: 12px;
+              right: 12px;
+            }
+          }
         `}</style>
       </>
     );
@@ -278,6 +303,13 @@ function ROIFloatingButton({ isVisible, onScrollToCalculator, roiTabRef }: ROIFl
             opacity: 0 !important;
             transform: translateY(-50%) translateX(20px) !important;
             pointer-events: none !important;
+          }
+
+          /* Hide on mobile - overlaps content */
+          @media (max-width: 768px) {
+            .floating-roi-line {
+              display: none !important;
+            }
           }
         `}</style>
       </>
@@ -605,6 +637,13 @@ function ROIFloatingButton({ isVisible, onScrollToCalculator, roiTabRef }: ROIFl
           transform: translateX(20px) !important;
           pointer-events: none !important;
           animation: none !important;
+        }
+
+        /* Hide on mobile - overlaps hero content */
+        @media (max-width: 768px) {
+          .floating-roi-tab {
+            display: none !important;
+          }
         }
       `}</style>
     </>

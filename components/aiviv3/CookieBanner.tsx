@@ -12,32 +12,33 @@ export default function CookieBanner() {
 
   return (
     <div
-      className="fixed bottom-4 left-4 bg-white rounded-lg sm:rounded-xl p-4 shadow-[0_4px_24px_rgba(0,0,0,0.15)] max-w-[calc(100vw-32px)] sm:max-w-[400px] transition-all duration-300 z-50 animate-fadeInUp"
+      className="fixed bottom-3 left-3 right-3 sm:right-auto sm:left-4 sm:bottom-4 bg-white rounded-xl p-4 shadow-[0_4px_24px_rgba(0,0,0,0.15)] sm:max-w-[400px] transition-all duration-300 z-[60] animate-fadeInUp"
+      style={{ bottom: 'calc(12px + env(safe-area-inset-bottom, 0px))' }}
       role="dialog"
       aria-label="Cookie consent"
       aria-live="polite"
     >
-      <p className="text-[12px] sm:text-[13px] leading-[1.5] text-[#333333] mb-3">
+      <p className="text-[13px] sm:text-[13px] leading-[1.5] text-[#333333] mb-3">
         We use cookies to enhance your experience. By clicking &quot;Accept&quot;, you consent to our use of cookies.
       </p>
       <div className="flex flex-wrap gap-2 mb-2">
         <button
           onClick={openPreferences}
-          className="flex-1 min-w-[80px] px-3 py-2 bg-transparent border border-[#DDDDDD] text-[#000000] text-[12px] sm:text-[13px] font-medium rounded-md hover:bg-[#F9F9F9] hover:border-[#999999] transition-all duration-200 focus-brand-ring"
+          className="flex-1 min-w-[70px] px-3 py-2.5 bg-transparent border border-[#DDDDDD] text-[#000000] text-[13px] font-medium rounded-lg hover:bg-[#F9F9F9] hover:border-[#999999] transition-all duration-200 focus-brand-ring touch-target"
           aria-label="Open cookie preferences"
         >
           Preferences
         </button>
         <button
           onClick={rejectCookies}
-          className="flex-1 min-w-[80px] px-3 py-2 bg-transparent border border-[#DDDDDD] text-[#000000] text-[12px] sm:text-[13px] font-medium rounded-md hover:bg-[#F9F9F9] hover:border-[#999999] transition-all duration-200 focus-brand-ring"
+          className="flex-1 min-w-[70px] px-3 py-2.5 bg-transparent border border-[#DDDDDD] text-[#000000] text-[13px] font-medium rounded-lg hover:bg-[#F9F9F9] hover:border-[#999999] transition-all duration-200 focus-brand-ring touch-target"
           aria-label="Reject cookies"
         >
           Reject
         </button>
         <button
           onClick={acceptCookies}
-          className="flex-1 min-w-[80px] px-3 py-2 bg-[#000000] text-white text-[12px] sm:text-[13px] font-medium rounded-md hover:bg-[#222222] transition-all duration-200 focus-brand-ring"
+          className="flex-1 min-w-[70px] px-3 py-2.5 bg-[#000000] text-white text-[13px] font-medium rounded-lg hover:bg-[#222222] transition-all duration-200 focus-brand-ring touch-target"
           aria-label="Accept cookies"
         >
           Accept

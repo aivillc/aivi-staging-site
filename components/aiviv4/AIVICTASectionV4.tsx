@@ -21,11 +21,11 @@ export default function AIVICTASectionV4() {
     >
       <div className="max-w-[1300px] mx-auto">
         {/* Premium Card Container */}
-        <div className="relative bg-white rounded-[32px] p-10 sm:p-14 lg:p-20 shadow-[0_4px_60px_rgba(0,0,0,0.06)] border border-[#f0f0f0]/50 overflow-hidden">
+        <div className="relative bg-white rounded-[24px] sm:rounded-[32px] p-6 sm:p-10 md:p-14 lg:p-20 shadow-[0_4px_60px_rgba(0,0,0,0.06)] border border-[#f0f0f0]/50 overflow-hidden">
           {/* Subtle gradient accent */}
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#f84608] via-[#a855f7] to-[#321ca3]" />
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
             {/* Left Column - Text and Form */}
             <div className="space-y-8">
               {/* Style 3: Dual Line Embrace Eyebrow */}
@@ -99,7 +99,7 @@ export default function AIVICTASectionV4() {
                 </div>
 
                 {/* Social Sign-Up Buttons */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <button
                     type="button"
                     className="h-[52px] bg-white border border-[#e5e5e5] rounded-xl flex items-center justify-center gap-3 text-[15px] font-medium text-[#374151] hover:border-[#d4d4d4] hover:bg-[#FAFAFA] transition-all duration-200"

@@ -358,9 +358,10 @@ export default function DemoPopup({ isOpen, onClose }: DemoPopupProps) {
       />
 
       {/* Popup Container */}
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 pointer-events-none">
         <div
-          className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl pointer-events-auto transform transition-all duration-300 animate-popup-enter"
+          className="relative w-full max-w-2xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto bg-white rounded-2xl sm:rounded-3xl shadow-2xl pointer-events-auto transform transition-all duration-300 animate-popup-enter safe-area-bottom"
+          style={{ WebkitOverflowScrolling: 'touch' }}
           onClick={(e) => e.stopPropagation()}
           role="dialog"
           aria-modal="true"
@@ -372,7 +373,7 @@ export default function DemoPopup({ isOpen, onClose }: DemoPopupProps) {
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-[#F5F5F5] hover:bg-[#E8E5E0] text-[#666666] hover:text-[#1A1A1A] transition-all duration-200 z-10"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#F5F5F5] hover:bg-[#E8E5E0] text-[#666666] hover:text-[#1A1A1A] transition-all duration-200 z-10 touch-target"
             aria-label="Close popup"
           >
             <FaTimes className="w-4 h-4" />
@@ -399,7 +400,7 @@ export default function DemoPopup({ isOpen, onClose }: DemoPopupProps) {
             </div>
           ) : (
             /* Form Content */
-            <div className="p-6 sm:p-8">
+            <div className="p-4 sm:p-6 md:p-8">
               {/* Header */}
               <div className="text-center mb-8">
                 <h2

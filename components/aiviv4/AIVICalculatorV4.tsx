@@ -199,15 +199,15 @@ export default function AIVICalculatorV4() {
         </div>
 
         {/* Two-Column Layout - Inputs Left, Results Right */}
-        <div className="grid lg:grid-cols-2 gap-8 xl:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 xl:gap-12">
           {/* Left Column: Inputs */}
           <div className="space-y-8">
             {/* Package Selector */}
-            <div className="grid sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               {/* Basic Response */}
               <button
                 onClick={() => setCurrentPackage('basic')}
-                className={`relative p-7 rounded-2xl transition-all duration-400 text-left overflow-hidden ${
+                className={`relative p-5 sm:p-6 lg:p-7 rounded-2xl transition-all duration-400 text-left overflow-hidden ${
                   currentPackage === 'basic'
                     ? 'bg-white shadow-xl border-2 border-[#f84608]'
                     : 'bg-white/70 backdrop-blur-sm border border-white/80 hover:bg-white hover:shadow-lg'
@@ -263,7 +263,7 @@ export default function AIVICalculatorV4() {
               {/* Full Orchestration */}
               <button
                 onClick={() => setCurrentPackage('full')}
-                className={`relative p-7 rounded-2xl transition-all duration-400 text-left overflow-hidden ${
+                className={`relative p-5 sm:p-6 lg:p-7 rounded-2xl transition-all duration-400 text-left overflow-hidden ${
                   currentPackage === 'full'
                     ? 'bg-white shadow-xl border-2 border-[#f84608]'
                     : 'bg-white/70 backdrop-blur-sm border border-white/80 hover:bg-white hover:shadow-lg'
@@ -327,14 +327,14 @@ export default function AIVICalculatorV4() {
             <div className="space-y-5">
               {/* Lead Volume */}
               <div className="calculator-input-card">
-                <div className="flex justify-between items-start mb-5">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4 sm:mb-5">
                   <div>
-                    <span className="text-[16px] font-semibold text-[#0a0a0a]">Monthly Lead Volume</span>
-                    <p className="text-[13px] text-[#9ca3af] mt-1">How many leads do you receive per month?</p>
+                    <span className="text-[14px] sm:text-[16px] font-semibold text-[#0a0a0a]">Monthly Lead Volume</span>
+                    <p className="text-[12px] sm:text-[13px] text-[#9ca3af] mt-0.5 sm:mt-1">How many leads do you receive per month?</p>
                   </div>
-                  <div className="text-right">
-                    <span className="text-[28px] font-bold aivi-gradient-text">{formatNumber(leadVolume)}</span>
-                    <span className="text-[14px] text-[#9ca3af] block">leads</span>
+                  <div className="text-left sm:text-right">
+                    <span className="text-[22px] sm:text-[28px] font-bold aivi-gradient-text">{formatNumber(leadVolume)}</span>
+                    <span className="text-[12px] sm:text-[14px] text-[#9ca3af] ml-1 sm:ml-0 sm:block">leads</span>
                   </div>
                 </div>
                 <div className="relative pt-2 pb-1">
@@ -356,14 +356,14 @@ export default function AIVICalculatorV4() {
 
               {/* Transfer Rate */}
               <div className="calculator-input-card">
-                <div className="flex justify-between items-start mb-5">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4 sm:mb-5">
                   <div>
-                    <span className="text-[16px] font-semibold text-[#0a0a0a]">Current Transfer Rate</span>
-                    <p className="text-[13px] text-[#9ca3af] mt-1">What % of leads get transferred to your closers?</p>
+                    <span className="text-[14px] sm:text-[16px] font-semibold text-[#0a0a0a]">Current Transfer Rate</span>
+                    <p className="text-[12px] sm:text-[13px] text-[#9ca3af] mt-0.5 sm:mt-1">What % of leads get transferred to your closers?</p>
                   </div>
-                  <div className="text-right">
-                    <span className="text-[28px] font-bold aivi-gradient-text">{transferRate}%</span>
-                    <span className="text-[14px] text-[#9ca3af] block">rate</span>
+                  <div className="text-left sm:text-right">
+                    <span className="text-[22px] sm:text-[28px] font-bold aivi-gradient-text">{transferRate}%</span>
+                    <span className="text-[12px] sm:text-[14px] text-[#9ca3af] ml-1 sm:ml-0 sm:block">rate</span>
                   </div>
                 </div>
                 <div className="relative pt-2 pb-1">
@@ -385,14 +385,14 @@ export default function AIVICalculatorV4() {
 
               {/* Close Rate */}
               <div className="calculator-input-card">
-                <div className="flex justify-between items-start mb-5">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4 sm:mb-5">
                   <div>
-                    <span className="text-[16px] font-semibold text-[#0a0a0a]">Current Close Rate</span>
-                    <p className="text-[13px] text-[#9ca3af] mt-1">What % of transferred leads close?</p>
+                    <span className="text-[14px] sm:text-[16px] font-semibold text-[#0a0a0a]">Current Close Rate</span>
+                    <p className="text-[12px] sm:text-[13px] text-[#9ca3af] mt-0.5 sm:mt-1">What % of transferred leads close?</p>
                   </div>
-                  <div className="text-right">
-                    <span className="text-[28px] font-bold aivi-gradient-text">{closeRate}%</span>
-                    <span className="text-[14px] text-[#9ca3af] block">rate</span>
+                  <div className="text-left sm:text-right">
+                    <span className="text-[22px] sm:text-[28px] font-bold aivi-gradient-text">{closeRate}%</span>
+                    <span className="text-[12px] sm:text-[14px] text-[#9ca3af] ml-1 sm:ml-0 sm:block">rate</span>
                   </div>
                 </div>
                 <div className="relative pt-2 pb-1">
@@ -414,14 +414,14 @@ export default function AIVICalculatorV4() {
 
               {/* Commission */}
               <div className="calculator-input-card">
-                <div className="flex justify-between items-start mb-5">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4 sm:mb-5">
                   <div>
-                    <span className="text-[16px] font-semibold text-[#0a0a0a]">Commission Per Closed Loan</span>
-                    <p className="text-[13px] text-[#9ca3af] mt-1">Average commission/revenue per funded loan</p>
+                    <span className="text-[14px] sm:text-[16px] font-semibold text-[#0a0a0a]">Commission Per Closed Loan</span>
+                    <p className="text-[12px] sm:text-[13px] text-[#9ca3af] mt-0.5 sm:mt-1">Average commission/revenue per funded loan</p>
                   </div>
-                  <div className="text-right">
-                    <span className="text-[28px] font-bold aivi-gradient-text">{formatCurrency(commission)}</span>
-                    <span className="text-[14px] text-[#9ca3af] block">per loan</span>
+                  <div className="text-left sm:text-right">
+                    <span className="text-[22px] sm:text-[28px] font-bold aivi-gradient-text">{formatCurrency(commission)}</span>
+                    <span className="text-[12px] sm:text-[14px] text-[#9ca3af] ml-1 sm:ml-0 sm:block">per loan</span>
                   </div>
                 </div>
                 <div className="relative pt-2 pb-1">

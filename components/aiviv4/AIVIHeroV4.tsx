@@ -7,17 +7,7 @@ import { FiMic } from 'react-icons/fi';
 import { TbCreditCard } from 'react-icons/tb';
 import { FaUserTie } from 'react-icons/fa';
 import { useLeadGateSafe } from './LeadGateContext';
-
-interface Particle {
-  x: number;
-  y: number;
-  baseX: number;
-  baseY: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  density: number;
-}
+import { useNeuralCanvas } from './hooks/useNeuralCanvas';
 
 export default function AIVIHeroV4() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
@@ -33,206 +23,18 @@ export default function AIVIHeroV4() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioCanvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef<{ x: number | null; y: number | null; radius: number }>({ x: null, y: null, radius: 150 });
-  const scrollOffsetRef = useRef<number>(0);
-  const animationIdRef = useRef<number>(undefined);
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const recognitionRef = useRef<any>(null);
 
-  // Initialize particles
-  const initParticles = useCallback((canvas: HTMLCanvasElement) => {
-    const particles: Particle[] = [];
-    const count = 150;
-    for (let i = 0; i < count; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      particles.push({
-        x,
-        y,
-        baseX: x,
-        baseY: y,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 2 + 1,
-        density: Math.random() * 30 + 1,
-      });
-    }
-    particlesRef.current = particles;
-  }, []);
-
-  // Neural canvas animation
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const resize = () => {
-      const hero = canvas.parentElement;
-      if (hero) {
-        canvas.width = hero.offsetWidth;
-        canvas.height = hero.offsetHeight;
-        initParticles(canvas);
-      }
-    };
-
-    resize();
-    window.addEventListener('resize', resize);
-
-    // Scroll parallax effect
-    const handleScroll = () => {
-      scrollOffsetRef.current = window.scrollY * 0.15; // Subtle parallax factor
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      // Check if mouse is within the hero section bounds
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-        mouseRef.current.x = x;
-        mouseRef.current.y = y;
-      } else {
-        mouseRef.current.x = null;
-        mouseRef.current.y = null;
-      }
-    };
-
-    const handleMouseOut = () => {
-      mouseRef.current.x = null;
-      mouseRef.current.y = null;
-    };
-
-    // Use window-level events to capture mouse movement even when over other elements
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseout', handleMouseOut);
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const mouse = mouseRef.current;
-      const particles = particlesRef.current;
-      const scrollOffset = scrollOffsetRef.current;
-
-      // Draw mouse glow
-      if (mouse.x !== null && mouse.y !== null) {
-        const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, mouse.radius);
-        gradient.addColorStop(0, 'rgba(100, 200, 255, 0.15)');
-        gradient.addColorStop(0.5, 'rgba(139, 0, 255, 0.05)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-      }
-
-      // Update and draw particles with parallax depth
-      particles.forEach((p, index) => {
-        // Each particle has different depth based on its size (larger = closer = more movement)
-        const depthFactor = p.radius / 3; // 0.33 to 1.0 range
-        const parallaxY = scrollOffset * depthFactor;
-
-        // Mouse interaction
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - (p.y + parallaxY);
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            const forceX = dx / dist;
-            const forceY = dy / dist;
-            const force = (mouse.radius - dist) / mouse.radius;
-            p.x -= forceX * force * p.density * 0.5;
-            p.y -= forceY * force * p.density * 0.5;
-          }
-        }
-
-        // Normal movement
-        p.x += p.vx;
-        p.y += p.vy;
-        p.x += (p.baseX - p.x) * 0.01;
-        p.y += (p.baseY - p.y) * 0.01;
-
-        // Bounce off edges
-        if (p.x < 0 || p.x > canvas.width) {
-          p.vx *= -1;
-          p.baseX = p.x;
-        }
-        if (p.y < 0 || p.y > canvas.height) {
-          p.vy *= -1;
-          p.baseY = p.y;
-        }
-
-        // Draw particle with parallax offset
-        const drawY = p.y + parallaxY;
-
-        let brightness = 0.6;
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - drawY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            brightness = 1 - (dist / mouse.radius) * 0.4;
-          }
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, drawY, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(100, 200, 255, ${0.4 * brightness})`;
-        ctx.fill();
-      });
-
-      // Draw connections with parallax
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1DepthFactor = particles[i].radius / 3;
-          const p2DepthFactor = particles[j].radius / 3;
-          const p1Y = particles[i].y + scrollOffset * p1DepthFactor;
-          const p2Y = particles[j].y + scrollOffset * p2DepthFactor;
-
-          const dx = particles[i].x - particles[j].x;
-          const dy = p1Y - p2Y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 140) {
-            let opacity = 0.15 * (1 - dist / 140);
-
-            if (mouse.x !== null && mouse.y !== null) {
-              const midX = (particles[i].x + particles[j].x) / 2;
-              const midY = (p1Y + p2Y) / 2;
-              const mouseDist = Math.sqrt((mouse.x - midX) ** 2 + (mouse.y - midY) ** 2);
-              if (mouseDist < mouse.radius) {
-                opacity *= 1 + (1 - mouseDist / mouse.radius) * 2;
-              }
-            }
-
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(100, 200, 255, ${opacity})`;
-            ctx.lineWidth = 0.6;
-            ctx.moveTo(particles[i].x, p1Y);
-            ctx.lineTo(particles[j].x, p2Y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      animationIdRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseout', handleMouseOut);
-      if (animationIdRef.current) {
-        cancelAnimationFrame(animationIdRef.current);
-      }
-    };
-  }, [initParticles]);
+  // Use the shared neural canvas hook with hero-specific customizations
+  useNeuralCanvas(canvasRef, {
+    particleCount: 150,
+    particleColor: '100, 200, 255',
+    glowColorStart: '100, 200, 255',
+    glowColorEnd: '139, 0, 255',
+    enableParallax: true,
+  });
 
   // Live counter with localStorage persistence
   useEffect(() => {

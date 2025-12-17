@@ -659,7 +659,8 @@ export default function ChatBot() {
             }
             setIsOpen(true);
           }}
-          className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-gradient-to-br from-[#f84608] to-[#8b00ff] shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 z-50 group"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#f84608] to-[#8b00ff] shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 z-50 group touch-target"
+          style={{ bottom: 'calc(16px + env(safe-area-inset-bottom, 0px))' }}
           aria-label="Open chat"
         >
           <svg
@@ -685,8 +686,11 @@ export default function ChatBot() {
       {/* Chat Window */}
       {isOpen && (
         <div
-          className="fixed bottom-6 right-6 w-[360px] h-[600px] bg-[#0a0a14]/98 border border-[#8b00ff]/40 rounded-2xl shadow-2xl z-50 flex flex-col backdrop-blur-xl animate-scaleIn"
-          style={{ boxShadow: '0 0 40px rgba(139, 0, 255, 0.2), 0 20px 60px rgba(0, 0, 0, 0.5)' }}
+          className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 w-full sm:w-[360px] h-[100dvh] sm:h-[600px] max-h-[100dvh] sm:max-h-[calc(100vh-48px)] bg-[#0a0a14]/98 border-0 sm:border border-[#8b00ff]/40 sm:rounded-2xl shadow-2xl z-50 flex flex-col backdrop-blur-xl animate-scaleIn safe-area-bottom"
+          style={{
+            boxShadow: '0 0 40px rgba(139, 0, 255, 0.2), 0 20px 60px rgba(0, 0, 0, 0.5)',
+            paddingBottom: 'env(safe-area-inset-bottom, 0px)'
+          }}
         >
           {/* Header */}
           <div className="p-4 border-b border-[#8b00ff]/30 rounded-t-2xl bg-gradient-to-r from-[#f84608]/10 to-[#8b00ff]/10">

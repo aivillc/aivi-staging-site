@@ -4,6 +4,7 @@ import "./globals.css";
 import ScrollToTop from "@/components/ScrollToTop";
 import ChatBot from "@/components/ChatBot";
 import { ChatBotProvider } from "@/components/ChatBotContext";
+import { DemoPopupProvider } from "@/components/aiviv3/DemoPopupContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,11 +32,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ChatBotProvider>
-          {children}
-          <ScrollToTop />
-          <ChatBot />
-        </ChatBotProvider>
+        <DemoPopupProvider>
+          <ChatBotProvider>
+            {children}
+            <ScrollToTop />
+            <ChatBot />
+          </ChatBotProvider>
+        </DemoPopupProvider>
       </body>
     </html>
   );

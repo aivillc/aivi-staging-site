@@ -1,17 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
-
-interface Particle {
-  x: number;
-  y: number;
-  baseX: number;
-  baseY: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  density: number;
-}
+import React, { useRef } from 'react';
+import { useNeuralCanvas } from './hooks/useNeuralCanvas';
 
 interface BenefitItem {
   icon: React.ReactNode;
@@ -105,181 +95,9 @@ const benefits: BenefitItem[] = [
 
 export default function AIVIBenefitsV4() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef<{ x: number | null; y: number | null; radius: number }>({ x: null, y: null, radius: 150 });
-  const animationIdRef = useRef<number | undefined>(undefined);
 
-  // Initialize particles
-  const initParticles = useCallback((canvas: HTMLCanvasElement) => {
-    const particles: Particle[] = [];
-    const count = 120;
-    for (let i = 0; i < count; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      particles.push({
-        x,
-        y,
-        baseX: x,
-        baseY: y,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 2 + 1,
-        density: Math.random() * 30 + 1,
-      });
-    }
-    particlesRef.current = particles;
-  }, []);
-
-  // Neural canvas animation
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const resize = () => {
-      const section = canvas.parentElement;
-      if (section) {
-        canvas.width = section.offsetWidth;
-        canvas.height = section.offsetHeight;
-        initParticles(canvas);
-      }
-    };
-
-    resize();
-    window.addEventListener('resize', resize);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-        mouseRef.current.x = x;
-        mouseRef.current.y = y;
-      } else {
-        mouseRef.current.x = null;
-        mouseRef.current.y = null;
-      }
-    };
-
-    const handleMouseOut = () => {
-      mouseRef.current.x = null;
-      mouseRef.current.y = null;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseout', handleMouseOut);
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const mouse = mouseRef.current;
-      const particles = particlesRef.current;
-
-      // Draw mouse glow
-      if (mouse.x !== null && mouse.y !== null) {
-        const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, mouse.radius);
-        gradient.addColorStop(0, 'rgba(248, 70, 8, 0.12)');
-        gradient.addColorStop(0.5, 'rgba(139, 0, 255, 0.06)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-      }
-
-      // Update and draw particles
-      particles.forEach((p) => {
-        // Mouse interaction
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            const forceX = dx / dist;
-            const forceY = dy / dist;
-            const force = (mouse.radius - dist) / mouse.radius;
-            p.x -= forceX * force * p.density * 0.5;
-            p.y -= forceY * force * p.density * 0.5;
-          }
-        }
-
-        // Normal movement
-        p.x += p.vx;
-        p.y += p.vy;
-        p.x += (p.baseX - p.x) * 0.01;
-        p.y += (p.baseY - p.y) * 0.01;
-
-        // Bounce off edges
-        if (p.x < 0 || p.x > canvas.width) {
-          p.vx *= -1;
-          p.baseX = p.x;
-        }
-        if (p.y < 0 || p.y > canvas.height) {
-          p.vy *= -1;
-          p.baseY = p.y;
-        }
-
-        // Draw particle
-        let brightness = 0.6;
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            brightness = 1 - (dist / mouse.radius) * 0.4;
-          }
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(139, 0, 255, ${0.3 * brightness})`;
-        ctx.fill();
-      });
-
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 140) {
-            let opacity = 0.12 * (1 - dist / 140);
-
-            if (mouse.x !== null && mouse.y !== null) {
-              const midX = (particles[i].x + particles[j].x) / 2;
-              const midY = (particles[i].y + particles[j].y) / 2;
-              const mouseDist = Math.sqrt((mouse.x - midX) ** 2 + (mouse.y - midY) ** 2);
-              if (mouseDist < mouse.radius) {
-                opacity *= 1 + (1 - mouseDist / mouse.radius) * 2;
-              }
-            }
-
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(139, 0, 255, ${opacity})`;
-            ctx.lineWidth = 0.6;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      animationIdRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseout', handleMouseOut);
-      if (animationIdRef.current) {
-        cancelAnimationFrame(animationIdRef.current);
-      }
-    };
-  }, [initParticles]);
+  // Use the shared neural canvas hook
+  useNeuralCanvas(canvasRef);
 
   return (
     <section className="relative py-20 sm:py-24 md:py-28 lg:py-32 bg-[#f5f0e8] overflow-hidden">
@@ -314,27 +132,27 @@ export default function AIVIBenefitsV4() {
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-8">
           {benefits.map((benefit, index) => (
             <div
               key={index}
-              className="group relative p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/60 hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all duration-300"
+              className="group relative p-5 sm:p-6 lg:p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/60 hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all duration-300"
             >
               {/* Icon Badge */}
-              <div className="w-12 h-12 mb-6 rounded-xl bg-[#1e293b] flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#f84608] group-hover:to-[#321ca3] transition-all duration-300">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 mb-4 sm:mb-5 lg:mb-6 rounded-xl bg-[#1e293b] flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#f84608] group-hover:to-[#321ca3] transition-all duration-300">
                 {benefit.icon}
               </div>
 
               {/* Content */}
-              <h3 className="text-[18px] font-semibold text-[#0a0a0a] mb-3 group-hover:text-[#f84608] transition-colors duration-300">
+              <h3 className="text-[16px] sm:text-[17px] lg:text-[18px] font-semibold text-[#0a0a0a] mb-2 sm:mb-3 group-hover:text-[#f84608] transition-colors duration-300">
                 {benefit.title}
               </h3>
-              <p className="text-[14px] text-[#6b7280] leading-relaxed">
+              <p className="text-[13px] sm:text-[14px] text-[#6b7280] leading-relaxed">
                 {benefit.description}
               </p>
 
               {/* Subtle hover indicator */}
-              <div className="absolute bottom-0 left-8 right-8 h-[2px] bg-gradient-to-r from-[#f84608] to-[#321ca3] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-5 right-5 sm:left-6 sm:right-6 lg:left-8 lg:right-8 h-[2px] bg-gradient-to-r from-[#f84608] to-[#321ca3] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           ))}
         </div>

@@ -33,7 +33,11 @@
       "Bash(for file in app/aiviv3/resources/case-studies/*/page.tsx)",
       "Bash(do sed:*)",
       "Bash(done)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(copy \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\app\\aiviv4\\features\\page.tsx\" \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\app\\features\\page.tsx\")",
+      "Bash(copy \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\app\\aiviv4\\pricing\\page.tsx\" \"c:\\Users\\Admin\\OneDrive\\Desktop\\AIVI Staging\\app\\pricing\\page.tsx\")",
+      "Bash(copy:*)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []

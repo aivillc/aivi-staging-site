@@ -12,7 +12,7 @@ interface RevenueLiftStyleContextType {
 const RevenueLiftStyleContext = createContext<RevenueLiftStyleContextType | undefined>(undefined);
 
 export function RevenueLiftStyleProvider({ children }: { children: ReactNode }) {
-  const [style, setStyle] = useState<RevenueLiftStyle>('3'); // Default to Option 3
+  const [style, setStyle] = useState<RevenueLiftStyle>('2'); // Default to Option 2
 
   return (
     <RevenueLiftStyleContext.Provider value={{ style, setStyle }}>

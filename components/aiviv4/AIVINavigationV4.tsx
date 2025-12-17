@@ -10,30 +10,30 @@ import { useRevenueLiftStyleSafe, RevenueLiftStyle } from './RevenueLiftStyleCon
 
 // Navigation structure with mega menu for Solutions
 const navItems = [
-  { label: 'Features', href: '/aiviv4/features' },
+  { label: 'Features', href: '/features' },
   {
     label: 'Solutions',
     megaMenu: {
       industries: [
-        { label: 'Retail & E-Commerce', href: '/aiviv4/solutions/retail' },
-        { label: 'Real Estate', href: '/aiviv4/solutions/real-estate' },
-        { label: 'Hospitality', href: '/aiviv4/solutions/hospitality' },
-        { label: 'Healthcare', href: '/aiviv4/solutions/healthcare' },
-        { label: 'Financial Services', href: '/aiviv4/solutions/financial-services' },
-        { label: 'Legal', href: '/aiviv4/solutions/legal' },
+        { label: 'Retail & E-Commerce', href: '/solutions/retail' },
+        { label: 'Real Estate', href: '/solutions/real-estate' },
+        { label: 'Hospitality', href: '/solutions/hospitality' },
+        { label: 'Healthcare', href: '/solutions/healthcare' },
+        { label: 'Financial Services', href: '/solutions/financial-services' },
+        { label: 'Legal', href: '/solutions/legal' },
       ],
       integrations: [
-        { label: 'N8n', href: '/aiviv4/integrations#n8n' },
-        { label: 'Twilio', href: '/aiviv4/integrations#twilio' },
-        { label: 'HubSpot', href: '/aiviv4/integrations#hubspot' },
-        { label: 'OpenAI', href: '/aiviv4/integrations#openai' },
-        { label: 'Go High Level', href: '/aiviv4/integrations#gohighlevel' },
+        { label: 'N8n', href: '/integrations#n8n' },
+        { label: 'Twilio', href: '/integrations#twilio' },
+        { label: 'HubSpot', href: '/integrations#hubspot' },
+        { label: 'OpenAI', href: '/integrations#openai' },
+        { label: 'Go High Level', href: '/integrations#gohighlevel' },
       ],
-      seeAllIntegrations: { label: 'See All Integrations', href: '/aiviv4/integrations' },
+      seeAllIntegrations: { label: 'See All Integrations', href: '/integrations' },
     },
   },
-  { label: 'Use Cases', href: '/aiviv4/use-cases' },
-  { label: 'Pricing', href: '/aiviv4/pricing' },
+  { label: 'Use Cases', href: '/use-cases' },
+  { label: 'Pricing', href: '/pricing' },
 ];
 
 export default function AIVINavigationV4() {
@@ -48,8 +48,8 @@ export default function AIVINavigationV4() {
   const pathname = usePathname();
   const { openDemoPopup } = useDemoPopup();
 
-  // ROI Button Style switcher - only show on /aiviv4 homepage
-  const isHomepage = pathname === '/aiviv4';
+  // ROI Button Style switcher - only show on homepage
+  const isHomepage = pathname === '/';
   let roiStyleContext: { style: ROIButtonStyle; setStyle: (style: ROIButtonStyle) => void } | null = null;
   try {
     roiStyleContext = useROIButtonStyle();
@@ -72,7 +72,7 @@ export default function AIVINavigationV4() {
 
   // Check if current path matches nav item
   const isActive = (href: string) => {
-    if (href === '/aiviv4') return pathname === '/aiviv4';
+    if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };
 
@@ -144,7 +144,7 @@ export default function AIVINavigationV4() {
           {/* Left Section - Logo + Navigation */}
           <div className="hidden lg:flex items-center gap-6">
             {/* Logo with crossfade animation */}
-            <Link href="/aiviv4" className="flex items-center gap-2 group flex-shrink-0 relative">
+            <Link href="/" className="flex items-center gap-2 group flex-shrink-0 relative">
               <div className="relative h-10 w-[120px]">
                 {/* Colored logo - visible when not scrolled */}
                 <Image
@@ -296,7 +296,7 @@ export default function AIVINavigationV4() {
           </div>
 
           {/* Mobile Logo with crossfade animation */}
-          <Link href="/aiviv4" className="flex lg:hidden items-center gap-2 group flex-shrink-0 relative">
+          <Link href="/" className="flex lg:hidden items-center gap-2 group flex-shrink-0 relative">
             <div className="relative h-8 sm:h-10 w-[100px] sm:w-[120px]">
               {/* Colored logo - visible when not scrolled */}
               <Image
@@ -368,7 +368,7 @@ export default function AIVINavigationV4() {
             )}
 
             <Link
-              href="/aiviv4/login"
+              href="/login"
               className="text-[15px] font-medium text-white/80 px-5 py-2.5 rounded-md hover:text-white hover:bg-white/5 transition-all duration-300 focus-brand-ring"
             >
               Log in
@@ -522,7 +522,7 @@ export default function AIVINavigationV4() {
           ))}
           <div className="border-t border-white/10 my-2" />
           <Link
-            href="/aiviv4/login"
+            href="/login"
             role="menuitem"
             className="block text-[15px] font-medium text-white/80 py-3 px-4 rounded-md hover:bg-white/5 transition-all duration-200 focus-brand-ring"
             onClick={() => setMobileMenuOpen(false)}

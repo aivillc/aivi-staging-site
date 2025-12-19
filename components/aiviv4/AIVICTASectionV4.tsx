@@ -12,7 +12,8 @@ export default function AIVICTASectionV4() {
   const sectionRef = useRef<HTMLElement>(null);
   const { openDemoPopup } = useDemoPopup();
 
-  // Intersection Observer for auto-play on scroll (muted - browser requirement)
+  // Intersection Observer for auto-play on scroll
+  // Try unmuted first (works after user interaction), fall back to muted
   useEffect(() => {
     const video = videoRef.current;
     const section = sectionRef.current;
@@ -23,10 +24,15 @@ export default function AIVICTASectionV4() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Must start muted - browsers block unmuted autoplay without click
-            video.muted = true;
-            setIsMuted(true);
-            video.play().catch(() => {});
+            // Try unmuted autoplay first (works if user has interacted with page)
+            video.muted = false;
+            setIsMuted(false);
+            video.play().catch(() => {
+              // If unmuted play fails, fall back to muted (browser requirement)
+              video.muted = true;
+              setIsMuted(true);
+              video.play().catch(() => {});
+            });
           } else {
             // Section is not visible - pause video
             video.pause();
@@ -70,6 +76,16 @@ export default function AIVICTASectionV4() {
         videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleVideoEnded = () => {
+    // Loop only when muted
+    if (videoRef.current && videoRef.current.muted) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    } else {
+      setIsPlaying(false);
     }
   };
 
@@ -269,7 +285,7 @@ export default function AIVICTASectionV4() {
                   playsInline
                   onPlay={() => setIsPlaying(true)}
                   onPause={() => setIsPlaying(false)}
-                  onEnded={() => setIsPlaying(false)}
+                  onEnded={handleVideoEnded}
                 >
                   <source src="/aiviscreening.mp4" type="video/mp4" />
                   Your browser does not support the video tag.

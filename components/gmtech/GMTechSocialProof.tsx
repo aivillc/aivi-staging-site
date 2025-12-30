@@ -63,6 +63,7 @@ export default function GMTechSocialProof() {
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
 
   // Countdown to Jan 4th 2026 at 11:11am
   const { timeLeft } = useCountdown(LAUNCH_DATE);
@@ -92,25 +93,25 @@ export default function GMTechSocialProof() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Loop back to slide 1 after 10 seconds on slide 2
+  // Loop back to slide 1 after 10 seconds on slide 2 (pause if email focused)
   useEffect(() => {
-    if (currentSlide === 1) {
+    if (currentSlide === 1 && !isEmailFocused) {
       const timer = setTimeout(() => {
         setCurrentSlide(0);
       }, 10000);
       return () => clearTimeout(timer);
     }
-  }, [currentSlide]);
+  }, [currentSlide, isEmailFocused]);
 
-  // Then switch back to slide 2 after 5 seconds on slide 1
+  // Then switch back to slide 2 after 5 seconds on slide 1 (pause if email focused)
   useEffect(() => {
-    if (currentSlide === 0) {
+    if (currentSlide === 0 && !isEmailFocused) {
       const timer = setTimeout(() => {
         setCurrentSlide(1);
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [currentSlide]);
+  }, [currentSlide, isEmailFocused]);
 
   // Handle video autoplay when slide 2 is active
   useEffect(() => {
@@ -382,11 +383,13 @@ export default function GMTechSocialProof() {
                     <span className="text-[36px] sm:text-[48px] lg:text-[56px] leading-[1] font-medium aivi-gradient-text tracking-[-0.02em]">
                       Get Early Access
                     </span>
-                    <form className="flex w-full gap-2 mt-2" onSubmit={(e) => e.preventDefault()}>
+                    <form className="flex w-full gap-2 mt-2" onSubmit={(e) => { e.preventDefault(); setIsEmailFocused(false); }}>
                       <input
                         type="email"
                         placeholder="Enter your email"
                         className="flex-1 h-12 px-4 rounded-xl bg-white border border-[#e5e5e5] text-[#0a0a0a] text-sm placeholder:text-[#a3a3a3] focus:outline-none focus:border-[#f84608] focus:ring-2 focus:ring-[#f84608]/20 transition-all"
+                        onFocus={() => setIsEmailFocused(true)}
+                        onBlur={() => setIsEmailFocused(false)}
                       />
                       <button
                         type="submit"

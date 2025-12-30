@@ -126,7 +126,7 @@ export default function GMTechCalculator() {
           </div>
 
           <h2 className="text-[28px] sm:text-[36px] md:text-[44px] font-normal text-[#0a0a0a] mb-3 leading-[1.1] tracking-[-0.03em]">
-            What&apos;s 20 Minutes<br />
+            What&apos;s 1 Minute<br />
             <span className="aivi-gradient-text">Costing You?</span>
           </h2>
 

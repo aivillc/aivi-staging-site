@@ -1,16 +1,30 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
+
+// Critical above-the-fold components - load immediately
 import AIVINavigationV4 from '@/components/aiviv4/AIVINavigationV4';
 import AIVIHeroV4 from '@/components/aiviv4/AIVIHeroV4';
 import AIVISocialProofV4 from '@/components/aiviv4/AIVISocialProofV4';
-import AIVIBenefitsV4 from '@/components/aiviv4/AIVIBenefitsV4';
-import AIVIFeatureTabsV4 from '@/components/aiviv4/AIVIFeatureTabsV4';
-import AIVICalculatorV4 from '@/components/aiviv4/AIVICalculatorV4';
 import AIVICTASectionV4 from '@/components/aiviv4/AIVICTASectionV4';
 import AIVIFooter from '@/components/aiviv3/AIVIFooter';
-import AIVIFAQMasterV4 from '@/components/aiviv4/faq/AIVIFAQMasterV4';
-import AIVITestimonialCarousel from '@/components/aiviv4/AIVITestimonialCarousel';
+
+// Heavy below-the-fold components - lazy load for better performance
+const AIVIFeatureTabsV4 = dynamic(() => import('@/components/aiviv4/AIVIFeatureTabsV4'), {
+  loading: () => <div className="min-h-[600px] bg-[#FAFAFA]" />,
+});
+const GMTechCalculator = dynamic(() => import('@/components/gmtech/GMTechCalculator'), {
+  loading: () => <div className="min-h-[600px] bg-[#FAFAFA]" />,
+});
+const AIVIBenefitsV4 = dynamic(() => import('@/components/aiviv4/AIVIBenefitsV4'), {
+  loading: () => <div className="min-h-[400px] bg-[#FAFAFA]" />,
+});
+const AIVIFAQMasterV4 = dynamic(() => import('@/components/aiviv4/faq/AIVIFAQMasterV4'), {
+  loading: () => <div className="min-h-[600px] bg-[#0a0a0a]" />,
+});
+
+// Context providers and utilities
 import { ROIButtonStyleProvider, useROIButtonStyle } from '@/components/aiviv4/ROIButtonStyleContext';
 import { RevenueLiftStyleProvider } from '@/components/aiviv4/RevenueLiftStyleContext';
 import { LeadGateProvider } from '@/components/aiviv4/LeadGateContext';
@@ -705,10 +719,9 @@ function HomePageContent() {
         <AIVISocialProofV4 />
         <AIVICTASectionV4 />
         <AIVIFeatureTabsV4 />
-        <AIVICalculatorV4 />
+        <GMTechCalculator />
         <AIVIBenefitsV4 />
         <AIVIFAQMasterV4 />
-        <AIVITestimonialCarousel />
       </main>
       <AIVIFooter />
 

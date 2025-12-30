@@ -8,6 +8,7 @@ import { TbCreditCard } from 'react-icons/tb';
 import { FaUserTie } from 'react-icons/fa';
 import { useLeadGateSafe } from './LeadGateContext';
 import { useNeuralCanvas } from './hooks/useNeuralCanvas';
+import { useLiveKitDemo, LiveKitConnectionState, TranscriptMessage } from './hooks/useLiveKitDemo';
 
 export default function AIVIHeroV4() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
@@ -17,15 +18,40 @@ export default function AIVIHeroV4() {
   const [terminalLines, setTerminalLines] = useState<{ html: string; className?: string }[]>([]);
   const [welcomeText, setWelcomeText] = useState('');
   const [counterValue, setCounterValue] = useState(0);
+  const [animatingDigits, setAnimatingDigits] = useState<Set<number>>(new Set());
+  const prevCounterRef = useRef<number>(0);
 
   // Lead gate context for unlocking calculator breakdown
   const leadGateContext = useLeadGateSafe();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioCanvasRef = useRef<HTMLCanvasElement>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
-  const recognitionRef = useRef<any>(null);
+  const transcriptRef = useRef<HTMLDivElement>(null);
+  const smsTriggeredRef = useRef<boolean>(false);
+  const smsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // LiveKit demo hook for real voice conversation
+  const liveKit = useLiveKitDemo({
+    onConnectionStateChange: (state: LiveKitConnectionState) => {
+      console.log('LiveKit connection state:', state);
+    },
+    onAgentConnected: () => {
+      addTerminalLine(
+        `<span class="status-icon success">✓</span><span class="line-text">AIVI connected - <span class="success-text">speak now</span></span>`
+      );
+    },
+    onAgentDisconnected: () => {
+      addTerminalLine(
+        `<span class="status-icon error">✕</span><span class="line-text">AIVI disconnected</span>`
+      );
+    },
+    onError: (error: string) => {
+      addTerminalLine(
+        `<span class="status-icon error">✕</span><span class="line-text"><span class="error-text">${error}</span></span>`
+      );
+    },
+  });
 
   // Use the shared neural canvas hook with hero-specific customizations
   useNeuralCanvas(canvasRef, {
@@ -36,57 +62,53 @@ export default function AIVIHeroV4() {
     enableParallax: true,
   });
 
-  // Live counter with localStorage persistence
+  // Live counter: starts at ~1.3M and increments every ~5 seconds
   useEffect(() => {
-    const STORAGE_KEY = 'aivi_conversation_count';
-    const BASE_COUNT = 1213234;
-    const LAUNCH_DATE = new Date('2025-12-13').getTime();
-    const PER_DAY = 5000;
-    const PER_MS = PER_DAY / 86400000;
+    // Base value calibrated to show ~1,300,000 at current time
+    // Formula: BASE + elapsed 5-second intervals since reference point
+    const REFERENCE_TIME = 1767120000000; // Dec 30, 2025 reference point
+    const BASE_COUNT = 1303000;
+    const INCREMENT_INTERVAL = 3500; // 5 seconds in ms
 
     const calculateCount = () => {
-      const now = Date.now();
-      const elapsed = now - LAUNCH_DATE;
-      return Math.floor(BASE_COUNT + Math.max(0, elapsed * PER_MS));
+      const elapsed = Date.now() - REFERENCE_TIME;
+      return BASE_COUNT + Math.floor(elapsed / INCREMENT_INTERVAL);
     };
 
-    // Get stored value or calculate fresh (client-side only)
-    let currentCount = calculateCount();
+    const updateCounter = () => {
+      const newValue = calculateCount();
+      const prevValue = prevCounterRef.current;
 
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        const storedData = stored ? JSON.parse(stored) : null;
+      if (prevValue !== newValue && prevValue !== 0) {
+        // Find which digit positions changed
+        const prevStr = prevValue.toLocaleString();
+        const newStr = newValue.toLocaleString();
+        const changedPositions = new Set<number>();
 
-        // If stored value exists and is recent (within 1 hour), use it as base
-        if (storedData && Date.now() - storedData.timestamp < 3600000) {
-          currentCount = Math.max(storedData.count, currentCount);
-        }
-      } catch {
-        // Ignore localStorage errors
-      }
-    }
-
-    setCounterValue(currentCount);
-
-    const interval = setInterval(() => {
-      setCounterValue(prev => {
-        const newCount = prev + Math.floor(Math.random() * 3) + 1;
-        if (typeof window !== 'undefined') {
-          try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({
-              count: newCount,
-              timestamp: Date.now()
-            }));
-          } catch {
-            // Ignore localStorage errors
+        for (let i = 0; i < newStr.length; i++) {
+          if (prevStr[i] !== newStr[i]) {
+            changedPositions.add(i);
           }
         }
-        return newCount;
-      });
-    }, 1000);
 
-    return () => clearInterval(interval);
+        setAnimatingDigits(changedPositions);
+
+        // Clear animation after it completes
+        setTimeout(() => {
+          setAnimatingDigits(new Set());
+        }, 400);
+      }
+
+      prevCounterRef.current = newValue;
+      setCounterValue(newValue);
+    };
+
+    updateCounter();
+
+    // Update every second to catch the increments
+    const intervalId = setInterval(updateCounter, 1000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   // Add terminal line helper
@@ -94,173 +116,144 @@ export default function AIVIHeroV4() {
     setTerminalLines((prev) => [...prev, { html, className }]);
   }, []);
 
-  // AI Response templates
-  const getAIResponse = (name: string) => {
-    const responses = [
-      `Thanks ${name}, I can help you with that. Our AI-powered system typically doubles contact rates within the first month.`,
-      `Great question, ${name}. AIVI engages leads in under 3 seconds across SMS, voice, and email simultaneously.`,
-      `I understand, ${name}. Let me connect you with one of our specialists who can walk you through a custom demo.`,
-      `Absolutely, ${name}. Our clients in financial services see an average of $1.2M additional monthly revenue.`,
-      `That's a common concern, ${name}. AIVI integrates seamlessly with your existing CRM and dialer systems.`,
-    ];
-    return responses[Math.floor(Math.random() * responses.length)];
-  };
-
-  // Run demo sequence
+  // Run demo sequence with LiveKit voice connection (WebRTC only, no SIP)
   const runDemoSequence = useCallback(
     async (name: string, phone: string, email: string) => {
       const firstName = name.split(' ')[0];
       setTerminalLines([]);
       setWelcomeText(`▶ Live demo started with ${firstName}`);
 
+      // Reset SMS trigger flag for new demo session
+      smsTriggeredRef.current = false;
+
       await new Promise((r) => setTimeout(r, 800));
 
-      // Microphone check
+      // Microphone check and LiveKit connection
       addTerminalLine(
         `<span class="status-icon pending"></span><span class="line-text">Requesting microphone access...</span>`
       );
 
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-        analyserRef.current = audioContextRef.current.createAnalyser();
-        const microphone = audioContextRef.current.createMediaStreamSource(stream);
-        microphone.connect(analyserRef.current);
-        analyserRef.current.fftSize = 256;
+      // Connect to LiveKit WebRTC (this handles mic permissions internally)
+      const connected = await liveKit.connect(name, phone, email);
+
+      if (connected) {
+        // Update analyser ref with LiveKit's analyser for visualization
+        if (liveKit.audioAnalyser) {
+          analyserRef.current = liveKit.audioAnalyser;
+        }
         setIsListening(true);
 
-        setTimeout(() => {
-          addTerminalLine(
-            `<span class="status-icon success">✓</span><span class="line-text">Microphone connected <span class="success-text">(listening)</span></span>`
-          );
-        }, 400);
+        addTerminalLine(
+          `<span class="status-icon success">✓</span><span class="line-text">Microphone connected <span class="success-text">(listening)</span></span>`
+        );
 
-        // Initialize speech recognition
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-          const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-          recognitionRef.current = new SpeechRecognition();
-          recognitionRef.current.continuous = true;
-          recognitionRef.current.interimResults = true;
-          recognitionRef.current.lang = 'en-US';
+        await new Promise((r) => setTimeout(r, 400));
 
-          recognitionRef.current.onresult = (event: any) => {
-            for (let i = event.resultIndex; i < event.results.length; i++) {
-              if (event.results[i].isFinal) {
-                const transcript = event.results[i][0].transcript;
-                addTerminalLine(
-                  `<span class="status-icon listening">🎤</span><span class="line-text">"${transcript}"</span>`,
-                  'user-speech'
-                );
+        addTerminalLine(
+          `<span class="status-icon pending"></span><span class="line-text">Connecting to AIVI voice agent...</span>`
+        );
 
-                // AI response
-                setTimeout(() => {
-                  addTerminalLine(
-                    `<span class="status-icon ai">AI</span><span class="line-text">"${getAIResponse(firstName)}"</span>`,
-                    'ai-response'
-                  );
-                }, 1500 + Math.random() * 1000);
-              }
+        // Agent connection and SMS trigger are handled by callbacks/effects
+      } else {
+        // Microphone denied or connection failed
+        addTerminalLine(
+          `<span class="status-icon error">✕</span><span class="line-text">Microphone access <span class="error-text">denied</span></span>`
+        );
+        return; // Exit early if we can't connect
+      }
+    },
+    [addTerminalLine, liveKit]
+  );
+
+  // Trigger SMS/Email sequence 10 seconds after first AIVI message
+  const triggerSmsSequence = useCallback(async () => {
+    if (smsTriggeredRef.current) return;
+    smsTriggeredRef.current = true;
+
+    const firstName = formData.name.split(' ')[0];
+    const phone = formData.phone;
+    const email = formData.email;
+
+    // SMS simulation
+    addTerminalLine(
+      `<span class="status-icon pending"></span><span class="line-text">Sending SMS to <span class="highlight">${firstName}</span> at <span class="highlight">${phone}</span>...</span>`
+    );
+
+    await new Promise((r) => setTimeout(r, 2000));
+    setTerminalLines((prev) =>
+      prev.map((line, i) =>
+        i === prev.length - 1
+          ? {
+              ...line,
+              html: `<span class="status-icon success">✓</span><span class="line-text">SMS sent to <span class="highlight">${firstName}</span> <span class="success-text">(delivered)</span></span>`,
             }
-          };
+          : line
+      )
+    );
 
-          recognitionRef.current.start();
-          setTimeout(() => {
-            addTerminalLine(
-              `<span class="status-icon success">✓</span><span class="line-text">Voice recognition <span class="success-text">active</span> - speak to AIVI</span>`
-            );
-          }, 800);
-        }
-      } catch {
-        setTimeout(() => {
-          addTerminalLine(
-            `<span class="status-icon error">✕</span><span class="line-text">Microphone access <span class="error-text">denied</span></span>`
-          );
-        }, 400);
+    // Email simulation
+    await new Promise((r) => setTimeout(r, 800));
+    addTerminalLine(
+      `<span class="status-icon pending"></span><span class="line-text">Sending email to <span class="highlight">${email}</span>...</span>`
+    );
+
+    await new Promise((r) => setTimeout(r, 1800));
+    setTerminalLines((prev) =>
+      prev.map((line, i) =>
+        i === prev.length - 1
+          ? {
+              ...line,
+              html: `<span class="status-icon success">✓</span><span class="line-text">Email about doubling contact rates <span class="success-text">(sent)</span></span>`,
+            }
+          : line
+      )
+    );
+
+    // Final status
+    await new Promise((r) => setTimeout(r, 1000));
+    addTerminalLine(
+      `<span class="status-icon success">⚡</span><span class="line-text success-text">Multi-channel engagement complete</span>`
+    );
+  }, [addTerminalLine, formData]);
+
+  // Watch for first AIVI message and trigger SMS 10 seconds after
+  useEffect(() => {
+    // Check if there's an agent message and SMS hasn't been triggered yet
+    const hasAgentMessage = liveKit.transcript.some(msg => msg.speaker === 'agent');
+
+    if (hasAgentMessage && !smsTriggeredRef.current && audioOverlayOpen) {
+      // Clear any existing timeout
+      if (smsTimeoutRef.current) {
+        clearTimeout(smsTimeoutRef.current);
       }
 
-      // SMS
-      await new Promise((r) => setTimeout(r, 1200));
-      addTerminalLine(
-        `<span class="status-icon pending"></span><span class="line-text">Sending SMS to <span class="highlight">${firstName}</span> at <span class="highlight">${phone}</span>...</span>`
-      );
+      // Set 10 second delay before triggering SMS
+      smsTimeoutRef.current = setTimeout(() => {
+        triggerSmsSequence();
+      }, 10000);
+    }
 
-      await new Promise((r) => setTimeout(r, 2000));
-      setTerminalLines((prev) =>
-        prev.map((line, i) =>
-          i === prev.length - 1
-            ? {
-                ...line,
-                html: `<span class="status-icon success">✓</span><span class="line-text">SMS sent to <span class="highlight">${firstName}</span> <span class="success-text">(delivered)</span></span>`,
-              }
-            : line
-        )
-      );
+    // Cleanup timeout on unmount or when overlay closes
+    return () => {
+      if (smsTimeoutRef.current) {
+        clearTimeout(smsTimeoutRef.current);
+      }
+    };
+  }, [liveKit.transcript, audioOverlayOpen, triggerSmsSequence]);
 
-      // Call
-      await new Promise((r) => setTimeout(r, 800));
-      addTerminalLine(
-        `<span class="status-icon calling">📞</span><span class="line-text">Calling <span class="highlight">${firstName}</span> at <span class="highlight">${phone}</span>...</span>`
-      );
+  // Sync LiveKit audio analyser with ref for visualization
+  useEffect(() => {
+    if (liveKit.audioAnalyser && audioOverlayOpen) {
+      analyserRef.current = liveKit.audioAnalyser;
+    }
+  }, [liveKit.audioAnalyser, audioOverlayOpen]);
 
-      await new Promise((r) => setTimeout(r, 2500));
-      setTerminalLines((prev) =>
-        prev.map((line, i) =>
-          i === prev.length - 1
-            ? {
-                ...line,
-                html: `<span class="status-icon success">✓</span><span class="line-text">Call to <span class="highlight">${firstName}</span> <span class="success-text">(connected)</span></span>`,
-              }
-            : line
-        )
-      );
-
-      // Email
-      await new Promise((r) => setTimeout(r, 800));
-      addTerminalLine(
-        `<span class="status-icon pending"></span><span class="line-text">Sending email to <span class="highlight">${email}</span>...</span>`
-      );
-
-      await new Promise((r) => setTimeout(r, 1800));
-      setTerminalLines((prev) =>
-        prev.map((line, i) =>
-          i === prev.length - 1
-            ? {
-                ...line,
-                html: `<span class="status-icon success">✓</span><span class="line-text">Email about doubling contact rates <span class="success-text">(sent)</span></span>`,
-              }
-            : line
-        )
-      );
-
-      // Final status
-      await new Promise((r) => setTimeout(r, 1000));
-      addTerminalLine(
-        `<span class="status-icon success">⚡</span><span class="line-text success-text">All channels engaged in under 4 seconds</span>`
-      );
-
-      // Schedule appointment
-      const appointmentDate = new Date();
-      appointmentDate.setDate(appointmentDate.getDate() + 3);
-      const formattedDate = appointmentDate.toLocaleDateString('en-US', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-      });
-
-      await new Promise((r) => setTimeout(r, 1200));
-      addTerminalLine(
-        `<span class="status-icon success">📅</span><span class="line-text">Appointment scheduled with AI Expert for <span class="highlight">${formattedDate} at 1:30 PM</span></span>`
-      );
-
-      // Conversation prompt
-      await new Promise((r) => setTimeout(r, 1500));
-      addTerminalLine(
-        `<span class="status-icon listening">🎙️</span><span class="line-text">Speak now to interact with AIVI...</span>`
-      );
-    },
-    [addTerminalLine]
-  );
+  // Auto-scroll transcript to bottom
+  useEffect(() => {
+    if (transcriptRef.current && liveKit.transcript.length > 0) {
+      transcriptRef.current.scrollTop = transcriptRef.current.scrollHeight;
+    }
+  }, [liveKit.transcript]);
 
   // Audio visualization
   useEffect(() => {
@@ -398,15 +391,20 @@ export default function AIVIHeroV4() {
     }
   };
 
-  // Close audio overlay
+  // Close audio overlay and disconnect LiveKit
   const closeAudioOverlay = () => {
     setIsListening(false);
     setAudioOverlayOpen(false);
-    if (audioContextRef.current) audioContextRef.current.close();
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-      recognitionRef.current = null;
+    // Disconnect from LiveKit room and clear transcript
+    liveKit.disconnect();
+    liveKit.clearTranscript();
+    analyserRef.current = null;
+    // Clear SMS timeout and reset flag
+    if (smsTimeoutRef.current) {
+      clearTimeout(smsTimeoutRef.current);
+      smsTimeoutRef.current = null;
     }
+    smsTriggeredRef.current = false;
   };
 
   return (
@@ -743,6 +741,98 @@ export default function AIVIHeroV4() {
         }
 
         .terminal-line.ai-response .line-text { color: #0099ff; }
+
+        /* Transcript Panel */
+        .transcript-panel {
+          width: 350px;
+          background: linear-gradient(135deg, rgba(20, 20, 35, 0.95) 0%, rgba(10, 10, 20, 0.98) 100%);
+          border: 1px solid rgba(0, 153, 255, 0.3);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 0 60px rgba(0, 153, 255, 0.15), inset 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .transcript-header {
+          background: linear-gradient(90deg, rgba(0, 153, 255, 0.2) 0%, rgba(139, 0, 255, 0.2) 100%);
+          padding: 12px 16px;
+          border-bottom: 1px solid rgba(0, 153, 255, 0.2);
+        }
+
+        .transcript-title {
+          font-size: 13px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.7);
+          letter-spacing: 1px;
+          text-align: center;
+        }
+
+        .transcript-body {
+          padding: 16px;
+          min-height: 320px;
+          max-height: 400px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .transcript-empty {
+          color: rgba(255, 255, 255, 0.4);
+          font-size: 13px;
+          text-align: center;
+          padding: 40px 20px;
+          font-style: italic;
+        }
+
+        .transcript-message {
+          padding: 10px 14px;
+          border-radius: 12px;
+          animation: messageAppear 0.3s ease forwards;
+        }
+
+        .transcript-message.user {
+          background: linear-gradient(135deg, rgba(139, 0, 255, 0.2) 0%, rgba(139, 0, 255, 0.1) 100%);
+          border: 1px solid rgba(139, 0, 255, 0.3);
+          margin-left: 20px;
+        }
+
+        .transcript-message.agent {
+          background: linear-gradient(135deg, rgba(0, 153, 255, 0.2) 0%, rgba(0, 153, 255, 0.1) 100%);
+          border: 1px solid rgba(0, 153, 255, 0.3);
+          margin-right: 20px;
+        }
+
+        .transcript-message.interim {
+          opacity: 0.6;
+        }
+
+        .transcript-speaker {
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          display: block;
+          margin-bottom: 4px;
+        }
+
+        .transcript-message.user .transcript-speaker {
+          color: #8b00ff;
+        }
+
+        .transcript-message.agent .transcript-speaker {
+          color: #0099ff;
+        }
+
+        .transcript-text {
+          font-size: 14px;
+          line-height: 1.5;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        @keyframes messageAppear {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
 
         .audio-visualizer {
           position: relative;
@@ -1091,8 +1181,7 @@ export default function AIVIHeroV4() {
                 {counterValue.toLocaleString().split('').map((char, i) => (
                   <span
                     key={i}
-                    className={char === ',' ? 'counter-comma' : 'counter-digit'}
-                    style={{ animationDelay: `${i * 0.05}s` }}
+                    className={`${char === ',' ? 'counter-comma' : 'counter-digit'}${animatingDigits.has(i) ? ' counter-digit-animate' : ''}`}
                   >
                     {char}
                   </span>
@@ -1126,6 +1215,32 @@ export default function AIVIHeroV4() {
                   dangerouslySetInnerHTML={{ __html: line.html }}
                 />
               ))}
+            </div>
+          </div>
+
+          {/* Center: Live Transcript */}
+          <div className="transcript-panel">
+            <div className="transcript-header">
+              <div className="transcript-title">Live Transcript</div>
+            </div>
+            <div className="transcript-body" ref={transcriptRef}>
+              {liveKit.transcript.length === 0 ? (
+                <div className="transcript-empty">
+                  Waiting for conversation...
+                </div>
+              ) : (
+                liveKit.transcript.map((msg, index) => (
+                  <div
+                    key={index}
+                    className={`transcript-message ${msg.speaker} ${!msg.isFinal ? 'interim' : ''}`}
+                  >
+                    <span className="transcript-speaker">
+                      {msg.speaker === 'user' ? 'You' : 'AIVI'}:
+                    </span>
+                    <span className="transcript-text">{msg.text}</span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 

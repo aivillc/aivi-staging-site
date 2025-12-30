@@ -39,7 +39,9 @@
       "Bash(copy:*)",
       "Bash(git stash:*)",
       "Bash(pm2 start:*)",
-      "Bash(npx pm2:*)"
+      "Bash(npx pm2:*)",
+      "Bash(git pull:*)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "ask": []

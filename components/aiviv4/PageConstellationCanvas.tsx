@@ -78,6 +78,9 @@ export default function PageConstellationCanvas({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Track if tab is visible to pause animation when hidden
+    let isTabVisible = !document.hidden;
+
     const resize = () => {
       // Viewport dimensions (fixed position canvas)
       canvas.width = window.innerWidth;
@@ -103,10 +106,24 @@ export default function PageConstellationCanvas({
       mouseRef.current.y = null;
     };
 
+    // Pause animation when tab is not visible (performance optimization)
+    const handleVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+      if (isTabVisible && !animationIdRef.current) {
+        animate();
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseout', handleMouseOut);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     const animate = () => {
+      // Stop animation if tab is hidden
+      if (!isTabVisible) {
+        animationIdRef.current = undefined;
+        return;
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const mouse = mouseRef.current;
       const particles = particlesRef.current;
@@ -214,8 +231,10 @@ export default function PageConstellationCanvas({
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseout', handleMouseOut);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (animationIdRef.current) {
         cancelAnimationFrame(animationIdRef.current);
+        animationIdRef.current = undefined;
       }
     };
   }, [initParticles, sidebarOffset]);
@@ -224,6 +243,8 @@ export default function PageConstellationCanvas({
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
+      aria-hidden="true"
+      role="presentation"
     />
   );
 }

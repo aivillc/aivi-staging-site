@@ -136,10 +136,25 @@ export function useNeuralCanvas(
       mouseRef.current.y = null;
     };
 
+    // Pause animation when tab is not visible (performance optimization)
+    let isTabVisible = !document.hidden;
+    const handleVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+      if (isTabVisible && !animationIdRef.current) {
+        animate();
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseout', handleMouseOut);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     const animate = () => {
+      // Stop animation if tab is hidden
+      if (!isTabVisible) {
+        animationIdRef.current = undefined;
+        return;
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const mouse = mouseRef.current;
       const particles = particlesRef.current;
@@ -257,8 +272,10 @@ export function useNeuralCanvas(
       }
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseout', handleMouseOut);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (animationIdRef.current) {
         cancelAnimationFrame(animationIdRef.current);
+        animationIdRef.current = undefined;
       }
     };
   }, [canvasRef, initParticles, mouseRadius, particleColor, glowColorStart, glowColorEnd, connectionDistance, enableParallax]);

@@ -1,11 +1,11 @@
-@import "tailwindcss";
+/*
+ * OPTIMIZED FONT LOADING
+ * Combined into single request for better performance
+ * Removed Material Icons (using inline SVGs instead)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap');
 
-/* Google Fonts for Features & Use Cases Pages */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+@import "tailwindcss";
 
 :root {
   /* New Brand Colors */
@@ -44,13 +44,36 @@
   --background: var(--main-dark);
   --foreground: var(--accent-light);
 
-  /* Apollo Design Tokens */
-  --apollo-sand-10: #faf9f7;
-  --apollo-sand-40: #e8e4dd;
-  --apollo-sand-60: #d1c9bb;
-  --apollo-text-header: #1a1a1a;
-  --apollo-text-body: #4a4a4a;
-  --apollo-bg-white: #ffffff;
+  /* Semantic Text Colors (for accessibility - WCAG AA compliant) */
+  --text-primary: #0a0a0a;
+  --text-secondary: #525252;
+  --text-tertiary: #737373;
+  --text-muted: #a3a3a3;
+  --text-on-dark: rgba(255, 255, 255, 0.87);
+  --text-on-dark-secondary: rgba(255, 255, 255, 0.7);
+
+  /* Semantic Background Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #FAFAFA;
+  --bg-tertiary: #f5f5f5;
+  --bg-dark: #0a0a0a;
+
+  /* Semantic Border Colors */
+  --border-light: #e5e5e5;
+  --border-default: #d4d4d4;
+  --border-focus: #0a0a0a;
+
+  /* Animation Timing Variables */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Shadow Scale */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.1);
 
   /* AIVI v3 Brand Colors */
   --aivi-orange: #f84608;
@@ -307,14 +330,7 @@ button:active, a:active {
   }
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(14, 165, 233, 0.6);
-  }
-}
+/* pulse-glow moved to AIVI v3 section with orange/purple colors */
 
 @keyframes fadeInLeft {
   from {
@@ -639,14 +655,7 @@ button:focus-visible, a:focus-visible {
   transition: box-shadow 0.3s ease;
 }
 
-/* AIVI v3 focus ring (updated for orange-purple) */
-.focus-brand-ring:focus-visible {
-  outline: 2px solid transparent;
-  box-shadow:
-    0 0 0 3px rgba(248, 70, 8, 0.45),
-    0 0 0 6px rgba(50, 28, 163, 0.25);
-  border-radius: 0.5rem;
-}
+/* AIVI v3 focus ring - uses orange-purple theme (primary definition above) */
 
 /* AIVI v3 Premium Animations */
 @keyframes fade-in-up {
@@ -1202,6 +1211,28 @@ button:focus-visible, a:focus-visible {
 @keyframes digitPulse {
   0%, 100% { transform: scale(1); filter: brightness(1); }
   50% { transform: scale(1.02); filter: brightness(1.2); }
+}
+
+/* Animation when digit changes - roll up effect */
+@keyframes digitRollUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(-20%) scale(1.15);
+    opacity: 0.7;
+    filter: brightness(1.5);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+.counter-digit-animate {
+  animation: digitRollUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
 }
 
 /* Staggered animation for each digit */
@@ -2228,7 +2259,7 @@ button:focus-visible, a:focus-visible {
   background: #ffffff;
   border-radius: 24px;
   padding: 32px;
-  min-height: 260px;
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2237,7 +2268,6 @@ button:focus-visible, a:focus-visible {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   animation: statCardFadeInUp 0.6s ease-out forwards;
   opacity: 0;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 .stat-card-dark:nth-child(1) { animation-delay: 0.1s; }
@@ -2247,7 +2277,6 @@ button:focus-visible, a:focus-visible {
 .stat-card-dark:hover {
   transform: translateY(-8px);
   border-color: rgba(248, 70, 8, 0.2);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
 /* Dark Theme Decorative Corner Accent */
@@ -2335,7 +2364,7 @@ button:focus-visible, a:focus-visible {
 
   .stat-card-dark {
     padding: 24px;
-    min-height: 220px;
+    min-height: 280px;
   }
 
   .trust-badge-dark {
@@ -2875,6 +2904,22 @@ button:focus-visible, a:focus-visible {
     font-size: 12px !important;
   }
 
+  .transcript-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    order: 2;
+  }
+
+  .transcript-body {
+    min-height: 150px !important;
+    max-height: 200px !important;
+  }
+
+  .transcript-message {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
+
   .audio-visualizer {
     width: 180px !important;
     height: 180px !important;
@@ -2899,14 +2944,14 @@ button:focus-visible, a:focus-visible {
     left: auto !important;
     transform: none !important;
     margin-top: 16px !important;
-    order: 2;
+    order: 3;
   }
 
   .user-info-display {
     position: relative !important;
     bottom: auto !important;
     margin-top: 16px !important;
-    order: 3;
+    order: 4;
   }
 
   .user-info-display .user-name {

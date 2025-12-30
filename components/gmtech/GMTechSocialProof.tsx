@@ -4,7 +4,8 @@ import { useRef, useEffect, useState } from 'react';
 import { useNeuralCanvas } from '../aiviv4/hooks/useNeuralCanvas';
 
 // Launch date constant - defined outside component to avoid recreation
-const LAUNCH_DATE = new Date('2026-01-04T11:11:00');
+// Tuesday, January 6th, 2026 at 1pm PST
+const LAUNCH_DATE = new Date('2026-01-06T13:00:00-08:00');
 
 // Countdown timer hook - with hydration-safe initialization
 function useCountdown(targetDate: Date) {
@@ -65,7 +66,7 @@ export default function GMTechSocialProof() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
 
-  // Countdown to Jan 4th 2026 at 11:11am
+  // Countdown to Tuesday, Jan 6th 2026 at 1pm PST
   const { timeLeft } = useCountdown(LAUNCH_DATE);
 
   // Use the shared neural canvas hook

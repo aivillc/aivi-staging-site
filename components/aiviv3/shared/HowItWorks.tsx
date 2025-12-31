@@ -19,7 +19,7 @@ export default function HowItWorks({ steps, title = 'How It Works' }: HowItWorks
     <section className="w-full bg-[#E8E5E0] px-[5%] sm:px-[7%] lg:px-[10%] py-12 sm:py-16 font-manrope">
       <div className="w-full max-w-[calc(100%-24px)] sm:max-w-[calc(100%-48px)] mx-auto">
         {/* Section Header */}
-        <h2 className="text-[24px] sm:text-[32px] font-normal text-[#1A1A1A] mb-12 text-center">
+        <h2 className="text-[28px] sm:text-[36px] md:text-[40px] font-normal text-[#1A1A1A] mb-12 text-center">
           {title}
         </h2>
 
@@ -42,12 +42,12 @@ export default function HowItWorks({ steps, title = 'How It Works' }: HowItWorks
                   </div>
 
                   {/* Step Title */}
-                  <h3 className="text-[16px] font-semibold text-[#1A1A1A] mb-2">
+                  <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#1A1A1A] mb-2">
                     {step.title}
                   </h3>
 
                   {/* Step Description */}
-                  <p className="text-[13px] text-[#666666]">
+                  <p className="text-[14px] sm:text-[15px] text-[#666666]">
                     {step.description}
                   </p>
                 </div>

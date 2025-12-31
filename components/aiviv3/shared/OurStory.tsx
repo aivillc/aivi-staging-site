@@ -8,7 +8,7 @@ export default function OurStory() {
         <p className="text-[20px] sm:text-[24px] font-medium bg-gradient-to-r from-[#f84608] to-[#321ca3] bg-clip-text text-transparent mb-8 sm:mb-10">
           The $1.2 Million Problem
         </p>
-        <div className="space-y-6 text-[16px] sm:text-[17px] leading-[1.7] text-[#666666] text-left">
+        <div className="space-y-6 text-[17px] sm:text-[18px] md:text-[19px] leading-[1.7] text-[#666666] text-left">
           <p>
             After scaling Amazon Connect to 100,000 agents across 22 countries and building Five9&apos;s global expansion,
             Giorgio saw the same problem everywhere: companies spending $50-100 per lead were losing 55% of them to slow follow-up.
@@ -20,8 +20,8 @@ export default function OurStory() {
           </p>
 
           <div className="bg-[#f8f8f8] rounded-xl p-6 my-8 border border-[#e5e5e5]">
-            <p className="text-[15px] font-semibold text-[#1A1A1A] mb-3">The math was brutal:</p>
-            <ul className="space-y-2 text-[15px]">
+            <p className="text-[16px] sm:text-[17px] font-semibold text-[#1A1A1A] mb-3">The math was brutal:</p>
+            <ul className="space-y-2 text-[16px] sm:text-[17px]">
               <li className="flex items-center gap-2">
                 <span className="text-[#f84608]">•</span>
                 <span>$1M/month on leads</span>
@@ -49,8 +49,8 @@ export default function OurStory() {
           </p>
 
           <div className="bg-gradient-to-r from-[#f84608]/10 to-[#321ca3]/10 rounded-xl p-6 my-8 border border-[#f84608]/20">
-            <p className="text-[15px] font-semibold text-[#1A1A1A] mb-3">The results speak for themselves:</p>
-            <ul className="space-y-2 text-[15px]">
+            <p className="text-[16px] sm:text-[17px] font-semibold text-[#1A1A1A] mb-3">The results speak for themselves:</p>
+            <ul className="space-y-2 text-[16px] sm:text-[17px]">
               <li className="flex items-center gap-2">
                 <span className="text-[#10b981]">✓</span>
                 <span>SimplePath Financial: 50% → 73% contact rate</span>
@@ -70,7 +70,7 @@ export default function OurStory() {
             Today, we&apos;re processing 1.2M+ conversations and recovering millions in lost revenue for companies
             that refuse to waste another $50 lead.
           </p>
-          <p className="text-[18px] font-medium text-[#1A1A1A] text-center mt-8">
+          <p className="text-[19px] sm:text-[20px] font-medium text-[#1A1A1A] text-center mt-8">
             This is just the beginning.
           </p>
         </div>

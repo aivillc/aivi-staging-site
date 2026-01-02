@@ -30,6 +30,21 @@ export default function AIVIHeroV4() {
   const transcriptRef = useRef<HTMLDivElement>(null);
   const smsTriggeredRef = useRef<boolean>(false);
   const smsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const demoModalRef = useRef<HTMLDivElement>(null);
+
+  // Function to open demo modal and scroll it into view
+  const openDemoModal = useCallback(() => {
+    setDemoModalOpen(true);
+    // Wait for the modal to render and animate in, then scroll to center it
+    setTimeout(() => {
+      if (demoModalRef.current) {
+        demoModalRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }
+    }, 100);
+  }, []);
 
   // LiveKit demo hook for real voice conversation
   const liveKit = useLiveKitDemo({
@@ -934,7 +949,7 @@ export default function AIVIHeroV4() {
           <div className="eyebrow">Experience AI Orchestration Live</div>
 
           <h1 className="hero-headline-v4">
-            Turn 45% Contact Rates Into 65%
+            Boost Contact Rates by Up to 60%
             <br />
             Add $1.2M+ Monthly Revenue Without Hiring
           </h1>
@@ -987,14 +1002,14 @@ export default function AIVIHeroV4() {
             <div id="hero-demo-section" className="flow-step step-microphone">
               <div
                 className="step-circle"
-                onClick={() => setDemoModalOpen(true)}
+                onClick={openDemoModal}
               >
                 <div className="mic-glow"></div>
                 <FiMic size={48} color="#fff" />
               </div>
-              <div className="step-label">Try AIVI</div>
+              <div className="step-label">Live Demo</div>
               <div className="step-detail">Live qualification</div>
-              <button className="mic-cta" onClick={() => setDemoModalOpen(true)}>
+              <button className="mic-cta" onClick={openDemoModal}>
                 Experience It Yourself →
               </button>
 
@@ -1014,7 +1029,7 @@ export default function AIVIHeroV4() {
                 />
               )}
 
-              <div className={`demo-modal ${demoModalOpen ? 'active' : ''}`} onClick={(e) => e.stopPropagation()}>
+              <div ref={demoModalRef} className={`demo-modal ${demoModalOpen ? 'active' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <div className="demo-form">
                   {/* Close button */}
                   <button

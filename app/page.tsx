@@ -23,6 +23,9 @@ const AIVIBenefitsV4 = dynamic(() => import('@/components/aiviv4/AIVIBenefitsV4'
 const AIVIFAQMasterV4 = dynamic(() => import('@/components/aiviv4/faq/AIVIFAQMasterV4'), {
   loading: () => <div className="min-h-[600px] bg-[#0a0a0a]" />,
 });
+const AIVITestimonialCarousel = dynamic(() => import('@/components/aiviv4/AIVITestimonialCarousel'), {
+  loading: () => <div className="min-h-[400px] bg-[#0a0a0a]" />,
+});
 
 // Context providers and utilities
 import { ROIButtonStyleProvider, useROIButtonStyle } from '@/components/aiviv4/ROIButtonStyleContext';
@@ -62,7 +65,6 @@ function ROIFloatingButton({ isVisible, onScrollToCalculator, roiTabRef }: ROIFl
           {/* ROI Calculator Side - hidden when collapsed */}
           <a
             href="#calculator-section"
-            onClick={onScrollToCalculator}
             className="roi-side"
             aria-label="Calculate your ROI"
           >
@@ -230,7 +232,6 @@ function ROIFloatingButton({ isVisible, onScrollToCalculator, roiTabRef }: ROIFl
       <>
         <a
           href="#calculator-section"
-          onClick={onScrollToCalculator}
           className={`floating-roi-line ${!isVisible ? 'floating-roi-hidden-b' : ''}`}
           aria-label="Calculate your ROI"
         >
@@ -327,7 +328,6 @@ function ROIFloatingButton({ isVisible, onScrollToCalculator, roiTabRef }: ROIFl
       <>
         <a
           href="#calculator-section"
-          onClick={onScrollToCalculator}
           className={`floating-roi-banner ${!isVisible ? 'floating-roi-hidden-c' : ''}`}
           aria-label="Calculate your ROI"
         >
@@ -518,7 +518,6 @@ function ROIFloatingButton({ isVisible, onScrollToCalculator, roiTabRef }: ROIFl
       <a
         ref={roiTabRef}
         href="#calculator-section"
-        onClick={onScrollToCalculator}
         className={`floating-roi-tab ${!isVisible ? 'floating-roi-hidden-d' : ''}`}
         style={{ top: '15%' }}
         aria-label="Calculate your ROI"
@@ -703,12 +702,8 @@ function HomePageContent() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleScrollToCalculator = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const calculatorSection = document.getElementById('calculator-section');
-    if (calculatorSection) {
-      calculatorSection.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleScrollToCalculator = () => {
+    // Let the native anchor navigation handle it via href="#calculator-section"
   };
 
   return (
@@ -722,6 +717,7 @@ function HomePageContent() {
         <GMTechCalculator />
         <AIVIBenefitsV4 />
         <AIVIFAQMasterV4 />
+        <AIVITestimonialCarousel />
       </main>
       <AIVIFooter />
 
@@ -734,7 +730,6 @@ function HomePageContent() {
       {/* Mobile-Only ROI Calculator Button */}
       <a
         href="#calculator-section"
-        onClick={handleScrollToCalculator}
         className={`mobile-roi-button ${!isFloatingBtnVisible ? 'mobile-roi-hidden' : ''}`}
         aria-label="Calculate your ROI"
       >

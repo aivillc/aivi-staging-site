@@ -6,32 +6,43 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useDemoPopup } from '../aiviv3/DemoPopupContext';
 
+// Type for navigation items
+interface NavItem {
+  label: string;
+  href?: string;
+  megaMenu?: {
+    industries: { label: string; href: string }[];
+    integrations: { label: string; href: string }[];
+    seeAllIntegrations: { label: string; href: string };
+  };
+}
+
 // Navigation structure with mega menu for Solutions
-const navItems = [
-  { label: 'Features', href: '/features' },
-  {
-    label: 'Solutions',
-    megaMenu: {
-      industries: [
-        { label: 'Retail & E-Commerce', href: '/solutions/retail' },
-        { label: 'Real Estate', href: '/solutions/real-estate' },
-        { label: 'Hospitality', href: '/solutions/hospitality' },
-        { label: 'Healthcare', href: '/solutions/healthcare' },
-        { label: 'Financial Services', href: '/solutions/financial-services' },
-        { label: 'Legal', href: '/solutions/legal' },
-      ],
-      integrations: [
-        { label: 'N8n', href: '/integrations#n8n' },
-        { label: 'Twilio', href: '/integrations#twilio' },
-        { label: 'HubSpot', href: '/integrations#hubspot' },
-        { label: 'OpenAI', href: '/integrations#openai' },
-        { label: 'Go High Level', href: '/integrations#gohighlevel' },
-      ],
-      seeAllIntegrations: { label: 'See All Integrations', href: '/integrations' },
-    },
-  },
-  { label: 'Use Cases', href: '/use-cases' },
-  { label: 'Pricing', href: '/pricing' },
+const navItems: NavItem[] = [
+  // { label: 'Features', href: '/features' },
+  // {
+  //   label: 'Solutions',
+  //   megaMenu: {
+  //     industries: [
+  //       { label: 'Retail & E-Commerce', href: '/solutions/retail' },
+  //       { label: 'Real Estate', href: '/solutions/real-estate' },
+  //       { label: 'Hospitality', href: '/solutions/hospitality' },
+  //       { label: 'Healthcare', href: '/solutions/healthcare' },
+  //       { label: 'Financial Services', href: '/solutions/financial-services' },
+  //       { label: 'Legal', href: '/solutions/legal' },
+  //     ],
+  //     integrations: [
+  //       { label: 'N8n', href: '/integrations#n8n' },
+  //       { label: 'Twilio', href: '/integrations#twilio' },
+  //       { label: 'HubSpot', href: '/integrations#hubspot' },
+  //       { label: 'OpenAI', href: '/integrations#openai' },
+  //       { label: 'Go High Level', href: '/integrations#gohighlevel' },
+  //     ],
+  //     seeAllIntegrations: { label: 'See All Integrations', href: '/integrations' },
+  //   },
+  // },
+  // { label: 'Use Cases', href: '/use-cases' },
+  { label: 'About', href: '/about' },
 ];
 
 interface AIVINavigationV4Props {
@@ -138,7 +149,7 @@ export default function AIVINavigationV4({ transparent = true }: AIVINavigationV
           <div className="hidden lg:flex items-center gap-6">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group flex-shrink-0 relative">
-              <div className="relative h-10 w-[120px]">
+              <div className="relative h-12 w-[140px]">
                 <Image
                   src="/AIVILogow.png"
                   alt="AIVI - AI-Powered Lead Conversion"
@@ -277,7 +288,7 @@ export default function AIVINavigationV4({ transparent = true }: AIVINavigationV
 
           {/* Mobile Logo */}
           <Link href="/" className="flex lg:hidden items-center gap-2 group flex-shrink-0 relative">
-            <div className="relative h-8 sm:h-10 w-[100px] sm:w-[120px]">
+            <div className="relative h-10 sm:h-12 w-[120px] sm:w-[140px]">
               <Image
                 src="/AIVILogow.png"
                 alt="AIVI - AI-Powered Lead Conversion"

@@ -3,43 +3,43 @@
 import Image from 'next/image';
 
 export default function AIVIFooter() {
-  const footerColumns = [
-    {
-      title: 'Product',
-      links: [
-        { label: 'Features', href: '/features' },
-        { label: 'Pricing', href: '/pricing' },
-        { label: 'Integrations', href: '/integrations' },
-        { label: 'Use Cases', href: '/use-cases' },
-      ],
-    },
-    {
-      title: 'Solutions',
-      links: [
-        { label: 'Healthcare', href: '/solutions/healthcare' },
-        { label: 'Legal', href: '/solutions/legal' },
-        { label: 'Real Estate', href: '/solutions/real-estate' },
-        { label: 'Retail', href: '/solutions/retail' },
-        { label: 'Financial Services', href: '/solutions/financial-services' },
-        { label: 'Hospitality', href: '/solutions/hospitality' },
-      ],
-    },
-    {
-      title: 'Resources',
-      links: [
-        { label: 'Case Studies', href: '/resources' },
-        { label: 'Blog', href: '#' },
-        { label: 'Documentation', href: '#' },
-      ],
-    },
-    {
-      title: 'Company',
-      links: [
-        { label: 'About', href: '/about' },
-        { label: 'Contact', href: '#' },
-      ],
-    },
-  ];
+  // const footerColumns = [
+  //   {
+  //     title: 'Product',
+  //     links: [
+  //       { label: 'Features', href: '/features' },
+  //       { label: 'Pricing', href: '/pricing' },
+  //       { label: 'Integrations', href: '/integrations' },
+  //       { label: 'Use Cases', href: '/use-cases' },
+  //     ],
+  //   },
+  //   {
+  //     title: 'Solutions',
+  //     links: [
+  //       { label: 'Healthcare', href: '/solutions/healthcare' },
+  //       { label: 'Legal', href: '/solutions/legal' },
+  //       { label: 'Real Estate', href: '/solutions/real-estate' },
+  //       { label: 'Retail', href: '/solutions/retail' },
+  //       { label: 'Financial Services', href: '/solutions/financial-services' },
+  //       { label: 'Hospitality', href: '/solutions/hospitality' },
+  //     ],
+  //   },
+  //   {
+  //     title: 'Resources',
+  //     links: [
+  //       { label: 'Case Studies', href: '/resources' },
+  //       { label: 'Blog', href: '#' },
+  //       { label: 'Documentation', href: '#' },
+  //     ],
+  //   },
+  //   {
+  //     title: 'Company',
+  //     links: [
+  //       { label: 'About', href: '/about' },
+  //       { label: 'Contact', href: '#' },
+  //     ],
+  //   },
+  // ];
 
   const socialLinks = [
     { name: 'YouTube', path: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z', href: 'https://youtube.com' },
@@ -70,8 +70,8 @@ export default function AIVIFooter() {
             </a>
           </div>
 
-          {/* Navigation Grid */}
-          <nav className="mb-12 sm:mb-16 lg:mb-20" aria-label="Footer navigation">
+          {/* Navigation Grid - Hidden */}
+          {/* <nav className="mb-12 sm:mb-16 lg:mb-20" aria-label="Footer navigation">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 sm:gap-x-8 lg:gap-x-12 gap-y-8 sm:gap-y-10 text-center">
               {footerColumns.map((column, index) => (
                 <div key={index}>
@@ -93,7 +93,7 @@ export default function AIVIFooter() {
                 </div>
               ))}
             </div>
-          </nav>
+          </nav> */}
 
           {/* Divider */}
           <div className="border-t border-white/10 mb-10 sm:mb-12 lg:mb-16" aria-hidden="true" />

@@ -41,7 +41,8 @@
       "Bash(pm2 start:*)",
       "Bash(npx pm2:*)",
       "Bash(git pull:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git rebase:*)"
     ],
     "deny": [],
     "ask": []

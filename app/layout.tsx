@@ -20,6 +20,19 @@ export const metadata: Metadata = {
   title: "AIVI - Proactive AI for Customer Experience",
   description: "Transform customer engagement with AI-powered voice, SMS, email, and document intelligence. CRM-agnostic platform + managed service for seamless integration.",
   keywords: ["AI customer engagement", "voice AI", "SMS automation", "email automation", "OCR", "document intelligence", "CRM integration"],
+  icons: {
+    icon: [
+      {
+        url: "/aiviFaviconBlack.svg",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/aiviFaviconWhite.svg",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+    apple: "/aiviFaviconBlack.svg",
+  },
 };
 
 export default function RootLayout({

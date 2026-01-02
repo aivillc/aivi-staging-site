@@ -70,12 +70,12 @@ export default function AIVITestimonialCarousel() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-3 mb-6">
-            <span className="w-8 h-[2px] bg-gradient-to-r from-[#f84608] to-transparent" />
-            <span className="text-[12px] font-semibold text-[#f84608] uppercase tracking-[0.2em]">
+          <div className="inline-flex items-center gap-4 mb-6">
+            <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-[#f84608]" />
+            <span className="text-[12px] font-semibold tracking-[0.2em] uppercase text-[#f84608]">
               Customer Success Stories
             </span>
-            <span className="w-8 h-[2px] bg-gradient-to-l from-[#321ca3] to-transparent" />
+            <span className="w-8 h-[1px] bg-gradient-to-l from-transparent to-[#f84608]" />
           </div>
           <h2 className="text-[32px] sm:text-[40px] md:text-[48px] font-light text-white mb-4 leading-[1.1] tracking-[-0.02em]">
             Real Results from <span className="bg-gradient-to-r from-[#f84608] to-[#321ca3] bg-clip-text text-transparent">Real Customers</span>
@@ -114,58 +114,61 @@ export default function AIVITestimonialCarousel() {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#f84608]/5 to-transparent rounded-full blur-3xl" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#321ca3]/5 to-transparent rounded-full blur-3xl" />
 
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12">
-                  {/* Quote Section */}
-                  <div className="flex flex-col">
-                    {/* 5 Stars */}
-                    <div className="flex gap-1 mb-6">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} className="w-5 h-5 text-[#f84608]" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
+                <div className="relative z-10">
+                  {/* Two Column Layout */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                    {/* Left Column - Quote and Author */}
+                    <div className="flex flex-col justify-center order-2 lg:order-1">
+                      {/* Quote */}
+                      <blockquote className="text-[16px] sm:text-[17px] md:text-[18px] text-white/90 font-light leading-[1.8] mb-8 whitespace-pre-line">
+                        &ldquo;{testimonials[activeIndex].quote}&rdquo;
+                      </blockquote>
 
-                    {/* Quote */}
-                    <blockquote className="text-[16px] sm:text-[17px] md:text-[18px] text-white font-medium leading-[1.8] mb-8 whitespace-pre-line">
-                      &ldquo;{testimonials[activeIndex].quote}&rdquo;
-                    </blockquote>
-
-                    {/* Author Info */}
-                    <div className="flex items-center gap-4 mt-auto">
-                      <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-gradient-to-br from-[#f84608]/50 to-[#321ca3]/50 shadow-lg">
-                        <Image
-                          src={testimonials[activeIndex].image}
-                          alt={testimonials[activeIndex].name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-3">
-                          <span className="w-8 h-8 rounded-full bg-gradient-to-br from-[#f84608] to-[#321ca3] flex items-center justify-center text-white text-[11px] font-bold">
-                            {testimonials[activeIndex].initials}
-                          </span>
-                          <span className="text-[18px] sm:text-[20px] font-bold text-white">
+                      {/* Author */}
+                      <div className="flex items-center gap-4">
+                        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#f84608]/50 shadow-lg">
+                          <Image
+                            src={testimonials[activeIndex].image}
+                            alt={testimonials[activeIndex].name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <span className="text-[18px] sm:text-[20px] font-bold text-white block">
                             {testimonials[activeIndex].name}
                           </span>
+                          <p className="text-[14px] text-white/60 mt-0.5">
+                            {testimonials[activeIndex].role} at <span className="text-[#f84608] font-semibold">{testimonials[activeIndex].company}</span>
+                          </p>
                         </div>
-                        <p className="text-[14px] sm:text-[15px] text-white/70 mt-1 font-medium">
-                          {testimonials[activeIndex].role}, <span className="text-[#f84608] font-semibold">{testimonials[activeIndex].company}</span>
-                        </p>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Stats Card */}
-                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                    <div className="grid grid-cols-2 gap-4">
-                      {testimonials[activeIndex].stats.map((stat, i) => (
-                        <div key={i} className="text-center p-4 rounded-xl bg-white/10 border border-white/10">
-                          <p className="text-[14px] sm:text-[15px] font-bold text-white mb-1">{stat.label}</p>
-                          <p className="text-[12px] sm:text-[13px] text-white/70 font-medium">{stat.value}</p>
-                        </div>
-                      ))}
+                    {/* Right Column - Hero Stat Card */}
+                    <div className="flex flex-col justify-center order-1 lg:order-2">
+                      {/* Large Hero Stat */}
+                      <div className="rounded-2xl bg-gradient-to-br from-[#f84608]/10 via-[#8b00ff]/5 to-[#321ca3]/10 border border-[#f84608]/20 p-8 mb-6">
+                        <span className="text-[64px] sm:text-[80px] md:text-[96px] font-bold leading-[0.9] bg-gradient-to-r from-[#f84608] via-[#8b00ff] to-[#321ca3] bg-clip-text text-transparent tracking-[-0.04em] block text-center">
+                          {testimonials[activeIndex].stats[0]?.label.match(/\d+%?/)?.[0] || '150%'}
+                        </span>
+                        <p className="text-[14px] sm:text-[16px] text-white/60 mt-3 font-medium uppercase tracking-[0.1em] text-center">
+                          {testimonials[activeIndex].stats[0]?.value || 'Conversion Lift'}
+                        </p>
+                      </div>
+
+                      {/* Supporting Stats - 3 smaller cards */}
+                      <div className="grid grid-cols-3 gap-3">
+                        {testimonials[activeIndex].stats.slice(1, 4).map((stat, i) => (
+                          <div
+                            key={i}
+                            className="rounded-xl bg-white/[0.03] border border-white/[0.08] p-4 text-center hover:border-[#f84608]/30 transition-colors"
+                          >
+                            <span className="text-[12px] font-semibold text-white/80 block leading-tight">{stat.label}</span>
+                            <span className="text-[10px] text-white/40 mt-1 block">{stat.value}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

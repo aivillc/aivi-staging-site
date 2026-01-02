@@ -117,12 +117,12 @@ export default function GMTechCalculator() {
       <div className="max-w-[1300px] mx-auto relative z-10">
         {/* Compact Header */}
         <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <span className="w-6 h-[1px] bg-gradient-to-r from-transparent to-[#f84608]" />
-            <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-[#f84608]">
+          <div className="inline-flex items-center gap-4 mb-4">
+            <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-[#f84608]" />
+            <span className="text-[12px] font-semibold tracking-[0.2em] uppercase text-[#f84608]">
               Speed to Lead ROI Calculator
             </span>
-            <span className="w-6 h-[1px] bg-gradient-to-l from-transparent to-[#f84608]" />
+            <span className="w-8 h-[1px] bg-gradient-to-l from-transparent to-[#f84608]" />
           </div>
 
           <h2 className="text-[28px] sm:text-[36px] md:text-[44px] font-normal text-[#0a0a0a] mb-3 leading-[1.1] tracking-[-0.03em]">

@@ -110,7 +110,7 @@ export default function AIVIBenefitsV4() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
         {/* Section Header */}
         <div className="text-center mb-16 lg:mb-20">
-          {/* Style 3: Dual Line Embrace Eyebrow */}
+          {/* Eyebrow Label */}
           <div className="inline-flex items-center gap-4 mb-6">
             <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-[#f84608]" />
             <span className="text-[12px] font-semibold tracking-[0.2em] uppercase text-[#f84608]">

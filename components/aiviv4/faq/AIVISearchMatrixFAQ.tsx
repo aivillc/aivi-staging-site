@@ -103,12 +103,12 @@ export default function AIVISearchMatrixFAQ() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="w-8 h-[2px] bg-gradient-to-r from-[#f84608] to-[#321ca3]" />
-            <span className="text-[13px] font-medium text-[#f84608] uppercase tracking-[0.2em]">
+          <div className="inline-flex items-center gap-4 mb-6">
+            <span className="w-8 h-[1px] bg-gradient-to-r from-transparent to-[#f84608]" />
+            <span className="text-[12px] font-semibold tracking-[0.2em] uppercase text-[#f84608]">
               FAQ
             </span>
-            <span className="w-8 h-[2px] bg-gradient-to-r from-[#321ca3] to-[#f84608]" />
+            <span className="w-8 h-[1px] bg-gradient-to-l from-transparent to-[#f84608]" />
           </div>
 
           <h2 className="text-[36px] sm:text-[44px] md:text-[52px] font-light text-[#0a0a0a] mb-6 leading-[1.08] tracking-[-0.03em]">

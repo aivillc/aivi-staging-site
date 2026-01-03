@@ -129,9 +129,9 @@ function PrivacyContent() {
                 We use Twilio for voice calling and SMS messaging services. Data processed through Twilio is subject to Twilio's Privacy Policy and security standards. Twilio is SOC 2 Type II certified and GDPR compliant.
               </p>
 
-              <h3 className="text-xl font-semibold text-[#f84608] mt-6 mb-3">3.2 Retell AI (Voice AI)</h3>
+              <h3 className="text-xl font-semibold text-[#f84608] mt-6 mb-3">3.2 Voice AI Services</h3>
               <p className="text-white/70">
-                Our AI voice agent capabilities are powered by Retell AI. Voice conversations may be processed through Retell's infrastructure for real-time AI responses and transcription services.
+                Our AI voice agent capabilities are powered by service providers. Voice conversations may be processed through their infrastructure for real-time AI responses and transcription services.
               </p>
 
               <h3 className="text-xl font-semibold text-[#f84608] mt-6 mb-3">3.3 N8N (Workflow Automation)</h3>

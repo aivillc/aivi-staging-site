@@ -197,6 +197,7 @@ export default function AIVIHeroV4() {
               name,
               phone,
               email,
+              microphone: false, // User denied or doesn't have microphone access
             }),
           });
 

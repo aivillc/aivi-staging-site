@@ -4,7 +4,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    console.log('AIVI Demo webhook - sending:', { name: body.name, phone: body.phone, email: body.email });
+    console.log('AIVI Demo webhook - sending:', { name: body.name, phone: body.phone, email: body.email, microphone: body.microphone });
 
     const response = await fetch('https://stage.aivi.io/webhook/AIVIDemo', {
       method: 'POST',
@@ -15,6 +15,7 @@ export async function POST(request: Request) {
         name: body.name,
         phone: body.phone,
         email: body.email,
+        microphone: body.microphone ?? false, // true if user allowed mic access, false if denied
       }),
     });
 

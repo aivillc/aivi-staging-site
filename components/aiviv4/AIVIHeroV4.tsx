@@ -17,7 +17,7 @@ export default function AIVIHeroV4() {
   const [isListening, setIsListening] = useState(false);
   const [terminalLines, setTerminalLines] = useState<{ html: string; className?: string }[]>([]);
   const [welcomeText, setWelcomeText] = useState('');
-  const [counterValue, setCounterValue] = useState(0);
+  const [counterValue, setCounterValue] = useState(1303000); // Initial value to avoid 0 flash on load
   const [animatingDigits, setAnimatingDigits] = useState<Set<number>>(new Set());
   const prevCounterRef = useRef<number>(0);
 
@@ -77,19 +77,26 @@ export default function AIVIHeroV4() {
     enableParallax: true,
   });
 
-  // Live counter: starts at ~1.3M and increments every ~5 seconds
+  // Counter constants - defined outside useEffect so they can be used for initial state
+  const REFERENCE_TIME = 1767120000000; // Dec 30, 2025 reference point
+  const BASE_COUNT = 1303000;
+  const INCREMENT_INTERVAL = 3500; // 3.5 seconds in ms
+
+  const calculateCount = useCallback(() => {
+    const elapsed = Date.now() - REFERENCE_TIME;
+    return BASE_COUNT + Math.floor(elapsed / INCREMENT_INTERVAL);
+  }, []);
+
+  // Initialize counter with calculated value to avoid showing 0 on load
   useEffect(() => {
-    // Base value calibrated to show ~1,300,000 at current time
-    // Formula: BASE + elapsed 5-second intervals since reference point
-    const REFERENCE_TIME = 1767120000000; // Dec 30, 2025 reference point
-    const BASE_COUNT = 1303000;
-    const INCREMENT_INTERVAL = 3500; // 5 seconds in ms
+    // Set initial value immediately
+    const initialValue = calculateCount();
+    setCounterValue(initialValue);
+    prevCounterRef.current = initialValue;
+  }, [calculateCount]);
 
-    const calculateCount = () => {
-      const elapsed = Date.now() - REFERENCE_TIME;
-      return BASE_COUNT + Math.floor(elapsed / INCREMENT_INTERVAL);
-    };
-
+  // Live counter: starts at ~1.3M and increments every ~3.5 seconds
+  useEffect(() => {
     const updateCounter = () => {
       const newValue = calculateCount();
       const prevValue = prevCounterRef.current;
@@ -118,13 +125,11 @@ export default function AIVIHeroV4() {
       setCounterValue(newValue);
     };
 
-    updateCounter();
-
     // Update every second to catch the increments
     const intervalId = setInterval(updateCounter, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [calculateCount]);
 
   // Add terminal line helper
   const addTerminalLine = useCallback((html: string, className?: string) => {

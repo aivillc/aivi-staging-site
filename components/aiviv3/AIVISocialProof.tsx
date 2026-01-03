@@ -62,13 +62,13 @@ export default function AIVISocialProof() {
             {/* Author */}
             <figcaption className="flex flex-col justify-end lg:text-right mt-8 lg:mt-0">
               <div className="text-[11px] sm:text-[12px] font-medium tracking-[1.5px] text-[#666666] uppercase mb-1">
-                Andrew Froning
+                Michael Reynolds
               </div>
               <div className="text-[11px] sm:text-[12px] font-medium tracking-[1.5px] aivi-gradient-text uppercase mb-4">
-                BDR Leader
+                Sales Director
               </div>
               <div className="text-[16px] sm:text-[18px] font-bold text-[#1a1a1a]">
-                CYERA
+                R1 Financial
               </div>
             </figcaption>
           </figure>

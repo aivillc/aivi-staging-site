@@ -23,11 +23,11 @@ const testimonials = [
   {
     id: 2,
     quote: "I run a small debt consolidation shop—12 people. We can't afford Salesforce and a full contact center stack.\n\nAIVI gave us enterprise-level AI for a fraction of the cost. We plug in our Facebook leads, the AI texts them in 3 seconds, qualifies them, and routes to our closers.\n\nOur lead remarketing went from 1-in-5 conversion (email) to almost 1-in-2 (AI SMS). That's 120% improvement on the same ad spend.\n\nThe platform is dead simple. No tech team needed. Just works.",
-    name: 'Danny Hobbs',
-    role: 'Owner',
-    company: 'MY FINANCIAL BROKER',
+    name: 'Luca Wells',
+    role: '',
+    company: 'LoanPro',
     image: '/dannyh.webp',
-    initials: 'DH',
+    initials: 'LW',
     stats: [
       { label: '120% Conversion Lift', value: 'Same ad spend' },
       { label: 'Email → AI SMS', value: 'Almost 1-in-2 response' },

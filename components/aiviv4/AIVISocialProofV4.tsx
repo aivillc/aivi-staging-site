@@ -262,14 +262,14 @@ export default function AIVISocialProofV4() {
                   <figcaption className="testimonial-author-dark">
                     <div className="author-details-dark">
                       <div className="author-avatar-dark">
-                        <span>AF</span>
+                        <span>MR</span>
                       </div>
                       <div className="author-info-dark">
-                        <span className="author-name-dark">Andrew Froning</span>
-                        <span className="author-role-dark">BDR Leader</span>
+                        <span className="author-name-dark">Michael Reynolds</span>
+                        <span className="author-role-dark">Sales Director</span>
                       </div>
                     </div>
-                    <div className="author-company-dark">IGNITE</div>
+                    <div className="author-company-dark">R1 Financial</div>
                   </figcaption>
                 </figure>
               </div>

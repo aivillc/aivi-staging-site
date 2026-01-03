@@ -170,11 +170,46 @@ export default function AIVIHeroV4() {
 
         // Agent connection and SMS trigger are handled by callbacks/effects
       } else {
-        // Microphone denied or connection failed
+        // Microphone denied or connection failed - fallback to phone call
         addTerminalLine(
           `<span class="status-icon error">✕</span><span class="line-text">Microphone access <span class="error-text">denied</span></span>`
         );
-        return; // Exit early if we can't connect
+
+        await new Promise((r) => setTimeout(r, 600));
+
+        addTerminalLine(
+          `<span class="status-icon pending"></span><span class="line-text">Falling back to phone call...</span>`
+        );
+
+        // Trigger phone call via webhook since browser voice isn't available
+        try {
+          await fetch('/api/aivi-demo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name,
+              phone,
+              email,
+            }),
+          });
+
+          await new Promise((r) => setTimeout(r, 1000));
+
+          addTerminalLine(
+            `<span class="status-icon success">✓</span><span class="line-text">Calling <span class="highlight">${firstName}</span> at <span class="highlight">${phone}</span>...</span>`
+          );
+
+          addTerminalLine(
+            `<span class="status-icon pending"></span><span class="line-text">Please answer your phone to speak with AIVI</span>`
+          );
+        } catch (error) {
+          console.error('Phone call fallback error:', error);
+          addTerminalLine(
+            `<span class="status-icon error">✕</span><span class="line-text">Failed to initiate call. Please try again.</span>`
+          );
+        }
       }
     },
     [addTerminalLine, liveKit]
@@ -384,18 +419,9 @@ export default function AIVIHeroV4() {
   // Handle form submit
   const handleSubmit = () => {
     if (formData.name && formData.phone && formData.email) {
-      // POST to webhook
-      fetch('/api/aivi-demo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-        }),
-      }).catch((error) => console.error('Webhook error:', error));
+      // NOTE: We no longer call /api/aivi-demo here.
+      // It will only be called as a fallback if microphone is denied.
+      // This prevents calling the user when they're using browser voice.
 
       // Unlock the lead gate for calculator breakdown section
       leadGateContext?.unlockGate();

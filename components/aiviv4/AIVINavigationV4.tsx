@@ -445,7 +445,7 @@ export default function AIVINavigationV4({ transparent = true }: AIVINavigationV
                     </div>
                   </div>
                 </>
-              ) : (
+              ) : item.href ? (
                 <Link
                   href={item.href}
                   role="menuitem"
@@ -455,7 +455,7 @@ export default function AIVINavigationV4({ transparent = true }: AIVINavigationV
                 >
                   {item.label}
                 </Link>
-              )}
+              ) : null}
             </div>
           ))}
           <div className="border-t border-white/10 my-2" />

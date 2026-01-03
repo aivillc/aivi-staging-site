@@ -287,7 +287,7 @@ export default function AboutPage() {
                 <ul className="space-y-2 text-[17px] sm:text-[18px]">
                   <li className="flex items-center gap-2">
                     <span className="text-[#10b981]">✓</span>
-                    <span>SimplePath Financial: 50% → 73% contact rate</span>
+                    <span>R1FIN: 50% → 73% contact rate</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-[#10b981]">✓</span>
